@@ -450,10 +450,12 @@
             display: flex;
             gap: 15px;
             margin-bottom: 25px;
+            flex-wrap: wrap;
         }
 
         .pay-tab {
             flex: 1;
+            min-width: 180px;
             padding: 15px;
             border: 2px solid var(--border-color);
             border-radius: 8px;
@@ -468,6 +470,59 @@
             border-color: var(--secondary-color);
             background: #eff6ff;
             color: var(--secondary-color);
+        }
+
+        /* Receipt Box Styling */
+        .receipt-card {
+            background: #fff;
+            border: 2px solid var(--secondary-color);
+            border-radius: 10px;
+            padding: 25px;
+            max-width: 600px;
+            margin: 20px auto;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            position: relative;
+        }
+
+        .receipt-header {
+            text-align: center;
+            border-bottom: 2px dashed #cbd5e1;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .receipt-header h3 {
+            color: var(--primary-color);
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .receipt-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 14px;
+        }
+
+        .receipt-row .label {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .receipt-row .value {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background: #dcfce7;
+            color: #15803d;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
         }
 
         /* Footer */
@@ -510,17 +565,6 @@
             font-size: 13px;
             color: #94a3b8;
         }
-
-        /* Badges & Timeline */
-        .badge {
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .badge-primary { background: #e0f2fe; color: #0369a1; }
-        .badge-success { background: #dcfce7; color: #15803d; }
 
         @media (max-width: 768px) {
             header {
@@ -622,23 +666,4 @@
                     <ul>
                         <li><i class="fa-solid fa-check-circle"></i> Daily basis study materials provided</li>
                         <li><i class="fa-solid fa-check-circle"></i> Regular unit tests & class tests</li>
-                        <li><i class="fa-solid fa-check-circle"></i> Smart mock tests for comprehensive evaluation</li>
-                        <li><i class="fa-solid fa-check-circle"></i> Systematic daily homework tracking</li>
-                    </ul>
-                </div>
-                <div class="card">
-                    <h3><i class="fa-solid fa-lightbulb"></i> Special Learning Support</h3>
-                    <ul>
-                        <li><i class="fa-solid fa-check-circle"></i> Concept clearing repeat classes</li>
-                        <li><i class="fa-solid fa-check-circle"></i> Smart motivational classes for holistic growth</li>
-                        <li><i class="fa-solid fa-check-circle"></i> Special focus on Spoken English fluency</li>
-                        <li><i class="fa-solid fa-check-circle"></i> Skill development & communication training</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- PAGE 2: ABOUT US -->
-        <section id="about" class="page-content">
-            <h2 class="section-title">About Our Institution</h2>
-            
+                        <

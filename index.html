@@ -475,93 +475,279 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
                 <!-- Online Fee Payment Section -->
-        <h2 class="section-title" id="fee-payment" style="margin-top: 60px;">অনলাইন ফি পেমেন্ট (Online Fee Payment)</h2>
-        <section style="max-width: 650px; margin: 0 auto; padding: 25px; background: #ffffff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-            
-            <h3 style="color: var(--primary); text-align: center; margin-bottom: 5px;">J.K.B. NATIONAL SCHOOL (H.S)</h3>
-            <p style="text-align: center; color: #4a5568; margin-bottom: 25px;">Online Student Fee Portal</p>
-            
-            <!-- STEP 1: Student Login / Verification -->
-            <div id="verifyBox" style="background: #f8fafc; padding: 20px; border-radius: 8px; border: 1px solid #e2e8f0;">
-                <h4 style="color: var(--secondary); margin-top: 0; text-align: center; font-size: 18px;">ছাত্র/ছাত্রী ভেরিফিকেশন</h4>
-                <p style="text-align: center; font-size: 13px; color: #64748b; margin-bottom: 15px;">পেমেন্ট পেজে যেতে আপনার শ্রেণী, রোল নম্বর ও নাম দিন</p>
-                
-                <div style="margin-bottom: 12px;">
-                    <label style="display: block; font-weight: bold; margin-bottom: 5px; font-size: 14px;">Select Class (শ্রেণী):</label>
-                    <select id="inputClass" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box;">
-                        <option value="">-- শ্রেণী নির্বাচন করুন --</option>
-                        <option value="Nursery">Nursery</option>
-                        <option value="LKG">LKG</option>
-                        <option value="UKG">UKG</option>
-                        <option value="Class I">Class I</option>
-                        <option value="Class II">Class II</option>
-                        <option value="Class III">Class III</option>
-                        <option value="Class IV">Class IV</option>
-                        <option value="Class V">Class V</option>
-                        <option value="Class VI">Class VI</option>
-                        <option value="Class VII">Class VII</option>
-                        <option value="Class VIII">Class VIII</option>
-                        <option value="Class IX">Class IX</option>
-                    </select>
-                </div>
+        <!-- Print Style: প্রিন্ট করার সময় শুধু রসিদটুকুই দেখাবে, বাকি সব লুকিয়ে যাবে -->
+<style>
+    @media print {
+        body * {
+            visibility: hidden;
+        }
+        #receiptBox, #receiptBox * {
+            visibility: visible;
+        }
+        #receiptBox {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            border: 2px solid #1a365d !important;
+            padding: 20px !important;
+            box-shadow: none !important;
+            background: #fff !important;
+        }
+        .no-print {
+            display: none !important;
+        }
+    }
+</style>
 
-                <div style="margin-bottom: 12px;">
-                    <label style="display: block; font-weight: bold; margin-bottom: 5px; font-size: 14px;">Roll No (রোল নম্বর: 1 থেকে 50):</label>
-                    <input type="number" id="inputRoll" min="1" max="50" placeholder="যেমন: 5" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box;">
-                </div>
+<!-- Online & Cash Fee Payment Section -->
+<h2 class="section-title" id="fee-payment" style="margin-top: 60px;">ফি পেমেন্ট ও রসিদ (Fee Payment Portal)</h2>
+<section style="max-width: 650px; margin: 0 auto; padding: 25px; background: #ffffff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+    
+    <h3 style="color: var(--primary); text-align: center; margin-bottom: 5px;">J.K.B. NATIONAL SCHOOL (H.S)</h3>
+    <p style="text-align: center; color: #4a5568; margin-bottom: 20px;">Official Student Fee Receipt Portal</p>
 
-                <div style="margin-bottom: 15px;">
-                    <label style="display: block; font-weight: bold; margin-bottom: 5px; font-size: 14px;">Student Name (ছাত্র/ছাত্রীর নাম):</label>
-                    <input type="text" id="inputName" placeholder="Enter Full Name" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box;">
-                </div>
+    <!-- Mode Switcher (Online vs Cash) -->
+    <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+        <button id="btnOnlineMode" onclick="switchMode('online')" style="flex: 1; padding: 10px; background: var(--primary); color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;">
+            📱 Online Pay (QR Code)
+        </button>
+        <button id="btnCashMode" onclick="switchMode('cash')" style="flex: 1; padding: 10px; background: #edf2f7; color: #2d3748; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;">
+            💵 Hand Cash Entry
+        </button>
+    </div>
+    
+    <!-- STEP 1: Student Verification -->
+    <div id="verifyBox" style="background: #f8fafc; padding: 20px; border-radius: 8px; border: 1px solid #e2e8f0;">
+        <h4 id="modeTitle" style="color: var(--secondary); margin-top: 0; text-align: center; font-size: 18px;">অনলাইন ফি পেমেন্ট</h4>
+        <p style="text-align: center; font-size: 13px; color: #64748b; margin-bottom: 15px;">ছাত্র/ছাত্রীর তথ্য পূরণ করুন</p>
+        
+        <div style="margin-bottom: 12px;">
+            <label style="display: block; font-weight: bold; margin-bottom: 5px; font-size: 14px;">Select Class (শ্রেণী):</label>
+            <select id="inputClass" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box;">
+                <option value="">-- শ্রেণী নির্বাচন করুন --</option>
+                <option value="Nursery">Nursery</option>
+                <option value="LKG">LKG</option>
+                <option value="UKG">UKG</option>
+                <option value="Class I">Class I</option>
+                <option value="Class II">Class II</option>
+                <option value="Class III">Class III</option>
+                <option value="Class IV">Class IV</option>
+                <option value="Class V">Class V</option>
+                <option value="Class VI">Class VI</option>
+                <option value="Class VII">Class VII</option>
+                <option value="Class VIII">Class VIII</option>
+                <option value="Class IX">Class IX</option>
+            </select>
+        </div>
 
-                <button onclick="verifyStudent()" style="width: 100%; background: var(--secondary); color: #fff; padding: 11px; border: none; border-radius: 6px; font-size: 15px; cursor: pointer; font-weight: bold;">
-                    Submit & Continue (পেমেন্ট পেজে যান)
-                </button>
+        <div style="margin-bottom: 12px;">
+            <label style="display: block; font-weight: bold; margin-bottom: 5px; font-size: 14px;">Roll No (রোল নম্বর: 1 থেকে 50):</label>
+            <input type="number" id="inputRoll" min="1" max="50" placeholder="যেমন: 5" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box;">
+        </div>
 
-                <p id="errorMsg" style="color: red; text-align: center; margin-top: 10px; font-size: 14px; display: none;"></p>
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; font-weight: bold; margin-bottom: 5px; font-size: 14px;">Student Name (ছাত্র/ছাত্রীর নাম):</label>
+            <input type="text" id="inputName" placeholder="Enter Full Name" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box;">
+        </div>
+
+        <button onclick="verifyStudent()" style="width: 100%; background: var(--secondary); color: #fff; padding: 11px; border: none; border-radius: 6px; font-size: 15px; cursor: pointer; font-weight: bold;">
+            Submit & Continue
+        </button>
+
+        <p id="errorMsg" style="color: red; text-align: center; margin-top: 10px; font-size: 14px; display: none;"></p>
+    </div>
+
+    <!-- STEP 2: Main Payment / Details Section -->
+    <div id="paymentContent" style="display: none; margin-top: 20px;">
+        
+        <div style="background: #e6fffa; padding: 12px; border-left: 4px solid #319795; margin-bottom: 20px; border-radius: 4px;">
+            <p style="margin: 0; font-weight: bold; color: #234e52;">ছাত্র/ছাত্রী: <span id="sName"></span></p>
+            <p style="margin: 3px 0 0 0; font-size: 13px; color: #285e61;">শ্রেণী: <span id="sClass"></span> | রোল: <span id="sRoll"></span> | Student ID: <strong id="sFullId" style="color: var(--primary);"></strong></p>
+        </div>
+
+        <!-- QR Display only in Online Mode -->
+        <div id="qrArea" style="text-align: center; background: #f7fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 20px;">
+            <h4 style="color: var(--primary); margin-top: 0;">১. QR Code স্ক্যান করে ফি পেমেন্ট করুন:</h4>
+            <img src="qr-code.jpg" alt="School Payment QR Code" style="width: 190px; height: 190px; border: 2px solid #cbd5e0; border-radius: 8px;">
+            <p style="font-size: 12px; color: #718096; margin-top: 5px;">(GPay, PhonePe, Paytm বা যেকোনো UPI অ্যাপ দিয়ে স্ক্যান করুন)</p>
+        </div>
+
+        <!-- Form Details -->
+        <form id="paymentForm">
+            <div style="margin-bottom: 12px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px; font-size: 14px;">Fee Amount (টাকার পরিমাণ ₹):</label>
+                <input type="number" id="feeAmount" required placeholder="যেমন: 500" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box;">
             </div>
 
-            <!-- STEP 2: Main Payment & QR Section (Hidden Initially) -->
-            <div id="paymentContent" style="display: none; margin-top: 20px;">
-                
-                <!-- Welcome Banner with Auto Student ID -->
-                <div style="background: #e6fffa; padding: 12px; border-left: 4px solid #319795; margin-bottom: 20px; border-radius: 4px;">
-                    <p style="margin: 0; font-weight: bold; color: #234e52;">ছাত্র/ছাত্রী: <span id="sName"></span></p>
-                    <p style="margin: 3px 0 0 0; font-size: 13px; color: #285e61;">শ্রেণী: <span id="sClass"></span> | রোল: <span id="sRoll"></span> | Student ID: <strong id="sFullId" style="color: var(--primary);"></strong></p>
-                </div>
-
-                <!-- QR Code Display -->
-                <div style="text-align: center; background: #f7fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 20px;">
-                    <h4 style="color: var(--primary); margin-top: 0;">১. QR Code স্ক্যান করে ফি পেমেন্ট করুন:</h4>
-                    <img src="qr-code.jpg" alt="School Payment QR Code" style="width: 190px; height: 190px; border: 2px solid #cbd5e0; border-radius: 8px;">
-                    <p style="font-size: 12px; color: #718096; margin-top: 5px;">(GPay, PhonePe, Paytm বা যেকোনো UPI অ্যাপ দিয়ে স্ক্যান করুন)</p>
-                </div>
-
-                <!-- Fee Details & Transaction Form -->
-                <form id="paymentForm">
-                    <div style="margin-bottom: 12px;">
-                        <label style="display: block; font-weight: bold; margin-bottom: 5px; font-size: 14px;">Fee Amount (টাকার পরিমাণ ₹):</label>
-                        <input type="number" id="feeAmount" required placeholder="যেমন: 500" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box;">
-                    </div>
-
-                    <div style="margin-bottom: 18px;">
-                        <label style="display: block; font-weight: bold; margin-bottom: 5px; font-size: 14px;">Transaction ID / UTR (পেমেন্টের ১২ সংখ্যার আইডি):</label>
-                        <input type="text" id="txnId" required placeholder="Enter UPI Transaction ID" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box;">
-                    </div>
-
-                    <button type="submit" style="width: 100%; background: var(--primary); color: #fff; padding: 12px; border: none; border-radius: 6px; font-size: 16px; cursor: pointer; font-weight: bold;">
-                        Generate Receipt (রসিদ তৈরি করুন)
-                    </button>
-                </form>
+            <div id="txnInputGroup" style="margin-bottom: 18px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px; font-size: 14px;">Transaction ID / UTR (পেমেন্টের আইডি):</label>
+                <input type="text" id="txnId" placeholder="Enter UPI Transaction ID" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box;">
             </div>
 
-            <!-- STEP 3: Printable Receipt (Hidden Initially) -->
-            <div id="receiptBox" style="display: none; margin-top: 25px; padding: 20px; border: 2px dashed var(--secondary); border-radius: 8px; background: #fff;">
-                <h3 style="color: var(--primary); text-align: center; margin-top: 0;">J.K.B. NATIONAL SCHOOL (H.S)</h3>
-                <p style="text-align: center; margin-bottom: 10px; font-size: 13px; color: #4a5568;">Official Fee Payment Receipt</p>
-                <hr style="border: 0; border-top: 1px dashed #ccc; margin: 10px 0;">
-                
+            <button type="submit" style="width: 100%; background: var(--primary); color: #fff; padding: 12px; border: none; border-radius: 6px; font-size: 16px; cursor: pointer; font-weight: bold;">
+                Generate Money Receipt (রসিদ তৈরি করুন)
+            </button>
+        </form>
+    </div>
+
+    <!-- STEP 3: Clean & Printable Receipt (Only exact details shown) -->
+    <div id="receiptBox" style="display: none; margin-top: 25px; padding: 25px; border: 2px solid var(--primary); border-radius: 8px; background: #fff;">
+        
+        <div style="text-align: center; border-bottom: 2px dashed #1a365d; padding-bottom: 10px; margin-bottom: 15px;">
+            <h2 style="color: #1a365d; margin: 0; font-size: 22px;">J.K.B. NATIONAL SCHOOL (H.S)</h2>
+            <p style="margin: 3px 0 0 0; font-size: 12px; color: #4a5568;">Chandermore Station Road, Bhairabpur, WB 742201</p>
+            <h4 style="margin: 8px 0 0 0; color: #2b6cb0; text-transform: uppercase; font-size: 14px;">Official Fee Receipt</h4>
+        </div>
+        
+        <table style="width: 100%; font-size: 14px; border-collapse: collapse; line-height: 1.8;">
+            <tr>
+                <td><strong>Receipt No:</strong> <span id="rReceiptNo"></span></td>
+                <td style="text-align: right;"><strong>Date:</strong> <span id="rDate"></span></td>
+            </tr>
+            <tr>
+                <td><strong>Student Name:</strong> <span id="rName"></span></td>
+                <td style="text-align: right;"><strong>Student ID:</strong> <span id="rFullId"></span></td>
+            </tr>
+            <tr>
+                <td><strong>Class:</strong> <span id="rClass"></span></td>
+                <td style="text-align: right;"><strong>Roll No:</strong> <span id="rRoll"></span></td>
+            </tr>
+            <tr>
+                <td><strong>Payment Mode:</strong> <span id="rMode" style="font-weight: bold;"></span></td>
+                <td style="text-align: right;"><strong>Txn / Ref No:</strong> <span id="rTxn"></span></td>
+            </tr>
+        </table>
+
+        <div style="margin-top: 15px; padding: 12px; background: #f7fafc; border: 1px solid #e2e8f0; text-align: center; border-radius: 6px;">
+            <p style="margin: 0; font-size: 16px; font-weight: bold; color: #1a365d;">Total Paid Amount: ₹<span id="rAmount" style="font-size: 20px; color: #2b6cb0;"></span></p>
+            <p style="margin: 3px 0 0 0; font-size: 13px; color: green; font-weight: bold;">Status: PAID & VERIFIED ✔</p>
+        </div>
+
+        <div style="margin-top: 30px; display: flex; justify-content: space-between; align-items: flex-end; font-size: 12px; color: #555;">
+            <div>
+                <p style="margin: 0;">System Generated Receipt</p>
+            </div>
+            <div style="text-align: center;">
+                <p style="margin: 0; border-top: 1px solid #888; padding-top: 3px;">Authorized Signature</p>
+            </div>
+        </div>
+        
+        <button class="no-print" onclick="window.print()" style="display: block; width: 100%; background: #2b6cb0; color: white; padding: 12px; border: none; border-radius: 6px; font-size: 15px; cursor: pointer; margin-top: 20px; font-weight: bold;">
+            🖨️ Download / Print Clean Receipt
+        </button>
+    </div>
+</section>
+
+<script>
+    let studentData = {};
+    let currentMode = 'online';
+
+    function switchMode(mode) {
+        currentMode = mode;
+        const btnOnline = document.getElementById('btnOnlineMode');
+        const btnCash = document.getElementById('btnCashMode');
+        const qrArea = document.getElementById('qrArea');
+        const modeTitle = document.getElementById('modeTitle');
+        const txnInputGroup = document.getElementById('txnInputGroup');
+
+        if(mode === 'online') {
+            btnOnline.style.background = 'var(--primary)';
+            btnOnline.style.color = 'white';
+            btnCash.style.background = '#edf2f7';
+            btnCash.style.color = '#2d3748';
+            qrArea.style.display = 'block';
+            txnInputGroup.style.display = 'block';
+            modeTitle.innerText = "অনলাইন ফি পেমেন্ট";
+        } else {
+            btnCash.style.background = 'var(--primary)';
+            btnCash.style.color = 'white';
+            btnOnline.style.background = '#edf2f7';
+            btnOnline.style.color = '#2d3748';
+            qrArea.style.display = 'none';
+            txnInputGroup.style.display = 'none';
+            modeTitle.innerText = "হ্যান্ড ক্যাশ (Hand Cash) এন্ট্রি";
+        }
+    }
+
+    function verifyStudent() {
+        const selectedClass = document.getElementById('inputClass').value;
+        const rollNum = parseInt(document.getElementById('inputRoll').value);
+        const studentName = document.getElementById('inputName').value.trim();
+        const errorMsg = document.getElementById('errorMsg');
+
+        if (!selectedClass) {
+            errorMsg.innerText = "❌ অনুগ্রহ করে শ্রেণী নির্বাচন করুন!";
+            errorMsg.style.display = 'block';
+            return;
+        }
+
+        if (isNaN(rollNum) || rollNum < 1 || rollNum > 50) {
+            errorMsg.innerText = "❌ রোল নম্বর ১ থেকে ৫০-এর মধ্যে হতে হবে!";
+            errorMsg.style.display = 'block';
+            return;
+        }
+
+        if (studentName === "") {
+            errorMsg.innerText = "❌ ছাত্র/ছাত্রীর নাম লিখুন!";
+            errorMsg.style.display = 'block';
+            return;
+        }
+
+        errorMsg.style.display = 'none';
+
+        const formattedRoll = rollNum < 10 ? '0' + rollNum : rollNum;
+        const fullStudentId = "2024" + selectedClass.replace(/\s+/g, '') + formattedRoll;
+
+        studentData = {
+            name: studentName,
+            class: selectedClass,
+            roll: rollNum,
+            fullId: fullStudentId
+        };
+
+        document.getElementById('verifyBox').style.display = 'none';
+        document.getElementById('sName').innerText = studentData.name;
+        document.getElementById('sClass').innerText = studentData.class;
+        document.getElementById('sRoll').innerText = studentData.roll;
+        document.getElementById('sFullId').innerText = studentData.fullId;
+
+        document.getElementById('paymentContent').style.display = 'block';
+    }
+
+    document.getElementById('paymentForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const amount = document.getElementById('feeAmount').value;
+        let txn = document.getElementById('txnId').value.trim();
+
+        if (currentMode === 'cash') {
+            txn = "CASH-PAID";
+        } else if (txn === "") {
+            txn = "UPI-PENDING";
+        }
+
+        const receiptNo = "JKB-" + Math.floor(100000 + Math.random() * 900000);
+        const currentDate = new Date().toLocaleDateString('en-IN', {
+            day: 'numeric', month: 'short', year: 'numeric'
+        });
+
+        // Populate receipt
+        document.getElementById('rReceiptNo').innerText = receiptNo;
+        document.getElementById('rDate').innerText = currentDate;
+        document.getElementById('rName').innerText = studentData.name;
+        document.getElementById('rClass').innerText = studentData.class;
+        document.getElementById('rRoll').innerText = studentData.roll;
+        document.getElementById('rFullId').innerText = studentData.fullId;
+        document.getElementById('rAmount').innerText = amount;
+        document.getElementById('rTxn').innerText = txn;
+        document.getElementById('rMode').innerText = currentMode === 'online' ? 'Online (UPI)' : 'Hand Cash';
+
+        document.getElementById('receiptBox').style.display = 'block';
+        document.getElementById('receiptBox').scrollIntoView({ behavior: 'smooth' });
+    });
+    </script>
+        
                 <p style="font-size: 14px;"><strong>Receipt No:</strong> <span id="rReceiptNo"></span></p>
                 <p style="font-size: 14px;"><strong>Date:</strong> <span id="rDate"></span></p>
                 <p style="font-size: 14px;"><strong>Student Name:</strong> <span id="rName"></span></p>

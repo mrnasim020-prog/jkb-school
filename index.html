@@ -3,301 +3,472 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>J.K.B. National School - Smart Fee & Billing Portal</title>
+    <title>J.K.B. National School | Fee & Billing Portal</title>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         :root {
-            --primary: #0d5c3a;
-            --secondary: #148052;
-            --accent: #f39c12;
-            --bg: #f4f7f6;
+            --primary: #0088cc;
+            --primary-dark: #005580;
+            --primary-light: #e6f7ff;
+            --secondary: #00a8ff;
+            --accent: #ff9f43;
             --dark: #2c3e50;
+            --light-bg: #f4fafe;
+            --white: #ffffff;
+            --gray-border: #d0e8f5;
+            --text-color: #333333;
+            --shadow: 0 5px 15px rgba(0, 136, 204, 0.08);
+            --radius: 12px;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; }
-        body { background-color: var(--bg); color: #333; padding: 15px; }
-        .header {
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Hind Siliguri', 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            padding: 8px 5%;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .top-bar .contact-info span { margin-right: 20px; }
+        .top-bar .contact-info i { margin-right: 6px; color: var(--secondary); }
+        .top-bar .badge-admission {
+            background: var(--accent);
+            color: var(--white);
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        /* Navbar */
+        nav {
+            background: var(--white);
+            padding: 15px 5%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container { display: flex; align-items: center; gap: 12px; }
+        .logo-icon {
+            width: 48px;
+            height: 48px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            text-align: center;
-            padding: 25px 15px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            margin-bottom: 25px;
-        }
-        .header h1 { font-size: 26px; letter-spacing: 1px; margin-bottom: 5px; }
-        .header p { font-size: 14px; opacity: 0.9; }
-        .container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .card {
-            background: white;
-            padding: 22px;
-            border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-            border-top: 4px solid var(--primary);
-        }
-        .card h2 {
-            color: var(--primary);
-            font-size: 18px;
-            margin-bottom: 15px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid #eee;
-        }
-        .form-group { margin-bottom: 12px; }
-        label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 4px; color: var(--dark); }
-        input, select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 14px;
-            outline: none;
-        }
-        input:focus, select:focus { border-color: var(--primary); }
-        .qr-box {
-            text-align: center;
-            background: #e8f5e9;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px dashed var(--primary);
-            margin-bottom: 15px;
-        }
-        .qr-box p { font-size: 12px; color: #2e7d32; font-weight: bold; margin-bottom: 5px; }
-        .qr-placeholder {
-            width: 120px;
-            height: 120px;
-            background: #fff;
-            margin: 0 auto;
+            color: var(--white);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid #ddd;
-            font-size: 11px;
-            color: #777;
-            border-radius: 6px;
+            font-size: 22px;
+            font-weight: bold;
         }
-        button {
+
+        .logo-text h1 { font-size: 20px; color: var(--primary-dark); line-height: 1.2; font-weight: 700; }
+        .logo-text p { font-size: 11px; color: #666; text-transform: uppercase; }
+
+        .nav-links { display: flex; gap: 25px; list-style: none; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--dark); font-weight: 500; font-size: 15px; }
+        
+        .btn-pay-nav {
+            background: var(--primary);
+            color: var(--white) !important;
+            padding: 8px 18px;
+            border-radius: 25px;
+            font-weight: 600 !important;
+        }
+
+        /* Main Container */
+        .main-container { max-width: 1250px; margin: 40px auto; padding: 0 20px; }
+        .section-title { text-align: center; margin-bottom: 35px; }
+        .section-title h2 { font-size: 28px; color: var(--primary-dark); position: relative; display: inline-block; padding-bottom: 10px; }
+        .section-title h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 60px; height: 3px; background: var(--primary); }
+
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 25px; margin-bottom: 40px; }
+
+        /* Cards */
+        .card {
+            background: var(--white);
+            padding: 25px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border-top: 4px solid var(--primary);
+        }
+
+        .card h3 {
+            color: var(--primary-dark);
+            font-size: 19px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 10px;
+        }
+
+        /* Forms */
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; color: var(--dark); }
+        input, select {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid var(--gray-border);
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            background-color: #fafdfd;
+        }
+        input:focus, select:focus { border-color: var(--primary); background-color: var(--white); }
+
+        .btn-action {
             width: 100%;
             background: var(--primary);
-            color: white;
+            color: var(--white);
             border: none;
-            padding: 12px;
-            border-radius: 6px;
-            font-weight: bold;
+            padding: 13px;
+            border-radius: 8px;
+            font-weight: 600;
             font-size: 15px;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
             transition: 0.3s;
         }
-        button:hover { background: var(--secondary); }
-        /* Receipt Style */
+        .btn-action:hover { background: var(--primary-dark); }
+
+        /* Receipt Card Display (On Screen) */
         .receipt-box {
             display: none;
-            border: 2px solid var(--primary);
-            padding: 20px;
+            border: 2px solid #000;
+            padding: 25px;
             border-radius: 8px;
-            background: #fff;
+            background: var(--white);
+            color: #000;
+        }
+
+        .receipt-header-screen {
+            text-align: center;
+            border-bottom: 2px solid #000;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .receipt-header-screen h4 { font-size: 20px; font-weight: 700; text-transform: uppercase; }
+        .receipt-header-screen p { font-size: 12px; }
+
+        .receipt-field {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            padding: 6px 0;
+            border-bottom: 1px dashed #ccc;
+            color: #000;
+        }
+        .receipt-field strong { font-weight: 700; }
+
+        .btn-print-receipt {
+            background: #27ae60;
+            color: white;
+            margin-top: 20px;
+        }
+        .btn-print-receipt:hover { background: #219150; }
+
+        /* QR Payment Modal Page */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
             position: relative;
         }
-        .receipt-header { text-align: center; border-bottom: 2px double var(--primary); padding-bottom: 10px; margin-bottom: 12px; }
-        .receipt-header h3 { color: var(--primary); font-size: 18px; }
-        .receipt-header p { font-size: 11px; color: #555; }
-        .receipt-row { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 8px; border-bottom: 1px dashed #eee; padding-bottom: 4px; }
-        .btn-print { background: #27ae60; margin-top: 15px; }
-        /* Table Style */
-        .table-container { grid-column: 1 / -1; overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 10px; }
-        th, td { border: 1px solid #e0e0e0; padding: 10px; text-align: left; }
-        th { background: var(--primary); color: white; }
-        tr:nth-child(even) { background-color: #f9f9f9; }
-        .status-badge { background: #27ae60; color: white; padding: 3px 8px; border-radius: 12px; font-size: 11px; }
+        .modal-card h3 { color: var(--primary-dark); margin-bottom: 10px; }
+        .qr-image-box {
+            width: 180px;
+            height: 180px;
+            background: #f0f0f0;
+            margin: 15px auto;
+            border: 2px dashed var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+
+        /* Table Design */
+        .table-responsive { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 10px; background: var(--white); }
+        th, td { border: 1px solid var(--gray-border); padding: 10px 12px; text-align: left; }
+        th { background: var(--primary); color: var(--white); font-weight: 600; }
+        tr:nth-child(even) { background-color: var(--primary-light); }
+
+        /* Footer */
+        footer { background: var(--primary-dark); color: var(--white); padding: 30px 5% 15px; margin-top: 50px; text-align: center; font-size: 13px; }
+
+        /* ==========================================
+           CRITICAL FIX: PRINT STYLING (PURE BLACK)
+           ========================================== */
         @media print {
-            body * { visibility: hidden; }
-            #receiptBox, #receiptBox * { visibility: visible; }
-            #receiptBox { position: absolute; left: 0; top: 0; width: 100%; border: none; }
-            .btn-print { display: none; }
+            /* Hide EVERYTHING on the page */
+            body * {
+                visibility: hidden !important;
+            }
+            
+            /* Show ONLY the receipt box */
+            #receiptBox, #receiptBox * {
+                visibility: visible !important;
+            }
+
+            #receiptBox {
+                position: absolute !important;
+                left: 0 !important;
+                top: 0 !important;
+                width: 100% !important;
+                border: 2px solid #000000 !important;
+                padding: 20px !important;
+                background: #ffffff !important;
+                color: #000000 !important; /* Pure Black Ink */
+                box-shadow: none !important;
+            }
+
+            /* Ensure all text inside receipt is solid black */
+            #receiptBox *, #receiptBox h4, #receiptBox p, #receiptBox span, #receiptBox strong {
+                color: #000000 !important;
+                border-color: #000000 !important;
+            }
+
+            /* Hide print button on PDF output */
+            .btn-print-receipt {
+                display: none !important;
+            }
+
+            /* Reset page margins to prevent blank extra pages */
+            @page {
+                size: auto;
+                margin: 15mm;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>J.K.B. NATIONAL SCHOOL</h1>
-        <p>অনলাইন মাসিক বেতন জমা ও অটোমেটিক বিলিং সিস্টেম</p>
-    </div>
-    <div class="container">
-        <!-- Fee Form -->
-        <div class="card">
-            <h2>মাসিক ফি জমা দিন</h2>
-            <form id="feeForm">
-                <div class="form-group">
-                    <label>ছাত্র/ছাত্রীর নাম:</label>
-                    <input type="text" id="studentName" placeholder="পূর্ণ নাম লিখুন" required>
-                </div>
-                <div class="form-group">
-                    <label>স্টুডেন্ট আইডি / রোল:</label>
-                    <input type="text" id="studentId" placeholder="যেমন: JKB-102" required>
-                </div>
-                <div class="form-group">
-                    <label>শ্রেণী (Class):</label>
-                    <select id="studentClass" required>
-                        <option value="">শ্রেণী নির্বাচন করুন</option>
-                        <option value="Nursery">Nursery</option>
-                        <option value="K.G.">K.G.</option>
-                        <option value="Class I">Class I</option>
-                        <option value="Class II">Class II</option>
-                        <option value="Class III">Class III</option>
-                        <option value="Class IV">Class IV</option>
-                        <option value="Class V">Class V</option>
-                        <option value="Class VI">Class VI</option>
-                        <option value="Class VII">Class VII</option>
-                        <option value="Class VIII">Class VIII</option>
-                        <option value="Class IX">Class IX</option>
-                        <option value="Class X">Class X</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>পরিশোধের মাস:</label>
-                    <select id="payMonth" required>
-                        <option value="">মাস বাছুন</option>
-                        <option value="জানুয়ারি">জানুয়ারি</option>
-                        <option value="ফেব্রুয়ারি">ফেব্রুয়ারি</option>
-                        <option value="মার্চ">মার্চ</option>
-                        <option value="এপ্রিল">এপ্রিল</option>
-                        <option value="মে">মে</option>
-                        <option value="জুন">জুন</option>
-                        <option value="জুলাই">জুলাই</option>
-                        <option value="আগস্ট">আগস্ট</option>
-                        <option value="সেপ্টেম্বর">সেপ্টেম্বর</option>
-                        <option value="অক্টোবর">অক্টোবর</option>
-                        <option value="নভেম্বর">নভেম্বর</option>
-                        <option value="ডিসেম্বর">ডিসেম্বর</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>টাকার পরিমাণ (₹):</label>
-                    <input type="number" id="feeAmount" placeholder="৫০০" required>
-                </div>
-                <!-- UPI Payment QR Section -->
-                <div class="qr-box">
-                    <p>PhonePe / Google Pay / Paytm দিয়ে স্ক্যান করুন</p>
-                    <div class="qr-placeholder">
-                        [আপনার স্কুলের QR কোড]
-                    </div>
-                </div>
-                <button type="submit">টাকা জমা দিয়ে রসিদ সংগ্রহ করুন</button>
-            </form>
+
+    <!-- Top Contact Bar -->
+    <div class="top-bar">
+        <div class="contact-info">
+            <span><i class="fa-solid fa-phone"></i> 8617061244 / 7384361623</span>
+            <span><i class="fa-solid fa-envelope"></i> jkbnationalschool@gmail.com</span>
+            <span><i class="fa-solid fa-location-dot"></i> Chandermore, Sujnipara, Murshidabad</span>
         </div>
-        <!-- Receipt Card -->
-        <div class="card">
-            <h2>অনলাইন পেমেন্ট রসিদ (Receipt)</h2>
-            <div id="noReceipt" style="text-align: center; color: #888; padding: 40px 10px;">
-                <p>বামপাশের ফর্ম পূরণ করে সাবমিট করলে এখানে প্রফেশনাল মানি রসিদ জেনারেট হবে।</p>
-            </div>
-            <div id="receiptBox" class="receipt-box">
-                <div class="receipt-header">
-                    <h3>J.K.B. NATIONAL SCHOOL</h3>
-                    <p>মাসিক বেতন প্রাপ্তির ডিজিটাল রসিদ</p>
-                </div>
-                <div class="receipt-row"><span>রসিদ নম্বর:</span> <strong id="rTxn">---</strong></div>
-                <div class="receipt-row"><span>জমার তারিখ:</span> <span id="rDate">---</span></div>
-                <div class="receipt-row"><span>ছাত্রের নাম:</span> <strong id="rName">---</strong></div>
-                <div class="receipt-row"><span>স্টুডেন্ট আইডি:</span> <span id="rId">---</span></div>
-                <div class="receipt-row"><span>শ্রেণী:</span> <span id="rClass">---</span></div>
-                <div class="receipt-row"><span>পরিশোধিত মাস:</span> <span id="rMonth">---</span></div>
-                <div class="receipt-row" style="font-size: 15px; color: var(--primary);">
-                    <span>মোট প্রাপ্ত টাকা:</span> <strong>₹<span id="rAmount">0</span></strong>
-                </div>
-                <div class="receipt-row"><span>স্ট্যাটাস:</span> <span class="status-badge">PAID / সফল</span></div>
-                
-                <button class="btn-print" onclick="window.print()">রসিদ প্রিন্ট / PDF ডাউনলোড করুন</button>
-            </div>
-        </div>
-        <!-- History Table -->
-        <div class="card table-container">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                <h2>স্কুল ফি কালেকশন রেকর্ড (ডাটাবেজ)</h2>
-                <button style="width: auto; padding: 6px 12px; background: #e74c3c;" onclick="clearHistory()">রেকর্ড ক্লিয়ার করুন</button>
-            </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>তারিখ</th>
-                        <th>রসিদ নং</th>
-                        <th>আইডি</th>
-                        <th>নাম</th>
-                        <th>শ্রেণী</th>
-                        <th>মাস</th>
-                        <th>টাকা (₹)</th>
-                        <th>স্ট্যাটাস</th>
-                    </tr>
-                </thead>
-                <tbody id="historyTable">
-                    <!-- Dynamic Data -->
-                </tbody>
-            </table>
+        <div>
+            <span class="badge-admission"><i class="fa-solid fa-graduation-cap"></i> ADMISSION OPEN 2026</span>
         </div>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', renderHistory);
-        document.getElementById('feeForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const name = document.getElementById('studentName').value;
-            const id = document.getElementById('studentId').value;
-            const cls = document.getElementById('studentClass').value;
-            const month = document.getElementById('payMonth').value;
-            const amount = document.getElementById('feeAmount').value;
-            
-            const txnId = 'JKB-' + Math.floor(100000 + Math.random() * 900000);
-            const date = new Date().toLocaleDateString('bn-IN');
-            // Set Receipt Data
-            document.getElementById('rTxn').innerText = txnId;
-            document.getElementById('rDate').innerText = date;
-            document.getElementById('rName').innerText = name;
-            document.getElementById('rId').innerText = id;
-            document.getElementById('rClass').innerText = cls;
-            document.getElementById('rMonth').innerText = month;
-            document.getElementById('rAmount').innerText = amount;
-            document.getElementById('noReceipt').style.display = 'none';
-            document.getElementById('receiptBox').style.display = 'block';
-            // Save to Local Data Storage
-            const record = { date, txnId, id, name, cls, month, amount };
-            let history = JSON.parse(localStorage.getItem('jkbSchoolFees')) || [];
-            history.unshift(record);
-            localStorage.setItem('jkbSchoolFees', JSON.stringify(history));
-            renderHistory();
-            document.getElementById('feeForm').reset();
-        });
-        function renderHistory() {
-            let history = JSON.parse(localStorage.getItem('jkbSchoolFees')) || [];
-            let tbody = document.getElementById('historyTable');
-            tbody.innerHTML = '';
-            if(history.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; color:#999;">এখনও কোনো বেতন জমা হয়নি।</td></tr>';
-                return;
-            }
-            history.forEach(item => {
-                let tr = `<tr>
-                    <td>${item.date}</td>
-                    <td>${item.txnId}</td>
-                    <td>${item.id}</td>
-                    <td>${item.name}</td>
-                    <td>${item.cls}</td>
-                    <td>${item.month}</td>
-                    <td>₹${item.amount}</td>
-                    <td><span class="status-badge">PAID</span></td>
-                </tr>`;
-                tbody.innerHTML += tr;
-            });
-        }
-        function clearHistory() {
-            if(confirm('আপনি কি নিশ্চিত যে সব জমার রেকর্ড মুছে ফেলতে চান?')) {
-                localStorage.removeItem('jkbSchoolFees');
-                renderHistory();
-            }
-        }
-    </script>
-</body>
-                    </html>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="logo-container">
+            <div class="logo-icon">JKB</div>
+            <div class="logo-text">
+                <h1>J.K.B. NATIONAL SCHOOL</h1>
+                <p>Bengali & CBSE Curriculum | English Medium</p>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#fee-portal" class="btn-pay-nav"><i class="fa-solid fa-wallet"></i> ফি জমা দিন</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="main-container">
+
+        <div class="section-title" id="fee-portal">
+            <h2>অনলাইন ফি পেমেন্ট ও অটোমেটিক বিলিং</h2>
+            <p>সহজে পেমেন্ট অপশন বাছুন এবং সুনির্দিষ্ট ও স্পষ্ট ডিজিটাল রসিদ সংগ্রহ করুন</p>
+        </div>
+
+        <div class="grid-2">
+            <!-- Fee Submission Form Card -->
+            <div class="card">
+                <h3><i class="fa-solid fa-money-check-dollar"></i> ফি জমা দেওয়ার ফর্ম</h3>
+                <form id="feeForm">
                     
+                    <!-- Payment Mode Selection -->
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-credit-card"></i> পেমেন্ট মেথড নির্বাচন করুন:</label>
+                        <select id="paymentMethod" required>
+                            <option value="Online">অনলাইন পেমেন্ট (UPI / QR Code)</option>
+                            <option value="Cash">হ্যান্ড ক্যাশ পেমেন্ট (Hand Cash)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>ছাত্র/ছাত্রীর পূর্ণ নাম:</label>
+                        <input type="text" id="studentName" placeholder="যেমন: রাহুল শেখ" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>স্টুডেন্ট আইডি / রোল নম্বর:</label>
+                        <input type="text" id="studentId" placeholder="যেমন: JKB-102" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>শ্রেণী ও সেকশন (Class & Section):</label>
+                        <select id="studentClass" required>
+                            <option value="">শ্রেণী নির্বাচন করুন</option>
+                            <option value="Class I (Sec - A)">Class I (Sec - A)</option>
+                            <option value="Class II (Sec - A)">Class II (Sec - A)</option>
+                            <option value="Class III (Sec - A)">Class III (Sec - A)</option>
+                            <option value="Class IV (Sec - A)">Class IV (Sec - A)</option>
+                            <option value="Class V (Sec - A)">Class V (Sec - A)</option>
+                            <option value="Class VI (Sec - A)">Class VI (Sec - A)</option>
+                            <option value="Class VII (Sec - A)">Class VII (Sec - A)</option>
+                            <option value="Class VIII (Sec - A)">Class VIII (Sec - A)</option>
+                            <option value="Class IX (Sec - A)">Class IX (Sec - A)</option>
+                            <option value="Class X (Sec - A)">Class X (Sec - A)</option>
+                            <option value="Class XI (Science)">Class XI (Science)</option>
+                            <option value="Class XI (Arts)">Class XI (Arts)</option>
+                            <option value="Class XII (Science)">Class XII (Science)</option>
+                            <option value="Class XII (Arts)">Class XII (Arts)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>পরিশোধের মাস:</label>
+                        <select id="payMonth" required>
+                            <option value="">মাস বাছুন</option>
+                            <option value="জানুয়ারি">জানুয়ারি</option>
+                            <option value="ফেব্রুয়ারি">ফেব্রুয়ারি</option>
+                            <option value="মার্চ">মার্চ</option>
+                            <option value="এপ্রিল">এপ্রিল</option>
+                            <option value="মে">মে</option>
+                            <option value="জুন">জুন</option>
+                            <option value="জুলাই">জুলাই</option>
+                            <option value="আগস্ট">আগস্ট</option>
+                            <option value="সেপ্টেম্বর">সেপ্টেম্বর</option>
+                            <option value="অক্টোবর">অক্টোবর</option>
+                            <option value="নভেম্বর">নভেম্বর</option>
+                            <option value="ডিসেম্বর">ডিসেম্বর</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>টাকার পরিমাণ (₹):</label>
+                        <input type="number" id="feeAmount" placeholder="৫০০" required>
+                    </div>
+
+                    <button type="submit" class="btn-action"><i class="fa-solid fa-paper-plane"></i> পেমেন্ট সম্পন্ন করতে এগিয়ে যান</button>
+                </form>
+            </div>
+
+            <!-- Receipt Display Card -->
+            <div class="card">
+                <h3><i class="fa-solid fa-receipt"></i> পেমেন্ট রসিদ (Official Receipt)</h3>
+                <div id="noReceipt" style="text-align: center; color: #888; padding: 60px 20px;">
+                    <i class="fa-solid fa-file-invoice" style="font-size: 45px; color: var(--primary-light); margin-bottom: 15px; display: block;"></i>
+                    <p>বামপাশের ফর্ম পূরণ করে পেমেন্ট সাবমিট করলে এখানে নির্দিষ্ট ও স্পষ্ট রসিদ তৈরি হবে।</p>
+                </div>
+
+                <!-- Clean Official Receipt Format (Only Required Fields in Pure Black Ink) -->
+                <div id="receiptBox" class="receipt-box">
+                    <div class="receipt-header-screen">
+                        <h4>J.K.B. NATIONAL SCHOOL</h4>
+                        <p>Chandermore, Sujnipara, Murshidabad | Helpline: 8617061244</p>
+                    </div>
+
+                    <div class="receipt-field"><span>রসিদ নম্বর:</span> <strong id="rTxn">---</strong></div>
+                    <div class="receipt-field"><span>পেমেন্ট তারিখ:</span> <strong id="rDate">---</strong></div>
+                    <div class="receipt-field"><span>ছাত্র/ছাত্রীর নাম:</span> <strong id="rName">---</strong></div>
+                    <div class="receipt-field"><span>স্টুডেন্ট আইডি / রোল:</span> <strong id="rId">---</strong></div>
+                    <div class="receipt-field"><span>শ্রেণী ও সেকশন:</span> <strong id="rClass">---</strong></div>
+                    <div class="receipt-field"><span>পরিশোধিত মাস:</span> <strong id="rMonth">---</strong></div>
+                    <div class="receipt-field"><span>পেমেন্ট মাধ্যম:</span> <strong id="rMethod">---</strong></div>
+                    <div class="receipt-field" style="font-size: 16px; margin-top: 5px;">
+                        <span>মোট জমার পরিমাণ:</span> <strong>₹<span id="rAmount">0</span></strong>
+                    </div>
+
+                    <button class="btn-action btn-print-receipt" onclick="window.print()"><i class="fa-solid fa-download"></i> রসিদ প্রিন্ট / PDF ডাউনলোড করুন</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Database Record Table -->
+        <div class="card" style="margin-bottom: 40px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+                <h3 style="border: none; padding: 0; margin: 0;"><i class="fa-solid fa-database"></i> ফি কালেকশন ডাটাবেজ রেকর্ড</h3>
+                <button style="width: auto; padding: 7px 15px; background: #e74c3c; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 600;" onclick="clearHistory()"><i class="fa-solid fa-trash"></i> রেকর্ড ক্লিয়ার করুন</button>
+            </div>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>তারিখ</th>
+                            <th>রসিদ নং</th>
+                            <th>আইডি/রোল</th>
+                            <th>নাম</th>
+                            <th>শ্রেণী ও সেকশন</th>
+                            <th>মাস</th>
+                            <th>মেথড</th>
+                            <th>টাকা (₹)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyTable">
+                        <!-- Dynamic Records -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- QR Code Payment Modal Window -->
+    <div class="modal-overlay" id="qrModal">
+        <div class="modal-card">
+            <h3><i class="fa-solid fa-qrcode"></i> QR কোড স্ক্যান করে পেমেন্ট করুন</h3>
+            <p style="font-size: 13px; color: #555;">PhonePe / Google Pay / Paytm দিয়ে নিচে দেওয়া QR কোডটি স্ক্যান করে টাকা প্রদান করুন</p>
+
+            <div class="qr-image-box">
+                <i class="fa-solid fa-qrcode" style="font-size: 100px; color: var(--primary);"></i>
+            </div>
+
+            <p style="font-size: 15px; font-weight: 700; color: var(--primary-dark); margin-bottom: 15px;">প্রদেয় অর্থ: ₹<span id="modalAmount">0</span></p>
+
+            <button class="btn-action" onclick="confirmQRPayment()"><i class="fa-solid fa-check-circle"></i> পেমেন্ট সম্পূর্ণ হয়েছে, রসিদ দিন</button>
+        </div>
+    </di

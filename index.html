@@ -1,689 +1,587 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>J.K.B. National School | Official School Portal</title>
-    <!-- Google Fonts & FontAwesome Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>J.K.B. NATIONAL SCHOOL</title>
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
         :root {
-            --primary: #0088cc;
-            --primary-dark: #005580;
-            --primary-light: #e6f7ff;
-            --secondary: #00a8ff;
-            --accent: #ff9f43;
-            --dark: #2c3e50;
-            --light-bg: #f4fafe;
-            --white: #ffffff;
-            --gray-border: #d0e8f5;
-            --text-color: #333333;
-            --shadow: 0 5px 15px rgba(0, 136, 204, 0.08);
-            --radius: 12px;
+            --primary-color: #0b2545;
+            --secondary-color: #134074;
+            --accent-color: #e63946;
+            --light-bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-dark: #1d2d44;
+            --text-muted: #6c757d;
+            --border-color: #e0e6ed;
+            --success-color: #2a9d8f;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Hind Siliguri', 'Poppins', sans-serif;
-            scroll-behavior: smooth;
+            font-family: 'Poppins', sans-serif;
         }
 
         body {
             background-color: var(--light-bg);
-            color: var(--text-color);
-            line-height: 1.6;
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         /* Top Bar */
         .top-bar {
-            background-color: var(--primary-dark);
-            color: var(--white);
+            background-color: var(--primary-color);
+            color: #fff;
             padding: 8px 5%;
             font-size: 13px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .top-bar .contact-info span {
+        .top-bar .info-item {
             margin-right: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        .top-bar .contact-info i {
-            margin-right: 6px;
-            color: var(--secondary);
+        .top-bar a {
+            color: #fff;
+            text-decoration: none;
         }
 
-        .top-bar .badge-admission {
-            background: var(--accent);
-            color: var(--white);
-            padding: 3px 12px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 12px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        /* Navbar */
-        nav {
-            background: var(--white);
+        /* Header */
+        header {
+            background: #fff;
             padding: 15px 5%;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .logo-container {
+        .brand {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
         }
 
-        .logo-icon {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: var(--white);
+        .brand-logo {
+            width: 55px;
+            height: 55px;
+            background: var(--primary-color);
+            color: #fff;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 22px;
+            font-size: 24px;
             font-weight: bold;
-            box-shadow: 0 4px 10px rgba(0,168,255,0.3);
         }
 
-        .logo-text h1 {
-            font-size: 20px;
-            color: var(--primary-dark);
-            line-height: 1.2;
-            font-weight: 700;
+        .brand-text h1 {
+            font-size: 22px;
+            color: var(--primary-color);
             letter-spacing: 0.5px;
         }
 
-        .logo-text p {
-            font-size: 11px;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 25px;
-            list-style: none;
-            align-items: center;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--dark);
+        .brand-text p {
+            font-size: 12px;
+            color: var(--text-muted);
             font-weight: 500;
-            font-size: 15px;
-            transition: 0.3s;
         }
 
-        .nav-links a:hover {
-            color: var(--primary);
+        /* Navigation */
+        nav {
+            background-color: var(--secondary-color);
+            padding: 0 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
-        .btn-pay-nav {
-            background: var(--primary);
-            color: var(--white) !important;
-            padding: 8px 18px;
-            border-radius: 25px;
-            font-weight: 600 !important;
-            box-shadow: 0 4px 10px rgba(0,136,204,0.25);
+        .nav-container {
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none;
         }
 
-        .btn-pay-nav:hover {
-            background: var(--primary-dark);
+        .nav-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            color: #e0e6ed;
+            padding: 16px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-btn:hover {
+            color: #fff;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-btn.active {
+            color: #fff;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-bottom: 3px solid var(--accent-color);
+        }
+
+        /* Main Content Container */
+        main {
+            flex: 1;
+            padding: 30px 5%;
+            max-width: 1300px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Page Layout */
+        .page-content {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .page-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* Hero Banner */
         .hero {
-            background: linear-gradient(rgba(0, 85, 128, 0.85), rgba(0, 168, 255, 0.75)), url('https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1350&q=80') center/cover;
-            color: var(--white);
+            background: linear-gradient(rgba(11, 37, 69, 0.85), rgba(19, 64, 116, 0.85)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+            color: white;
+            padding: 60px 40px;
+            border-radius: 12px;
             text-align: center;
-            padding: 80px 20px;
-            position: relative;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
 
         .hero h2 {
-            font-size: 38px;
+            font-size: 32px;
             margin-bottom: 15px;
             font-weight: 700;
         }
 
         .hero p {
-            font-size: 18px;
+            font-size: 16px;
             max-width: 750px;
             margin: 0 auto 25px;
-            opacity: 0.95;
+            opacity: 0.9;
+            line-height: 1.6;
         }
 
-        .hero-badges {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-bottom: 30px;
-        }
-
-        .hero-badge {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(5px);
-            padding: 8px 18px;
-            border-radius: 30px;
+        .hero .quote {
+            font-style: italic;
             font-size: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .hero-btns {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .btn-hero {
-            padding: 12px 28px;
-            border-radius: 30px;
-            font-size: 16px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: 0.3s;
-        }
-
-        .btn-primary-hero {
-            background: var(--white);
-            color: var(--primary-dark);
-        }
-
-        .btn-primary-hero:hover {
-            background: var(--primary-light);
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary-hero {
-            background: transparent;
-            color: var(--white);
-            border: 2px solid var(--white);
-        }
-
-        .btn-secondary-hero:hover {
-            background: rgba(255,255,255,0.15);
-            transform: translateY(-2px);
-        }
-
-        /* Container & Sections */
-        .main-container {
-            max-width: 1250px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 35px;
-        }
-
-        .section-title h2 {
-            font-size: 28px;
-            color: var(--primary-dark);
-            position: relative;
+            color: #ffd166;
+            margin-top: 15px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 15px;
             display: inline-block;
-            padding-bottom: 10px;
         }
 
-        .section-title h2::after {
+        /* Cards & Grids */
+        .section-title {
+            font-size: 24px;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .section-title::after {
             content: '';
             position: absolute;
             bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
+            left: 0;
             width: 60px;
-            height: 3px;
-            background: var(--primary);
+            height: 4px;
+            background-color: var(--accent-color);
             border-radius: 2px;
         }
 
-        .section-title p {
-            color: #666;
-            font-size: 15px;
-            margin-top: 8px;
-        }
-
-        /* Grid Layouts */
         .grid-3 {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 25px;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
 
         .grid-2 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
             gap: 25px;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
 
-        /* Cards */
         .card {
-            background: var(--white);
+            background: var(--card-bg);
+            border-radius: 10px;
             padding: 25px;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            border-top: 4px solid var(--primary);
-            transition: transform 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .card:hover {
-            transform: translateY(-3px);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
         }
 
         .card h3 {
-            color: var(--primary-dark);
-            font-size: 19px;
-            margin-bottom: 18px;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            font-size: 18px;
             display: flex;
             align-items: center;
             gap: 10px;
-            border-bottom: 2px solid var(--primary-light);
-            padding-bottom: 10px;
         }
 
         .card h3 i {
-            color: var(--primary);
+            color: var(--accent-color);
         }
 
-        /* Forms */
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 5px;
-            color: var(--dark);
-        }
-
-        input, select {
-            width: 100%;
-            padding: 11px;
-            border: 1px solid var(--gray-border);
-            border-radius: 8px;
-            font-size: 14px;
-            outline: none;
-            background-color: #fafdfd;
-            transition: 0.3s;
-        }
-
-        input:focus, select:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 8px rgba(0, 168, 255, 0.25);
-            background-color: var(--white);
-        }
-
-        .qr-box {
-            text-align: center;
-            background: var(--primary-light);
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px dashed var(--primary);
-            margin-bottom: 18px;
-        }
-
-        .qr-box p {
-            font-size: 12px;
-            color: var(--primary-dark);
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .qr-placeholder {
-            width: 120px;
-            height: 120px;
-            background: var(--white);
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid var(--gray-border);
-            font-size: 11px;
-            color: #777;
-            border-radius: 8px;
-            box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
-        }
-
-        .btn-action {
-            width: 100%;
-            background: var(--primary);
-            color: var(--white);
-            border: none;
-            padding: 13px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 15px;
-            cursor: pointer;
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .btn-action:hover {
-            background: var(--primary-dark);
-        }
-
-        /* Receipt Box */
-        .receipt-box {
-            display: none;
-            border: 2px solid var(--primary);
-            padding: 20px;
-            border-radius: var(--radius);
-            background: var(--white);
-            position: relative;
-        }
-
-        .receipt-header {
-            text-align: center;
-            border-bottom: 2px double var(--primary);
-            padding-bottom: 12px;
-            margin-bottom: 15px;
-        }
-
-        .receipt-header h4 {
-            color: var(--primary-dark);
-            font-size: 18px;
-        }
-
-        .receipt-header p {
-            font-size: 12px;
-            color: #666;
-        }
-
-        .receipt-row {
-            display: flex;
-            justify-content: space-between;
-            font-size: 13px;
-            margin-bottom: 10px;
-            border-bottom: 1px dashed #eee;
-            padding-bottom: 5px;
-        }
-
-        .btn-print {
-            background: #27ae60;
-            margin-top: 15px;
-        }
-
-        .btn-print:hover {
-            background: #219150;
-        }
-
-        /* Feature Lists */
-        .feature-list {
+        .card ul {
             list-style: none;
         }
 
-        .feature-list li {
-            position: relative;
-            padding-left: 25px;
-            margin-bottom: 12px;
+        .card ul li {
+            padding: 8px 0;
+            border-bottom: 1px dashed var(--border-color);
             font-size: 14px;
-        }
-
-        .feature-list li::before {
-            content: '\f00c';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            position: absolute;
-            left: 0;
-            color: var(--primary);
-        }
-
-        /* Timeline Info */
-        .dates-list {
-            list-style: none;
-        }
-
-        .dates-list li {
+            color: #4a5568;
             display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid var(--primary-light);
-            font-size: 14px;
+            align-items: center;
+            gap: 10px;
         }
 
-        .dates-list li strong {
-            color: var(--primary-dark);
+        .card ul li:last-child {
+            border-bottom: none;
         }
 
-        /* Teacher List */
-        .teacher-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            padding: 10px 0;
-            border-bottom: 1px solid #f0f0f0;
+        .card ul li i {
+            color: var(--success-color);
+            font-size: 12px;
+        }
+
+        /* Teacher Cards Specifics */
+        .teacher-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .teacher-card {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            padding: 25px 20px;
+            transition: all 0.3s ease;
+        }
+
+        .teacher-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
 
         .teacher-avatar {
-            width: 38px;
-            height: 38px;
+            width: 80px;
+            height: 80px;
+            background: #e3f2fd;
+            color: var(--secondary-color);
             border-radius: 50%;
-            background: var(--primary-light);
-            color: var(--primary);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            font-size: 14px;
-            flex-shrink: 0;
+            font-size: 32px;
+            margin: 0 auto 15px;
+            border: 3px solid #bbdefb;
         }
 
-        .teacher-info h4 {
-            font-size: 14px;
-            color: var(--dark);
+        .teacher-name {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 5px;
         }
 
-        .teacher-info p {
+        .teacher-qual {
             font-size: 12px;
-            color: #666;
+            background: #e2e8f0;
+            color: #475569;
+            padding: 3px 10px;
+            border-radius: 12px;
+            display: inline-block;
+            margin-bottom: 12px;
+            font-weight: 500;
         }
 
-        /* Table Design */
+        .teacher-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Tables styling */
         .table-responsive {
+            width: 100%;
             overflow-x: auto;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+            margin-bottom: 25px;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 13px;
-            margin-top: 10px;
-            background: var(--white);
-        }
-
-        th, td {
-            border: 1px solid var(--gray-border);
-            padding: 10px 12px;
             text-align: left;
         }
 
+        th, td {
+            padding: 14px 18px;
+            font-size: 14px;
+        }
+
         th {
-            background: var(--primary);
-            color: var(--white);
-            font-weight: 600;
+            background-color: var(--secondary-color);
+            color: #fff;
+            font-weight: 500;
         }
 
         tr:nth-child(even) {
-            background-color: var(--primary-light);
+            background-color: #f8fafc;
         }
 
-        .status-badge {
-            background: #27ae60;
-            color: white;
-            padding: 3px 10px;
+        tr:hover {
+            background-color: #f1f5f9;
+        }
+
+        /* Form Controls & Payments */
+        .form-container {
+            background: #fff;
+            padding: 30px;
             border-radius: 12px;
-            font-size: 11px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(19, 64, 116, 0.1);
+        }
+
+        .btn-submit {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-submit:hover {
+            background-color: #d62828;
+        }
+
+        /* Payment Selector Tabs */
+        .payment-toggle {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .pay-tab {
+            flex: 1;
+            min-width: 180px;
+            padding: 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            background: #f8fafc;
+        }
+
+        .pay-tab.active {
+            border-color: var(--secondary-color);
+            background: #eff6ff;
+            color: var(--secondary-color);
+        }
+
+        /* Receipt Box Styling */
+        .receipt-card {
+            background: #fff;
+            border: 2px solid var(--secondary-color);
+            border-radius: 10px;
+            padding: 25px;
+            max-width: 600px;
+            margin: 20px auto;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            position: relative;
+        }
+
+        .receipt-header {
+            text-align: center;
+            border-bottom: 2px dashed #cbd5e1;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .receipt-header h3 {
+            color: var(--primary-color);
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .receipt-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 14px;
+        }
+
+        .receipt-row .label {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .receipt-row .value {
+            color: var(--text-dark);
             font-weight: 600;
         }
 
-        /* Gallery Grid */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 15px;
-        }
-
-        .gallery-item {
-            position: relative;
-            border-radius: 10px;
-            overflow: hidden;
-            height: 160px;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: 0.4s;
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.08);
-        }
-
-        .gallery-caption {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(0,0,0,0.7));
-            color: var(--white);
-            padding: 8px 12px;
+        .status-badge {
+            display: inline-block;
+            background: #dcfce7;
+            color: #15803d;
+            padding: 4px 12px;
+            border-radius: 20px;
             font-size: 12px;
+            font-weight: 600;
         }
 
         /* Footer */
         footer {
-            background: var(--primary-dark);
-            color: var(--white);
-            padding: 50px 5% 20px;
+            background-color: var(--primary-color);
+            color: #cbd5e1;
+            padding: 40px 5% 20px;
             margin-top: 50px;
+            font-size: 14px;
         }
 
         .footer-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 30px;
-            max-width: 1250px;
+            margin-bottom: 30px;
+            max-width: 1300px;
             margin: 0 auto 30px;
         }
 
-        .footer-col h3 {
-            font-size: 18px;
-            margin-bottom: 18px;
-            color: var(--secondary);
-            position: relative;
-            padding-bottom: 8px;
-        }
-
-        .footer-col h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 35px;
-            height: 2px;
-            background: var(--secondary);
+        .footer-col h4 {
+            color: #fff;
+            margin-bottom: 15px;
+            font-size: 16px;
         }
 
         .footer-col p, .footer-col li {
-            font-size: 13px;
-            opacity: 0.9;
             line-height: 1.8;
+            font-size: 13px;
         }
 
         .footer-col ul {
             list-style: none;
         }
 
-        .footer-col ul li a {
-            color: var(--white);
-            text-decoration: none;
-            transition: 0.3s;
-        }
-
-        .footer-col ul li a:hover {
-            color: var(--secondary);
-            padding-left: 5px;
-        }
-
         .footer-bottom {
             text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.1);
             padding-top: 20px;
-            font-size: 12px;
-            opacity: 0.8;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 13px;
+            color: #94a3b8;
         }
 
-        /* Print CSS Rules */
-        @media print {
-            body * {
-                visibility: hidden;
-            }
-            #receiptBox, #receiptBox * {
-                visibility: visible;
-            }
-            #receiptBox {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-                border: none;
-                box-shadow: none;
-            }
-            .btn-print {
-                display: none;
-            }
-        }
-
-        /* Responsive Mobile Styling */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
+            header {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
             }
-            .hero h2 {
-                font-size: 26px;
+            .brand {
+                flex-direction: column;
             }
-            .hero p {
-                font-size: 14px;
-            }
-            .grid-3, .grid-2 {
+            .grid-2, .grid-3 {
                 grid-template-columns: 1fr;
+            }
+            .top-bar {
+                flex-direction: column;
+                gap: 5px;
+                text-align: center;
             }
         }
     </style>
@@ -692,54 +590,80 @@
 
     <!-- Top Contact Bar -->
     <div class="top-bar">
-        <div class="contact-info">
-            <span><i class="fa-solid fa-phone"></i> 8617061244 / 7384361623</span>
-            <span><i class="fa-solid fa-envelope"></i> jkbnationalschool@gmail.com</span>
-            <span><i class="fa-solid fa-location-dot"></i> Chandermore, Sujnipara, Murshidabad</span>
+        <div>
+            <span class="info-item"><i class="fa-solid fa-phone"></i> Helpline: +91 8617061244 / 7384361623</span>
+            <span class="info-item"><i class="fa-solid fa-envelope"></i> jkbnationalschool@gmail.com</span>
         </div>
         <div>
-            <span class="badge-admission"><i class="fa-solid fa-graduation-cap"></i> ADMISSION OPEN 2026</span>
+            <span class="info-item"><i class="fa-solid fa-location-dot"></i> Chandermore, Sujnipara Station Road, Murshidabad - 742201</span>
         </div>
     </div>
 
-    <!-- Main Navigation Bar -->
-    <nav>
-        <div class="logo-container">
-            <div class="logo-icon">JKB</div>
-            <div class="logo-text">
+    <!-- Main Header -->
+    <header>
+        <div class="brand">
+            <div class="brand-logo">JKB</div>
+            <div class="brand-text">
                 <h1>J.K.B. NATIONAL SCHOOL</h1>
-                <p>Bengali & CBSE Curriculum | English Medium</p>
+                <p>Bengali & CBSE Curriculum | English Medium | Hostel Available</p>
             </div>
         </div>
-        <ul class="nav-links">
-            <li><a href="#about">আমাদের কথা</a></li>
-            <li><a href="#admission">ভর্তি তথ্য</a></li>
-            <li><a href="#teachers">শিক্ষকমণ্ডলী</a></li>
-            <li><a href="#hostel">হোস্টেল ও ফি</a></li>
-            <li><a href="#gallery">গ্যালারি</a></li>
-            <li><a href="#fee-portal" class="btn-pay-nav"><i class="fa-solid fa-wallet"></i> ফি জমা দিন</a></li>
-        </ul>
+        <div>
+            <button class="btn-submit" onclick="switchPage('admission')" style="padding: 8px 16px; font-size: 13px;">
+                <i class="fa-solid fa-graduation-cap"></i> Admission 2026 Open
+            </button>
+        </div>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="nav-container">
+            <button class="nav-btn active" onclick="switchPage('home')"><i class="fa-solid fa-house"></i> Home</button>
+            <button class="nav-btn" onclick="switchPage('about')"><i class="fa-solid fa-circle-info"></i> About Us</button>
+            <button class="nav-btn" onclick="switchPage('teachers')"><i class="fa-solid fa-chalkboard-user"></i> Faculty Members</button>
+            <button class="nav-btn" onclick="switchPage('admission')"><i class="fa-solid fa-user-plus"></i> Admission Portal</button>
+            <button class="nav-btn" onclick="switchPage('fees')"><i class="fa-solid fa-credit-card"></i> Fees & Payments</button>
+            <button class="nav-btn" onclick="switchPage('food')"><i class="fa-solid fa-utensils"></i> Hostel Food Chart</button>
+            <button class="nav-btn" onclick="switchPage('rules')"><i class="fa-solid fa-scroll"></i> Discipline & Rules</button>
+            <button class="nav-btn" onclick="switchPage('student-portal')"><i class="fa-solid fa-id-card"></i> Student Portal</button>
+        </div>
     </nav>
 
-    <!-- Hero Banner Section -->
-    <section class="hero">
-        <h2>শিক্ষার্থীদের স্বপ্ন পূরণের একমাত্র প্রতিষ্ঠান</h2>
-        <p>"শিক্ষাই ভবিষ্যতের চাবিকাঠি, কারণ আগামীকাল তাদেরই, যারা আজ প্রস্তুতি নেয়!"</p>
-        <div class="hero-badges">
-            <span class="hero-badge"><i class="fa-solid fa-check"></i> Class I - IV (Day School)</span>
-            <span class="hero-badge"><i class="fa-solid fa-check"></i> Class V - XII (Science & Arts)</span>
-            <span class="hero-badge"><i class="fa-solid fa-hotel"></i> Hostel Facility Available</span>
-        </div>
-        <div class="hero-btns">
-            <a href="#fee-portal" class="btn-hero btn-primary-hero"><i class="fa-solid fa-credit-card"></i> অনলাইন ফি পেমেন্ট</a>
-            <a href="#admission" class="btn-hero btn-secondary-hero"><i class="fa-solid fa-file-signature"></i> ভর্তি প্রক্রিয়া ২০২৬</a>
-        </div>
-    </section>
+    <!-- Main Content Pages Container -->
+    <main>
 
-    <!-- Main Container -->
-    <div class="main-container">
+        <!-- PAGE 1: HOME -->
+        <section id="home" class="page-content active">
+            <div class="hero">
+                <h2>Welcome to J.K.B. NATIONAL SCHOOL</h2>
+                <p>Empowering students to achieve their dreams through academic excellence, character building, and holistic education in a supportive environment.</p>
+                <div class="quote">"Education is the key to the future, for tomorrow belongs to those who prepare for it today!"</div>
+            </div>
 
-        <!-- Admission & Key Dates Section -->
-        <div class="section-title" id="admission">
-            <h2>ভর্তি তথ্য ও সময়সূচী (২০২৬)</h2>
-        
+            <h2 class="section-title">Important Dates for Admission (2026)</h2>
+            <div class="grid-3">
+                <div class="card" style="border-top: 4px solid #0284c7;">
+                    <h3><i class="fa-solid fa-calendar-check"></i> Admission Starts</h3>
+                    <p style="font-size: 20px; font-weight: 600; color: #0284c7; margin-top: 10px;">February 02, 2026</p>
+                    <p style="font-size: 13px; color: var(--text-muted); margin-top: 5px;">Application forms available online & offline.</p>
+                </div>
+                <div class="card" style="border-top: 4px solid #e11d48;">
+                    <h3><i class="fa-solid fa-file-pen"></i> Entrance Exam</h3>
+                    <p style="font-size: 20px; font-weight: 600; color: #e11d48; margin-top: 10px;">February 21, 2026</p>
+                    <p style="font-size: 13px; color: var(--text-muted); margin-top: 5px;">Mandatory entrance assessment test.</p>
+                </div>
+                <div class="card" style="border-top: 4px solid #16a34a;">
+                    <h3><i class="fa-solid fa-school-flag"></i> Classes Commence</h3>
+                    <p style="font-size: 20px; font-weight: 600; color: #16a34a; margin-top: 10px;">March 01, 2026</p>
+                    <p style="font-size: 13px; color: var(--text-muted); margin-top: 5px;">Orientation & regular class schedules start.</p>
+                </div>
+            </div>
+
+            <h2 class="section-title">Academic Facilities & Offerings</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <h3><i class="fa-solid fa-book-open-reader"></i> Academic Excellence</h3>
+                    <ul>
+                        <li><i class="fa-solid fa-check-circle"></i> Daily basis study materials provided</li>
+                        <li><i class="fa-solid fa-check-circle"></i> Regular unit tests & class tests</li>
+                        <

@@ -289,10 +289,10 @@
 
             <!-- Mode Switcher -->
             <div style="display: flex; gap: 10px; margin-bottom: 20px;">
-                <button id="btnOnlineMode" onclick="switchMode('online')" style="flex: 1; padding: 10px; background: var(--primary); color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;">
+                <button id="btnOnlineMode" type="button" onclick="switchMode('online')" style="flex: 1; padding: 10px; background: var(--primary); color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;">
                     📱 Online Pay (QR Code)
                 </button>
-                <button id="btnCashMode" onclick="switchMode('cash')" style="flex: 1; padding: 10px; background: #edf2f7; color: #2d3748; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;">
+                <button id="btnCashMode" type="button" onclick="switchMode('cash')" style="flex: 1; padding: 10px; background: #edf2f7; color: #2d3748; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;">
                     💵 Hand Cash Entry
                 </button>
             </div>
@@ -323,7 +323,7 @@
 
                 <div style="margin-bottom: 12px;">
                     <label style="display: block; font-weight: bold; margin-bottom: 5px; font-size: 14px;">Roll No (রোল নম্বর: 1 থেকে 50):</label>
-                    <input type="number" id="inputRoll" min="1" max="50" placeholder="যেমন: 5" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box;">
+                    <input type="text" id="inputRoll" placeholder="যেমন: 1 বা ০১" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box;">
                 </div>
 
                 <div style="margin-bottom: 15px;">
@@ -331,7 +331,7 @@
                     <input type="text" id="inputName" placeholder="Enter Full Name" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box;">
                 </div>
 
-                <button onclick="verifyStudent()" style="width: 100%; background: var(--secondary); color: #fff; padding: 11px; border: none; border-radius: 6px; font-size: 15px; cursor: pointer; font-weight: bold;">
+                <button type="button" onclick="verifyStudent()" style="width: 100%; background: var(--secondary); color: #fff; padding: 11px; border: none; border-radius: 6px; font-size: 15px; cursor: pointer; font-weight: bold;">
                     Submit & Continue
                 </button>
 
@@ -357,7 +357,7 @@
                 <form id="paymentForm">
                     <div style="margin-bottom: 12px;">
                         <label style="display: block; font-weight: bold; margin-bottom: 5px; font-size: 14px;">Fee Amount (টাকার পরিমাণ ₹):</label>
-                        <input type="number" id="feeAmount" required placeholder="যেমন: 500" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box;">
+                        <input type="text" id="feeAmount" required placeholder="যেমন: 500" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box;">
                     </div>
 
                     <div id="txnInputGroup" style="margin-bottom: 18px;">
@@ -413,7 +413,7 @@
                     </div>
                 </div>
                 
-                <button class="no-print" onclick="window.print()" style="display: block; width: 100%; background: #2b6cb0; color: white; padding: 12px; border: none; border-radius: 6px; font-size: 15px; cursor: pointer; margin-top: 20px; font-weight: bold;">
+                <button type="button" class="no-print" onclick="window.print()" style="display: block; width: 100%; background: #2b6cb0; color: white; padding: 12px; border: none; border-radius: 6px; font-size: 15px; cursor: pointer; margin-top: 20px; font-weight: bold;">
                     🖨️ Download / Print Clean Receipt
                 </button>
             </div>
@@ -456,7 +456,6 @@
         let studentData = {};
         let currentMode = 'online';
 
-        function switchMode(mode) {
-            currentMode = mode;
-            const btnOnline = document.getElementById('btnOnlineMode');
-            const btnCash = document.g
+        // বাংলা থেকে ইংরেজি সংখ্যায় রূপান্তর করার ফাংশন
+        function banglaToEnglishDigits(str) {
+            const banglaDigits = [

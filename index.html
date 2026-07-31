@@ -478,13 +478,374 @@
         <p>At J.K.B. National School (H.S), we provide quality education blended with moral values, modern technology, and comprehensive co-curricular growth.</p>
         <a href="#admissions" class="btn">Admissions Open 2026</a>
     </section>
-    [ Student Roll No / ID          ]
-[ Select Month / Fee Type       ] (Dropdown: Monthly Fee, Exam Fee, etc.)
-[ Amount to Pay                 ]
-Select Payment Method:
-( ) UPI (Google Pay, PhonePe, Paytm)
-( ) Net Banking / Credit / Debit Card
-[ PROCEED TO SECURE PAYMENT ]
+    <!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fees & Payments System</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #f0f2f5;
+            padding: 20px;
+        }
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #1a73e8;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #1a73e8;
+            padding-bottom: 10px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 15px;
+        }
+        .error-msg {
+            color: red;
+            font-size: 13px;
+            margin-top: 5px;
+            display: none;
+        }
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-submit { background-color: #28a745; color: white; }
+        .btn-submit:hover { background-color: #218838; }
+        .btn-history { background-color: #17a2b8; color: white; }
+        .btn-history:hover { background-color: #138496; }
+        .btn-print { background-color: #007bff; color: white; margin-top: 15px; }
+
+        /* Step Panels */
+        .page { display: none; }
+        .active { display: block; }
+
+        /* QR Code Styling */
+        .qr-box {
+            text-align: center;
+            padding: 20px;
+            border: 2px dashed #1a73e8;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        .qr-box img {
+            width: 180px;
+            height: 180px;
+            margin-bottom: 10px;
+        }
+
+        /* Receipt Style */
+        .receipt {
+            border: 2px solid #333;
+            padding: 20px;
+            border-radius: 5px;
+            background: #fff8dc;
+        }
+        .receipt-header {
+            text-align: center;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .receipt-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        /* History Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+            font-size: 14px;
+        }
+        th { background-color: #1a73e8; color: white; }
+
+        @media print {
+            body * { visibility: hidden; }
+            .printable, .printable * { visibility: visible; }
+            .printable { position: absolute; left: 0; top: 0; width: 100%; }
+            .no-print { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- PAGE 1: Payment Form -->
+    <div id="page-form" class="page active">
+        <h2>Fees & Payments Portal</h2>
+        <form id="paymentForm">
+            <div class="form-group">
+                <label>ছাত্র/ছাত্রীর নাম:</label>
+                <input type="text" id="studentName" required placeholder="পুরো নাম লিখুন">
+            </div>
+
+            <div class="form-group">
+                <label>ক্লাস (Class):</label>
+                <select id="studentClass" required>
+                    <option value="">-- নির্বাচন করুন --</option>
+                    <option value="Nursery">Nursery</option>
+                    <option value="LKG">LKG</option>
+                    <option value="UKG">UKG</option>
+                    <option value="Class 1">Class 1</option>
+                    <option value="Class 2">Class 2</option>
+                    <option value="Class 3">Class 3</option>
+                    <option value="Class 4">Class 4</option>
+                    <option value="Class 5">Class 5</option>
+                    <option value="Class 6">Class 6</option>
+                    <option value="Class 7">Class 7</option>
+                    <option value="Class 8">Class 8</option>
+                    <option value="Class 9">Class 9</option>
+                    <option value="Class 10">Class 10</option>
+                    <option value="Class 11">Class 11</option>
+                    <option value="Class 12">Class 12</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>রোল নম্বর (যেমন: 202401 থেকে 202450):</label>
+                <input type="number" id="rollNo" required placeholder="202401">
+                <div class="error-msg" id="rollError">Invalid Roll Number! রোল নম্বর অবশ্যই 2024 দিয়ে শুরু হতে হবে এবং শেষের নম্বর 01 থেকে 50 এর মধ্যে হতে হবে।</div>
+            </div>
+
+            <div class="form-group">
+                <label>পেমেন্টের পরিমাণ (টাকা):</label>
+                <input type="number" id="amount" required placeholder="যেমন: 500">
+            </div>
+
+            <div class="form-group">
+                <label>পেমেন্ট মেথড (Payment Method):</label>
+                <select id="paymentMethod" required>
+                    <option value="online">Online Payment (UPI/QR Code)</option>
+                    <option value="cash">Hand Cash Payment (নগদ)</option>
+                </select>
+            </div>
+
+            <div class="btn-group">
+                <button type="button" class="btn-submit" onclick="processPayment()">পরবর্তী ধাপ (Next)</button>
+                <button type="button" class="btn-history" onclick="showHistoryPage()">অনলাইন পেমেন্ট স্লিপ</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- PAGE 2: Online Payment / QR Code Page -->
+    <div id="page-qr" class="page">
+        <h2>অনলাইন পেমেন্ট (UPI / QR Code)</h2>
+        <div class="qr-box">
+            <p>নিচের QR Code টি স্ক্যান করে পেমেন্ট সম্পূর্ণ করুন</p>
+            <!-- ডামি QR কোড ছবি -->
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=school@upi&pn=SchoolFees" alt="QR Code">
+            <p><strong>UPI ID:</strong> school@upi</p>
+            <p>পেমেন্ট সম্পন্ন হলে নিচের বাটনে ক্লিক করুন:</p>
+            <button class="btn-submit" style="margin-top: 15px;" onclick="generateReceipt('Online (UPI)')">পেমেন্ট কনফার্ম করুন</button>
+        </div>
+    </div>
+
+    <!-- PAGE 3: Payment Receipt -->
+    <div id="page-receipt" class="page">
+        <div id="receiptContent" class="printable receipt">
+            <div class="receipt-header">
+                <h2>স্কুল পেমেন্ট রিসিভ</h2>
+                <p>পেমেন্ট স্লিপ / Payment Receipt</p>
+            </div>
+            <div class="receipt-row"><span>তারিখ:</span> <strong id="rDate"></strong></div>
+            <div class="receipt-row"><span>রিসিভ নং:</span> <strong id="rTxn"></strong></div>
+            <hr style="margin: 10px 0;">
+            <div class="receipt-row"><span>ছাত্র/ছাত্রীর নাম:</span> <span id="rName"></span></div>
+            <div class="receipt-row"><span>ক্লাস:</span> <span id="rClass"></span></div>
+            <div class="receipt-row"><span>রোল নম্বর:</span> <span id="rRoll"></span></div>
+            <div class="receipt-row"><span>পেমেন্ট টাইপ:</span> <span id="rMethod"></span></div>
+            <div class="receipt-row"><span>মোট টাকার পরিমাণ:</span> <span id="rAmount" style="font-size:18px; font-weight:bold; color:green;"></span></div>
+            <hr style="margin: 10px 0;">
+            <p style="text-align: center; font-size: 12px;">ধন্যবাদ! আপনার পেমেন্ট সফলভাবে জমা হয়েছে।</p>
+        </div>
+        <button class="btn-print no-print" onclick="window.print()">স্লিপ প্রিন্ট / ডাউনলোড করুন</button>
+        <button class="btn-history no-print" style="margin-top: 10px;" onclick="resetForm()">নতুন পেমেন্ট করুন</button>
+    </div>
+
+    <!-- PAGE 4: Payment History (All Stored Slips) -->
+    <div id="page-history" class="page">
+        <h2>অনলাইন ও ক্যাশ পেমেন্ট স্লিপ হিস্ট্রি</h2>
+        <div style="overflow-x:auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>তারিখ</th>
+                        <th>নাম</th>
+                        <th>ক্লাস</th>
+                        <th>রোল</th>
+                        <th>মেথড</th>
+                        <th>টাকা</th>
+                    </tr>
+                </thead>
+                <tbody id="historyTableBody">
+                    <!-- JavaScript generated content -->
+                </tbody>
+            </table>
+        </div>
+        <button class="btn-submit" style="margin-top: 20px;" onclick="showPage('page-form')">ফর্মে ফিরে যান</button>
+    </div>
+
+</div>
+
+<script>
+    // LocalStorage array for saving slips
+    let paymentHistory = JSON.parse(localStorage.getItem('schoolPayments')) || [];
+
+    // Helper function to switch pages
+    function showPage(pageId) {
+        document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+    }
+
+    // Roll Number Validation & Processing
+    function processPayment() {
+        const name = document.getElementById('studentName').value.trim();
+        const studentClass = document.getElementById('studentClass').value;
+        const roll = document.getElementById('rollNo').value.trim();
+        const amount = document.getElementById('amount').value;
+        const method = document.getElementById('paymentMethod').value;
+        const rollError = document.getElementById('rollError');
+
+        if (!name || !studentClass || !roll || !amount) {
+            alert("দয়া করে সমস্ত তথ্য সঠিকভাবে পূরণ করুন!");
+            return;
+        }
+
+        // Roll validation: Must start with 2024 and followed by 01 to 50
+        const rollPattern = /^2024(0[1-9]|[1-4][0-9]|50)$/;
+
+        if (!rollPattern.test(roll)) {
+            rollError.style.display = 'block';
+            return;
+        } else {
+            rollError.style.display = 'none';
+        }
+
+        // If validation passed
+        if (method === 'online') {
+            showPage('page-qr');
+        } else {
+            // Hand cash directly generates receipt without QR page
+            generateReceipt('Hand Cash (নগদ)');
+        }
+    }
+
+    // Generate Final Receipt & Save
+    function generateReceipt(payMethodText) {
+        const name = document.getElementById('studentName').value.trim();
+        const studentClass = document.getElementById('studentClass').value;
+        const roll = document.getElementById('rollNo').value.trim();
+        const amount = document.getElementById('amount').value;
+        const date = new Date().toLocaleDateString('bn-BD') + ' ' + new Date().toLocaleTimeString('bn-BD');
+        const txnId = 'REC' + Math.floor(100000 + Math.random() * 900000);
+
+        // Populate receipt fields
+        document.getElementById('rDate').innerText = date;
+        document.getElementById('rTxn').innerText = txnId;
+        document.getElementById('rName').innerText = name;
+        document.getElementById('rClass').innerText = studentClass;
+        document.getElementById('rRoll').innerText = roll;
+        document.getElementById('rMethod').innerText = payMethodText;
+        document.getElementById('rAmount').innerText = '৳ ' + amount;
+
+        // Save to Local Data Storage
+        const record = {
+            date: date,
+            name: name,
+            studentClass: studentClass,
+            roll: roll,
+            method: payMethodText,
+            amount: amount
+        };
+        paymentHistory.push(record);
+        localStorage.setItem('schoolPayments', JSON.stringify(paymentHistory));
+
+        // Show Receipt Page
+        showPage('page-receipt');
+    }
+
+    // Show Payment Slips History Page
+    function showHistoryPage() {
+        const tbody = document.getElementById('historyTableBody');
+        tbody.innerHTML = '';
+
+        if (paymentHistory.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6">কোন পেমেন্ট রেকর্ড পাওয়া যায়নি।</td></tr>';
+        } else {
+            paymentHistory.forEach(item => {
+                const row = `<tr>
+                    <td>${item.date}</td>
+                    <td>${item.name}</td>
+                    <td>${item.studentClass}</td>
+                    <td>${item.roll}</td>
+                    <td>${item.method}</td>
+                    <td>৳ ${item.amount}</td>
+                </tr>`;
+                tbody.innerHTML += row;
+            });
+        }
+
+        showPage('page-history');
+    }
+
+    // Reset Form for Next Entry
+    function resetForm() {
+        document.getElementById('paymentForm').reset();
+        document.getElementById('rollError').style.display = 'none';
+        showPage('page-form');
+    }
+</script>
+
+</body>
+    </html>
+    
     
 
     <!-- Main Content Container -->

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>J.K.B. National School | Fee & Billing Portal</title>
+    <title>J.K.B. National School | Official School Portal</title>
     <!-- Google Fonts & FontAwesome Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -51,8 +51,15 @@
             gap: 10px;
         }
 
-        .top-bar .contact-info span { margin-right: 20px; }
-        .top-bar .contact-info i { margin-right: 6px; color: var(--secondary); }
+        .top-bar .contact-info span {
+            margin-right: 20px;
+        }
+
+        .top-bar .contact-info i {
+            margin-right: 6px;
+            color: var(--secondary);
+        }
+
         .top-bar .badge-admission {
             background: var(--accent);
             color: var(--white);
@@ -60,6 +67,13 @@
             border-radius: 20px;
             font-weight: 600;
             font-size: 12px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
         /* Navbar */
@@ -75,7 +89,12 @@
             align-items: center;
         }
 
-        .logo-container { display: flex; align-items: center; gap: 12px; }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
         .logo-icon {
             width: 48px;
             height: 48px;
@@ -87,29 +106,184 @@
             justify-content: center;
             font-size: 22px;
             font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,168,255,0.3);
         }
 
-        .logo-text h1 { font-size: 20px; color: var(--primary-dark); line-height: 1.2; font-weight: 700; }
-        .logo-text p { font-size: 11px; color: #666; text-transform: uppercase; }
+        .logo-text h1 {
+            font-size: 20px;
+            color: var(--primary-dark);
+            line-height: 1.2;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
 
-        .nav-links { display: flex; gap: 25px; list-style: none; align-items: center; }
-        .nav-links a { text-decoration: none; color: var(--dark); font-weight: 500; font-size: 15px; }
-        
+        .logo-text p {
+            font-size: 11px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
         .btn-pay-nav {
             background: var(--primary);
             color: var(--white) !important;
             padding: 8px 18px;
             border-radius: 25px;
             font-weight: 600 !important;
+            box-shadow: 0 4px 10px rgba(0,136,204,0.25);
         }
 
-        /* Main Container */
-        .main-container { max-width: 1250px; margin: 40px auto; padding: 0 20px; }
-        .section-title { text-align: center; margin-bottom: 35px; }
-        .section-title h2 { font-size: 28px; color: var(--primary-dark); position: relative; display: inline-block; padding-bottom: 10px; }
-        .section-title h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 60px; height: 3px; background: var(--primary); }
+        .btn-pay-nav:hover {
+            background: var(--primary-dark);
+        }
 
-        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 25px; margin-bottom: 40px; }
+        /* Hero Banner */
+        .hero {
+            background: linear-gradient(rgba(0, 85, 128, 0.85), rgba(0, 168, 255, 0.75)), url('https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1350&q=80') center/cover;
+            color: var(--white);
+            text-align: center;
+            padding: 80px 20px;
+            position: relative;
+        }
+
+        .hero h2 {
+            font-size: 38px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 18px;
+            max-width: 750px;
+            margin: 0 auto 25px;
+            opacity: 0.95;
+        }
+
+        .hero-badges {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .hero-badge {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .hero-btns {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-hero {
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .btn-primary-hero {
+            background: var(--white);
+            color: var(--primary-dark);
+        }
+
+        .btn-primary-hero:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary-hero {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-secondary-hero:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-2px);
+        }
+
+        /* Container & Sections */
+        .main-container {
+            max-width: 1250px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .section-title h2 {
+            font-size: 28px;
+            color: var(--primary-dark);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            color: #666;
+            font-size: 15px;
+            margin-top: 8px;
+        }
+
+        /* Grid Layouts */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
 
         /* Cards */
         .card {
@@ -118,6 +292,11 @@
             border-radius: var(--radius);
             box-shadow: var(--shadow);
             border-top: 4px solid var(--primary);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
         }
 
         .card h3 {
@@ -131,9 +310,23 @@
             padding-bottom: 10px;
         }
 
+        .card h3 i {
+            color: var(--primary);
+        }
+
         /* Forms */
-        .form-group { margin-bottom: 15px; }
-        label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; color: var(--dark); }
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+
         input, select {
             width: 100%;
             padding: 11px;
@@ -142,8 +335,45 @@
             font-size: 14px;
             outline: none;
             background-color: #fafdfd;
+            transition: 0.3s;
         }
-        input:focus, select:focus { border-color: var(--primary); background-color: var(--white); }
+
+        input:focus, select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 8px rgba(0, 168, 255, 0.25);
+            background-color: var(--white);
+        }
+
+        .qr-box {
+            text-align: center;
+            background: var(--primary-light);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px dashed var(--primary);
+            margin-bottom: 18px;
+        }
+
+        .qr-box p {
+            font-size: 12px;
+            color: var(--primary-dark);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .qr-placeholder {
+            width: 120px;
+            height: 120px;
+            background: var(--white);
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--gray-border);
+            font-size: 11px;
+            color: #777;
+            border-radius: 8px;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+        }
 
         .btn-action {
             width: 100%;
@@ -155,134 +385,305 @@
             font-weight: 600;
             font-size: 15px;
             cursor: pointer;
+            transition: 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            transition: 0.3s;
         }
-        .btn-action:hover { background: var(--primary-dark); }
 
-        /* Receipt Card Display (On Screen) */
+        .btn-action:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Receipt Box */
         .receipt-box {
             display: none;
-            border: 2px solid #000;
-            padding: 25px;
-            border-radius: 8px;
+            border: 2px solid var(--primary);
+            padding: 20px;
+            border-radius: var(--radius);
             background: var(--white);
-            color: #000;
-        }
-
-        .receipt-header-screen {
-            text-align: center;
-            border-bottom: 2px solid #000;
-            padding-bottom: 10px;
-            margin-bottom: 15px;
-        }
-        .receipt-header-screen h4 { font-size: 20px; font-weight: 700; text-transform: uppercase; }
-        .receipt-header-screen p { font-size: 12px; }
-
-        .receipt-field {
-            display: flex;
-            justify-content: space-between;
-            font-size: 14px;
-            padding: 6px 0;
-            border-bottom: 1px dashed #ccc;
-            color: #000;
-        }
-        .receipt-field strong { font-weight: 700; }
-
-        .btn-print-receipt {
-            background: #27ae60;
-            color: white;
-            margin-top: 20px;
-        }
-        .btn-print-receipt:hover { background: #219150; }
-
-        /* QR Payment Modal Page */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-        }
-        .modal-card {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            max-width: 420px;
-            width: 90%;
-            text-align: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
             position: relative;
         }
-        .modal-card h3 { color: var(--primary-dark); margin-bottom: 10px; }
-        .qr-image-box {
-            width: 180px;
-            height: 180px;
-            background: #f0f0f0;
-            margin: 15px auto;
-            border: 2px dashed var(--primary);
+
+        .receipt-header {
+            text-align: center;
+            border-bottom: 2px double var(--primary);
+            padding-bottom: 12px;
+            margin-bottom: 15px;
+        }
+
+        .receipt-header h4 {
+            color: var(--primary-dark);
+            font-size: 18px;
+        }
+
+        .receipt-header p {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .receipt-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            margin-bottom: 10px;
+            border-bottom: 1px dashed #eee;
+            padding-bottom: 5px;
+        }
+
+        .btn-print {
+            background: #27ae60;
+            margin-top: 15px;
+        }
+
+        .btn-print:hover {
+            background: #219150;
+        }
+
+        /* Feature Lists */
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-list li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .feature-list li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+
+        /* Timeline Info */
+        .dates-list {
+            list-style: none;
+        }
+
+        .dates-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--primary-light);
+            font-size: 14px;
+        }
+
+        .dates-list li strong {
+            color: var(--primary-dark);
+        }
+
+        /* Teacher List */
+        .teacher-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .teacher-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            color: var(--primary);
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .teacher-info h4 {
+            font-size: 14px;
+            color: var(--dark);
+        }
+
+        .teacher-info p {
+            font-size: 12px;
+            color: #666;
         }
 
         /* Table Design */
-        .table-responsive { overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 10px; background: var(--white); }
-        th, td { border: 1px solid var(--gray-border); padding: 10px 12px; text-align: left; }
-        th { background: var(--primary); color: var(--white); font-weight: 600; }
-        tr:nth-child(even) { background-color: var(--primary-light); }
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            margin-top: 10px;
+            background: var(--white);
+        }
+
+        th, td {
+            border: 1px solid var(--gray-border);
+            padding: 10px 12px;
+            text-align: left;
+        }
+
+        th {
+            background: var(--primary);
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: var(--primary-light);
+        }
+
+        .status-badge {
+            background: #27ae60;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 160px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.4s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: var(--white);
+            padding: 8px 12px;
+            font-size: 12px;
+        }
 
         /* Footer */
-        footer { background: var(--primary-dark); color: var(--white); padding: 30px 5% 15px; margin-top: 50px; text-align: center; font-size: 13px; }
+        footer {
+            background: var(--primary-dark);
+            color: var(--white);
+            padding: 50px 5% 20px;
+            margin-top: 50px;
+        }
 
-        /* ==========================================
-           CRITICAL FIX: PRINT STYLING (PURE BLACK)
-           ========================================== */
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1250px;
+            margin: 0 auto 30px;
+        }
+
+        .footer-col h3 {
+            font-size: 18px;
+            margin-bottom: 18px;
+            color: var(--secondary);
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 35px;
+            height: 2px;
+            background: var(--secondary);
+        }
+
+        .footer-col p, .footer-col li {
+            font-size: 13px;
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li a {
+            color: var(--white);
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--secondary);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        /* Print CSS Rules */
         @media print {
-            /* Hide EVERYTHING on the page */
             body * {
-                visibility: hidden !important;
+                visibility: hidden;
             }
-            
-            /* Show ONLY the receipt box */
             #receiptBox, #receiptBox * {
-                visibility: visible !important;
+                visibility: visible;
             }
-
             #receiptBox {
-                position: absolute !important;
-                left: 0 !important;
-                top: 0 !important;
-                width: 100% !important;
-                border: 2px solid #000000 !important;
-                padding: 20px !important;
-                background: #ffffff !important;
-                color: #000000 !important; /* Pure Black Ink */
-                box-shadow: none !important;
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                border: none;
+                box-shadow: none;
             }
-
-            /* Ensure all text inside receipt is solid black */
-            #receiptBox *, #receiptBox h4, #receiptBox p, #receiptBox span, #receiptBox strong {
-                color: #000000 !important;
-                border-color: #000000 !important;
+            .btn-print {
+                display: none;
             }
+        }
 
-            /* Hide print button on PDF output */
-            .btn-print-receipt {
-                display: none !important;
+        /* Responsive Mobile Styling */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
             }
-
-            /* Reset page margins to prevent blank extra pages */
-            @page {
-                size: auto;
-                margin: 15mm;
+            .hero h2 {
+                font-size: 26px;
+            }
+            .hero p {
+                font-size: 14px;
+            }
+            .grid-3, .grid-2 {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -301,7 +702,7 @@
         </div>
     </div>
 
-    <!-- Navigation Bar -->
+    <!-- Main Navigation Bar -->
     <nav>
         <div class="logo-container">
             <div class="logo-icon">JKB</div>
@@ -311,164 +712,34 @@
             </div>
         </div>
         <ul class="nav-links">
+            <li><a href="#about">আমাদের কথা</a></li>
+            <li><a href="#admission">ভর্তি তথ্য</a></li>
+            <li><a href="#teachers">শিক্ষকমণ্ডলী</a></li>
+            <li><a href="#hostel">হোস্টেল ও ফি</a></li>
+            <li><a href="#gallery">গ্যালারি</a></li>
             <li><a href="#fee-portal" class="btn-pay-nav"><i class="fa-solid fa-wallet"></i> ফি জমা দিন</a></li>
         </ul>
     </nav>
 
+    <!-- Hero Banner Section -->
+    <section class="hero">
+        <h2>শিক্ষার্থীদের স্বপ্ন পূরণের একমাত্র প্রতিষ্ঠান</h2>
+        <p>"শিক্ষাই ভবিষ্যতের চাবিকাঠি, কারণ আগামীকাল তাদেরই, যারা আজ প্রস্তুতি নেয়!"</p>
+        <div class="hero-badges">
+            <span class="hero-badge"><i class="fa-solid fa-check"></i> Class I - IV (Day School)</span>
+            <span class="hero-badge"><i class="fa-solid fa-check"></i> Class V - XII (Science & Arts)</span>
+            <span class="hero-badge"><i class="fa-solid fa-hotel"></i> Hostel Facility Available</span>
+        </div>
+        <div class="hero-btns">
+            <a href="#fee-portal" class="btn-hero btn-primary-hero"><i class="fa-solid fa-credit-card"></i> অনলাইন ফি পেমেন্ট</a>
+            <a href="#admission" class="btn-hero btn-secondary-hero"><i class="fa-solid fa-file-signature"></i> ভর্তি প্রক্রিয়া ২০২৬</a>
+        </div>
+    </section>
+
     <!-- Main Container -->
     <div class="main-container">
 
-        <div class="section-title" id="fee-portal">
-            <h2>অনলাইন ফি পেমেন্ট ও অটোমেটিক বিলিং</h2>
-            <p>সহজে পেমেন্ট অপশন বাছুন এবং সুনির্দিষ্ট ও স্পষ্ট ডিজিটাল রসিদ সংগ্রহ করুন</p>
-        </div>
-
-        <div class="grid-2">
-            <!-- Fee Submission Form Card -->
-            <div class="card">
-                <h3><i class="fa-solid fa-money-check-dollar"></i> ফি জমা দেওয়ার ফর্ম</h3>
-                <form id="feeForm">
-                    
-                    <!-- Payment Mode Selection -->
-                    <div class="form-group">
-                        <label><i class="fa-solid fa-credit-card"></i> পেমেন্ট মেথড নির্বাচন করুন:</label>
-                        <select id="paymentMethod" required>
-                            <option value="Online">অনলাইন পেমেন্ট (UPI / QR Code)</option>
-                            <option value="Cash">হ্যান্ড ক্যাশ পেমেন্ট (Hand Cash)</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>ছাত্র/ছাত্রীর পূর্ণ নাম:</label>
-                        <input type="text" id="studentName" placeholder="যেমন: রাহুল শেখ" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>স্টুডেন্ট আইডি / রোল নম্বর:</label>
-                        <input type="text" id="studentId" placeholder="যেমন: JKB-102" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>শ্রেণী ও সেকশন (Class & Section):</label>
-                        <select id="studentClass" required>
-                            <option value="">শ্রেণী নির্বাচন করুন</option>
-                            <option value="Class I (Sec - A)">Class I (Sec - A)</option>
-                            <option value="Class II (Sec - A)">Class II (Sec - A)</option>
-                            <option value="Class III (Sec - A)">Class III (Sec - A)</option>
-                            <option value="Class IV (Sec - A)">Class IV (Sec - A)</option>
-                            <option value="Class V (Sec - A)">Class V (Sec - A)</option>
-                            <option value="Class VI (Sec - A)">Class VI (Sec - A)</option>
-                            <option value="Class VII (Sec - A)">Class VII (Sec - A)</option>
-                            <option value="Class VIII (Sec - A)">Class VIII (Sec - A)</option>
-                            <option value="Class IX (Sec - A)">Class IX (Sec - A)</option>
-                            <option value="Class X (Sec - A)">Class X (Sec - A)</option>
-                            <option value="Class XI (Science)">Class XI (Science)</option>
-                            <option value="Class XI (Arts)">Class XI (Arts)</option>
-                            <option value="Class XII (Science)">Class XII (Science)</option>
-                            <option value="Class XII (Arts)">Class XII (Arts)</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>পরিশোধের মাস:</label>
-                        <select id="payMonth" required>
-                            <option value="">মাস বাছুন</option>
-                            <option value="জানুয়ারি">জানুয়ারি</option>
-                            <option value="ফেব্রুয়ারি">ফেব্রুয়ারি</option>
-                            <option value="মার্চ">মার্চ</option>
-                            <option value="এপ্রিল">এপ্রিল</option>
-                            <option value="মে">মে</option>
-                            <option value="জুন">জুন</option>
-                            <option value="জুলাই">জুলাই</option>
-                            <option value="আগস্ট">আগস্ট</option>
-                            <option value="সেপ্টেম্বর">সেপ্টেম্বর</option>
-                            <option value="অক্টোবর">অক্টোবর</option>
-                            <option value="নভেম্বর">নভেম্বর</option>
-                            <option value="ডিসেম্বর">ডিসেম্বর</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>টাকার পরিমাণ (₹):</label>
-                        <input type="number" id="feeAmount" placeholder="৫০০" required>
-                    </div>
-
-                    <button type="submit" class="btn-action"><i class="fa-solid fa-paper-plane"></i> পেমেন্ট সম্পন্ন করতে এগিয়ে যান</button>
-                </form>
-            </div>
-
-            <!-- Receipt Display Card -->
-            <div class="card">
-                <h3><i class="fa-solid fa-receipt"></i> পেমেন্ট রসিদ (Official Receipt)</h3>
-                <div id="noReceipt" style="text-align: center; color: #888; padding: 60px 20px;">
-                    <i class="fa-solid fa-file-invoice" style="font-size: 45px; color: var(--primary-light); margin-bottom: 15px; display: block;"></i>
-                    <p>বামপাশের ফর্ম পূরণ করে পেমেন্ট সাবমিট করলে এখানে নির্দিষ্ট ও স্পষ্ট রসিদ তৈরি হবে।</p>
-                </div>
-
-                <!-- Clean Official Receipt Format (Only Required Fields in Pure Black Ink) -->
-                <div id="receiptBox" class="receipt-box">
-                    <div class="receipt-header-screen">
-                        <h4>J.K.B. NATIONAL SCHOOL</h4>
-                        <p>Chandermore, Sujnipara, Murshidabad | Helpline: 8617061244</p>
-                    </div>
-
-                    <div class="receipt-field"><span>রসিদ নম্বর:</span> <strong id="rTxn">---</strong></div>
-                    <div class="receipt-field"><span>পেমেন্ট তারিখ:</span> <strong id="rDate">---</strong></div>
-                    <div class="receipt-field"><span>ছাত্র/ছাত্রীর নাম:</span> <strong id="rName">---</strong></div>
-                    <div class="receipt-field"><span>স্টুডেন্ট আইডি / রোল:</span> <strong id="rId">---</strong></div>
-                    <div class="receipt-field"><span>শ্রেণী ও সেকশন:</span> <strong id="rClass">---</strong></div>
-                    <div class="receipt-field"><span>পরিশোধিত মাস:</span> <strong id="rMonth">---</strong></div>
-                    <div class="receipt-field"><span>পেমেন্ট মাধ্যম:</span> <strong id="rMethod">---</strong></div>
-                    <div class="receipt-field" style="font-size: 16px; margin-top: 5px;">
-                        <span>মোট জমার পরিমাণ:</span> <strong>₹<span id="rAmount">0</span></strong>
-                    </div>
-
-                    <button class="btn-action btn-print-receipt" onclick="window.print()"><i class="fa-solid fa-download"></i> রসিদ প্রিন্ট / PDF ডাউনলোড করুন</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Database Record Table -->
-        <div class="card" style="margin-bottom: 40px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
-                <h3 style="border: none; padding: 0; margin: 0;"><i class="fa-solid fa-database"></i> ফি কালেকশন ডাটাবেজ রেকর্ড</h3>
-                <button style="width: auto; padding: 7px 15px; background: #e74c3c; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 600;" onclick="clearHistory()"><i class="fa-solid fa-trash"></i> রেকর্ড ক্লিয়ার করুন</button>
-            </div>
-            <div class="table-responsive">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>তারিখ</th>
-                            <th>রসিদ নং</th>
-                            <th>আইডি/রোল</th>
-                            <th>নাম</th>
-                            <th>শ্রেণী ও সেকশন</th>
-                            <th>মাস</th>
-                            <th>মেথড</th>
-                            <th>টাকা (₹)</th>
-                        </tr>
-                    </thead>
-                    <tbody id="historyTable">
-                        <!-- Dynamic Records -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- QR Code Payment Modal Window -->
-    <div class="modal-overlay" id="qrModal">
-        <div class="modal-card">
-            <h3><i class="fa-solid fa-qrcode"></i> QR কোড স্ক্যান করে পেমেন্ট করুন</h3>
-            <p style="font-size: 13px; color: #555;">PhonePe / Google Pay / Paytm দিয়ে নিচে দেওয়া QR কোডটি স্ক্যান করে টাকা প্রদান করুন</p>
-
-            <div class="qr-image-box">
-                <i class="fa-solid fa-qrcode" style="font-size: 100px; color: var(--primary);"></i>
-            </div>
-
-            <p style="font-size: 15px; font-weight: 700; color: var(--primary-dark); margin-bottom: 15px;">প্রদেয় অর্থ: ₹<span id="modalAmount">0</span></p>
-
-            <button class="btn-action" onclick="confirmQRPayment()"><i class="fa-solid fa-check-circle"></i> পেমেন্ট সম্পূর্ণ হয়েছে, রসিদ দিন</button>
-        </div>
-    </di
+        <!-- Admission & Key Dates Section -->
+        <div class="section-title" id="admission">
+            <h2>ভর্তি তথ্য ও সময়সূচী (২০২৬)</h2>
+        

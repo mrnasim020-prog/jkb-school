@@ -450,12 +450,10 @@
             display: flex;
             gap: 15px;
             margin-bottom: 25px;
-            flex-wrap: wrap;
         }
 
         .pay-tab {
             flex: 1;
-            min-width: 180px;
             padding: 15px;
             border: 2px solid var(--border-color);
             border-radius: 8px;
@@ -470,59 +468,6 @@
             border-color: var(--secondary-color);
             background: #eff6ff;
             color: var(--secondary-color);
-        }
-
-        /* Receipt Box Styling */
-        .receipt-card {
-            background: #fff;
-            border: 2px solid var(--secondary-color);
-            border-radius: 10px;
-            padding: 25px;
-            max-width: 600px;
-            margin: 20px auto;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
-            position: relative;
-        }
-
-        .receipt-header {
-            text-align: center;
-            border-bottom: 2px dashed #cbd5e1;
-            padding-bottom: 15px;
-            margin-bottom: 20px;
-        }
-
-        .receipt-header h3 {
-            color: var(--primary-color);
-            font-size: 20px;
-            margin-bottom: 5px;
-        }
-
-        .receipt-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #f1f5f9;
-            font-size: 14px;
-        }
-
-        .receipt-row .label {
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-
-        .receipt-row .value {
-            color: var(--text-dark);
-            font-weight: 600;
-        }
-
-        .status-badge {
-            display: inline-block;
-            background: #dcfce7;
-            color: #15803d;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
         }
 
         /* Footer */
@@ -565,6 +510,17 @@
             font-size: 13px;
             color: #94a3b8;
         }
+
+        /* Badges & Timeline */
+        .badge {
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-primary { background: #e0f2fe; color: #0369a1; }
+        .badge-success { background: #dcfce7; color: #15803d; }
 
         @media (max-width: 768px) {
             header {
@@ -610,7 +566,7 @@
         </div>
         <div>
             <button class="btn-submit" onclick="switchPage('admission')" style="padding: 8px 16px; font-size: 13px;">
-                <i class="fa-solid fa-graduation-cap"></i> Admission 2026-27 Open
+                <i class="fa-solid fa-graduation-cap"></i> Admission 2026 Open
             </button>
         </div>
     </header>
@@ -640,21 +596,21 @@
                 <div class="quote">"Education is the key to the future, for tomorrow belongs to those who prepare for it today!"</div>
             </div>
 
-            <h2 class="section-title">Important Dates for Admission (2026-27)</h2>
+            <h2 class="section-title">Important Dates for Admission (2026)</h2>
             <div class="grid-3">
                 <div class="card" style="border-top: 4px solid #0284c7;">
                     <h3><i class="fa-solid fa-calendar-check"></i> Admission Starts</h3>
-                    <p style="font-size: 20px; font-weight: 600; color: #0284c7; margin-top: 10px;">February 02, 2026-27</p>
+                    <p style="font-size: 20px; font-weight: 600; color: #0284c7; margin-top: 10px;">February 02, 2026</p>
                     <p style="font-size: 13px; color: var(--text-muted); margin-top: 5px;">Application forms available online & offline.</p>
                 </div>
                 <div class="card" style="border-top: 4px solid #e11d48;">
                     <h3><i class="fa-solid fa-file-pen"></i> Entrance Exam</h3>
-                    <p style="font-size: 20px; font-weight: 600; color: #e11d48; margin-top: 10px;">February 21, 2026-27</p>
+                    <p style="font-size: 20px; font-weight: 600; color: #e11d48; margin-top: 10px;">February 21, 2026</p>
                     <p style="font-size: 13px; color: var(--text-muted); margin-top: 5px;">Mandatory entrance assessment test.</p>
                 </div>
                 <div class="card" style="border-top: 4px solid #16a34a;">
                     <h3><i class="fa-solid fa-school-flag"></i> Classes Commence</h3>
-                    <p style="font-size: 20px; font-weight: 600; color: #16a34a; margin-top: 10px;">March 01, 2026-27</p>
+                    <p style="font-size: 20px; font-weight: 600; color: #16a34a; margin-top: 10px;">March 01, 2026</p>
                     <p style="font-size: 13px; color: var(--text-muted); margin-top: 5px;">Orientation & regular class schedules start.</p>
                 </div>
             </div>
@@ -666,4 +622,23 @@
                     <ul>
                         <li><i class="fa-solid fa-check-circle"></i> Daily basis study materials provided</li>
                         <li><i class="fa-solid fa-check-circle"></i> Regular unit tests & class tests</li>
-                        <
+                        <li><i class="fa-solid fa-check-circle"></i> Smart mock tests for comprehensive evaluation</li>
+                        <li><i class="fa-solid fa-check-circle"></i> Systematic daily homework tracking</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3><i class="fa-solid fa-lightbulb"></i> Special Learning Support</h3>
+                    <ul>
+                        <li><i class="fa-solid fa-check-circle"></i> Concept clearing repeat classes</li>
+                        <li><i class="fa-solid fa-check-circle"></i> Smart motivational classes for holistic growth</li>
+                        <li><i class="fa-solid fa-check-circle"></i> Special focus on Spoken English fluency</li>
+                        <li><i class="fa-solid fa-check-circle"></i> Skill development & communication training</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE 2: ABOUT US -->
+        <section id="about" class="page-content">
+            <h2 class="section-title">About Our Institution</h2>
+            

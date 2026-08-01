@@ -1,164 +1,1104 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>J.K.B. National School | Excellence in Education</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>J.K.B. NATIONAL SCHOOL</title>
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
-                    },
-                    colors: {
-                        brand: {
-                            50: '#f0f7ff',
-                            100: '#e0effe',
-                            600: '#0284c7',
-                            700: '#0369a1',
-                            800: '#075985',
-                            900: '#0c4a6e',
-                            gold: '#d97706'
-                        }
-                    }
-                }
+    
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #2b6cb0;
+            --accent-color: #d69e2e;
+            --light-bg: #f7fafc;
+            --dark-text: #2d3748;
+            --white: #ffffff;
+            --success-color: #38a169;
+            --danger-color: #e53e3e;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Top Header */
+        header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 1.5rem 2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        header p {
+            font-size: 0.95rem;
+            color: #cbd5e0;
+            margin-top: 5px;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background-color: var(--secondary-color);
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        nav a {
+            color: var(--white);
+            padding: 1rem 1.2rem;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        nav a:hover, nav a.active {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            flex: 1;
+            width: 100%;
+        }
+
+        /* Page View Switching */
+        .page-section {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out forwards;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cards & Boxes */
+        .card {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border: 1px solid var(--border-color);
+        }
+
+        h2.section-title {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 1.2rem;
+            border-bottom: 3px solid var(--accent-color);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark-text);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Buttons */
+        .btn {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 0.8rem 1.8rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .btn-success { background-color: var(--success-color); }
+        .btn-success:hover { background-color: #2f855a; }
+
+        .btn-warning { background-color: var(--accent-color); color: var(--primary-color); }
+        .btn-warning:hover { background-color: #b7791f; }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            background: var(--white);
+        }
+
+        th, td {
+            padding: 0.8rem 1rem;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        tr:nth-child(even) {
+            background-color: var(--light-bg);
+        }
+
+        /* Payment Tab Design */
+        .payment-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .payment-tab-btn {
+            flex: 1;
+            min-width: 180px;
+            padding: 1rem;
+            background: #edf2f7;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .payment-tab-btn.active {
+            background: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+        }
+
+        /* Alert Box */
+        .alert {
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .alert-danger {
+            background-color: #fed7d7;
+            color: #9b2c2c;
+            border: 1px solid #feb2b2;
+        }
+
+        .alert-success {
+            background-color: #c6f6d5;
+            color: #22543d;
+            border: 1px solid #9ae6b4;
+        }
+
+        /* Printable Receipt */
+        .receipt-box {
+            border: 2px dashed var(--primary-color);
+            padding: 2rem;
+            background: var(--white);
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            position: relative;
+        }
+
+        .receipt-header {
+            text-align: center;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: auto;
+        }
+
+        /* Print Media Styles */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #printable-area, #printable-area * {
+                visibility: visible;
+            }
+            #printable-area {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+            .no-print {
+                display: none !important;
             }
         }
-    </script>
-    <style>
-        .page-section { display: none; }
-        .page-section.active { display: block; animation: fadeIn 0.3s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col justify-between">
+<body>
 
     <!-- Header -->
-    <header class="bg-white shadow-md sticky top-0 z-40">
-        <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
-            <div class="flex items-center space-x-3 cursor-pointer" onclick="navigateTo('home')">
-                <div class="w-12 h-12 bg-brand-700 rounded-full flex items-center justify-center text-white font-black text-xl">JKB</div>
-                <div>
-                    <h1 class="text-xl font-extrabold text-brand-900">J.K.B. NATIONAL SCHOOL</h1>
-                    <p class="text-xs text-amber-700 font-semibold">Empowering Dreams • English Medium</p>
-                </div>
-            </div>
-            <nav class="hidden lg:flex space-x-2">
-                <button onclick="navigateTo('home')" class="px-3 py-2 rounded text-sm font-semibold">Home</button>
-                <button onclick="navigateTo('about')" class="px-3 py-2 rounded text-sm font-semibold">About Us</button>
-                <button onclick="navigateTo('teachers')" class="px-3 py-2 rounded text-sm font-semibold">Teachers</button>
-                <button onclick="navigateTo('hostel')" class="px-3 py-2 rounded text-sm font-semibold">Hostel & Food</button>
-                <button onclick="navigateTo('payment')" class="px-3 py-2 bg-amber-500 text-slate-900 font-bold rounded shadow">Payment Portal</button>
-            </nav>
-            <button onclick="navigateTo('payment')" class="lg:hidden px-3 py-2 bg-amber-500 text-slate-900 font-bold rounded text-xs">Pay Fees</button>
-        </div>
+    <header>
+        <h1>J.K.B. NATIONAL SCHOOL</h1>
+        <p>Excellence in Education | Knowledge, Character & Integrity</p>
     </header>
 
-    <!-- Main Content -->
-    <main class="flex-grow max-w-7xl mx-auto px-4 py-8 w-full">
-        <!-- Home Section -->
-        <section id="sec-home" class="page-section active space-y-8">
-            <div class="bg-brand-900 text-white p-8 rounded-2xl text-center space-y-4">
-                <h2 class="text-3xl font-black">Education is the Key to the Future</h2>
-                <p class="text-slate-300">"Tomorrow belongs to those who prepare for it today!"</p>
-                <button onclick="navigateTo('payment')" class="px-6 py-3 bg-amber-500 text-brand-900 font-bold rounded-lg shadow-lg">Pay School Fees Online</button>
+    <!-- Navigation Bar -->
+    <nav>
+        <a onclick="showPage('home')" id="nav-home" class="active"><i class="fa-solid fa-house"></i> Home</a>
+        <a onclick="showPage('about')" id="nav-about"><i class="fa-solid fa-circle-info"></i> About Us</a>
+        <a onclick="showPage('teachers')" id="nav-teachers"><i class="fa-solid fa-chalkboard-user"></i> Faculty & Food Menu</a>
+        <a onclick="showPage('student-portal')" id="nav-student-portal"><i class="fa-solid fa-graduation-cap"></i> Student Portal</a>
+        <a onclick="showPage('admission')" id="nav-admission"><i class="fa-solid fa-id-card"></i> Admission Portal</a>
+        <a onclick="showPage('fees')" id="nav-fees"><i class="fa-solid fa-table-list"></i> Monthly Fees Structure</a>
+        <a onclick="showPage('payments')" id="nav-payments"><i class="fa-solid fa-credit-card"></i> Payment Center</a>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div class="container">
+
+        <!-- 1. HOME SECTION -->
+        <section id="home" class="page-section active">
+            <div class="card">
+                <h2 class="section-title">Welcome to J.K.B. National School</h2>
+                <p style="margin-bottom: 1rem; line-height: 1.6;">
+                    At J.K.B. National School, we are committed to providing a holistic educational experience that empowers students to reach their highest potential academically, socially, and morally. Our state-of-the-art facilities and dedicated staff foster an environment where learning meets innovation.
+                </p>
+                <div class="grid-2">
+                    <div style="background: #ebf8ff; padding: 1.5rem; border-radius: 6px;">
+                        <h3><i class="fa-solid fa-bullseye"></i> Our Mission</h3>
+                        <p style="margin-top: 0.5rem;">To nurture creative thinkers, lifelong learners, and compassionate leaders through exceptional schooling.</p>
+                    </div>
+                    <div style="background: #f0fff4; padding: 1.5rem; border-radius: 6px;">
+                        <h3><i class="fa-solid fa-eye"></i> Our Vision</h3>
+                        <p style="margin-top: 0.5rem;">To remain a premier academic institute committed to standard educational practices and student wellbeing.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- About Section -->
-        <section id="sec-about" class="page-section">
-            <div class="bg-white p-6 rounded-xl border border-slate-200">
-                <h2 class="text-2xl font-bold mb-4">About J.K.B. National School</h2>
-                <p>Welcome to J.K.B. National School. Fulfilling students' dreams with quality Bengali & CBSE Curriculum English Medium education.</p>
+        <!-- 2. ABOUT SECTION -->
+        <section id="about" class="page-section">
+            <div class="card">
+                <h2 class="section-title">About Our Institution</h2>
+                <p style="line-height: 1.7; margin-bottom: 1rem;">
+                    Founded with a strong commitment to quality education, J.K.B. National School caters to students from Nursery level through Grade 12. Our modern pedagogy combines traditional values with current educational methodologies.
+                </p>
+                <h3>Key Highlights</h3>
+                <ul style="margin: 1rem 0 0 2rem; line-height: 1.8;">
+                    <li>Comprehensive curriculum approved for primary, secondary, and higher secondary education.</li>
+                    <li>Advanced Science and Computer Laboratories.</li>
+                    <li>Healthy, balanced dietary food programs for students.</li>
+                    <li>Secure and completely digital portal for transparent student records and fee management.</li>
+                </ul>
             </div>
         </section>
 
-        <!-- Teachers Section -->
-        <section id="sec-teachers" class="page-section">
-            <h2 class="text-2xl font-bold mb-4">Our Teachers</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="p-4 bg-white rounded-lg border shadow-sm"><h3 class="font-bold">Dr. Rahmatullah</h3><p class="text-xs text-brand-700">Ph.D. in English</p></div>
-                <div class="p-4 bg-white rounded-lg border shadow-sm"><h3 class="font-bold">Santosh Kumar Mondal</h3><p class="text-xs text-brand-700">B.Com (Hons)</p></div>
-                <div class="p-4 bg-white rounded-lg border shadow-sm"><h3 class="font-bold">Nasim Akhtar Sk</h3><p class="text-xs text-brand-700">B.A. (History Hons)</p></div>
+        <!-- 3. TEACHERS & FOOD MENU SECTION -->
+        <section id="teachers" class="page-section">
+            <div class="card">
+                <h2 class="section-title">Faculty Members List</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Teacher Name</th>
+                            <th>Designation / Subject</th>
+                            <th>Classes Handled</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Dr. Robert Smith</td>
+                            <td>Principal / Physics</td>
+                            <td>Class 11 - Class 12</td>
+                        </tr>
+                        <tr>
+                            <td>Mrs. Sarah Jenkins</td>
+                            <td>Head Teacher / English Literature</td>
+                            <td>Class 8 - Class 10</td>
+                        </tr>
+                        <tr>
+                            <td>Mr. Aniket Sharma</td>
+                            <td>Mathematics Faculty</td>
+                            <td>Class 6 - Class 10</td>
+                        </tr>
+                        <tr>
+                            <td>Ms. Emily Davis</td>
+                            <td>Primary Educator</td>
+                            <td>Nursery - UKG</td>
+                        </tr>
+                        <tr>
+                            <td>Mr. Rajesh Verma</td>
+                            <td>History & Social Studies</td>
+                            <td>Class 5 - Class 9</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <h2 class="section-title">Weekly Canteen & Meal Menu</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Day</th>
+                            <th>Breakfast & Snacks</th>
+                            <th>Lunch Meal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Monday</td>
+                            <td>Milk, Veg Sandwich, Bananas</td>
+                            <td>Rice, Dal, Mixed Vegetable Curry, Salad</td>
+                        </tr>
+                        <tr>
+                            <td>Tuesday</td>
+                            <td>Fruit Juice, Boiled Eggs / Paneer Wrap</td>
+                            <td>Jeera Rice, Chana Masala, Curd</td>
+                        </tr>
+                        <tr>
+                            <td>Wednesday</td>
+                            <td>Oatmeal Bowl, Fresh Fruits</td>
+                            <td>Rice, Veg/Egg Curry, Salad, Papad</td>
+                        </tr>
+                        <tr>
+                            <td>Thursday</td>
+                            <td>Sprouted Grams, Milk, Biscuits</td>
+                            <td>Roti, Seasonal Veggie, Dal Tadka</td>
+                        </tr>
+                        <tr>
+                            <td>Friday</td>
+                            <td>Cornflakes with Milk, Apple</td>
+                            <td>Special Veg Biryani, Mint Raita, Sweet</td>
+                        </tr>
+                        <tr>
+                            <td>Saturday</td>
+                            <td>Upma / Pohay, Fruit Juice</td>
+                            <td>Khichdi, Veg Fritters, Butter Milk</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </section>
 
-        <!-- Payment Portal Section -->
-        <section id="sec-payment" class="page-section">
-            <div class="bg-white p-6 rounded-xl border border-slate-200 space-y-6 max-w-2xl mx-auto">
-                <h2 class="text-2xl font-bold text-center text-brand-900">Fee Payment Portal</h2>
-                <form onsubmit="handleFeePayment(event)" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-bold uppercase">Roll Number (Start with 2024)*</label>
-                        <input type="text" id="payRoll" placeholder="e.g. 202401" required class="w-full p-3 border rounded-lg font-mono">
-                        <p id="rollErr" class="text-xs text-red-600 hidden mt-1">Invalid Roll! Must be between 202401 and 202450</p>
+        <!-- 4. STUDENT PORTAL SECTION -->
+        <section id="student-portal" class="page-section">
+            <div class="card">
+                <h2 class="section-title">Student Records & Verification</h2>
+                <p style="margin-bottom: 1.5rem;">Enter the valid credentials to check student enrolment details.</p>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Roll Number (Rule: Must start with 2024 + Roll No 01-50):</label>
+                        <input type="text" id="sp-roll" class="form-control" placeholder="e.g. 202401">
                     </div>
-                    <div>
-                        <label class="block text-xs font-bold uppercase">Student Name *</label>
-                        <input type="text" id="payName" placeholder="Full Name" required class="w-full p-3 border rounded-lg">
+                    <div class="form-group">
+                        <label>Select Class:</label>
+                        <select id="sp-class" class="form-control">
+                            <option value="">-- Choose Class --</option>
+                            <option>Nursery</option>
+                            <option>UKG</option>
+                            <option>Class 1</option><option>Class 2</option><option>Class 3</option>
+                            <option>Class 4</option><option>Class 5</option><option>Class 6</option>
+                            <option>Class 7</option><option>Class 8</option><option>Class 9</option>
+                            <option>Class 10</option><option>Class 11</option><option>Class 12</option>
+                        </select>
                     </div>
-                    <div>
-                        <label class="block text-xs font-bold uppercase">Amount (₹) *</label>
-                        <input type="number" id="payAmount" value="1200" required class="w-full p-3 border rounded-lg font-bold">
+                </div>
+                <button onclick="verifyStudentPortal()" class="btn"><i class="fa-solid fa-magnifying-glass"></i> Search Portal</button>
+                
+                <div id="sp-alert" class="alert alert-danger" style="margin-top: 1rem;"></div>
+                <div id="sp-result" style="display: none; margin-top: 1.5rem; padding: 1rem; background: #edf2f7; border-radius: 6px;">
+                    <h3>Student Portal Profile</h3>
+                    <hr style="margin: 0.5rem 0;">
+                    <p><strong>Status:</strong> Active Student Record Verified</p>
+                    <p><strong>Full Name:</strong> Verified Registered Student</p>
+                    <p><strong>Academic Session:</strong> 2024-2025</p>
+                    <p><strong>Attendance Performance:</strong> 94.5%</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. ADMISSION PORTAL SECTION -->
+        <section id="admission" class="page-section">
+            <div class="card">
+                <h2 class="section-title">New Student Admission Form</h2>
+                <form onsubmit="event.preventDefault(); alert('Admission Form Submitted Successfully!');">
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Student Full Name</label>
+                            <input type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Guardian / Father Name</label>
+                            <input type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Seeking Admission for Class</label>
+                            <select class="form-control" required>
+                                <option value="">Select Class</option>
+                                <option>Nursery</option><option>UKG</option>
+                                <option>Class 1</option><option>Class 2</option><option>Class 3</option>
+                                <option>Class 4</option><option>Class 5</option><option>Class 6</option>
+                                <option>Class 7</option><option>Class 8</option><option>Class 9</option>
+                                <option>Class 10</option><option>Class 11</option><option>Class 12</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Contact Phone Number</label>
+                            <input type="tel" class="form-control" required>
+                        </div>
                     </div>
-                    <button type="submit" class="w-full py-3 bg-emerald-600 text-white font-bold rounded-lg shadow">Generate Receipt / Pay Now</button>
+                    <button type="submit" class="btn btn-success"><i class="fa-solid fa-paper-plane"></i> Submit Application</button>
                 </form>
             </div>
         </section>
-    </main>
-
-    <!-- Receipt Modal -->
-    <div id="receiptModal" class="hidden fixed inset-0 bg-slate-900/80 z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 text-center border-4 border-amber-500">
-            <h2 class="text-2xl font-black text-brand-900">J.K.B. NATIONAL SCHOOL</h2>
-            <p class="text-xs text-emerald-700 font-bold uppercase">Official Payment Receipt</p>
-            <div class="text-left bg-slate-50 p-4 rounded-lg space-y-2 text-sm border">
-                <p><strong>Receipt No:</strong> <span id="rNo">JKB-1001</span></p>
-                <p><strong>Student Name:</strong> <span id="rName">Rahul</span></p>
-                <p><strong>Roll No:</strong> <span id="rRoll">202401</span></p>
-                <p><strong>Amount Paid:</strong> ₹<span id="rAmt">1200</span></p>
+             <!-- 6. MONTHLY FEES STRUCTURE SECTION -->
+        <section id="fees" class="page-section">
+            <div class="card">
+                <h2 class="section-title">Academic Fee Structure</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Class Standard</th>
+                            <th>Monthly Tuition Fee</th>
+                            <th>Development Fee</th>
+                            <th>Exam Fee (Per Term)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Nursery to UKG</td>
+                            <td>₹ 1,200</td>
+                            <td>₹ 200</td>
+                            <td>₹ 300</td>
+                        </tr>
+                        <tr>
+                            <td>Class 1 to Class 5</td>
+                            <td>₹ 1,500</td>
+                            <td>₹ 250</td>
+                            <td>₹ 400</td>
+                        </tr>
+                        <tr>
+                            <td>Class 6 to Class 10</td>
+                            <td>₹ 2,000</td>
+                            <td>₹ 300</td>
+                            <td>₹ 500</td>
+                        </tr>
+                        <tr>
+                            <td>Class 11 to Class 12</td>
+                            <td>₹ 2,500</td>
+                            <td>₹ 400</td>
+                            <td>₹ 600</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <button onclick="window.print()" class="w-full py-2 bg-slate-800 text-white font-bold rounded">Print / Save Receipt</button>
-            <button onclick="document.getElementById('receiptModal').classList.add('hidden')" class="w-full py-2 bg-slate-200 font-semibold rounded">Close</button>
-        </div>
+        </section>
+
+        <!-- 7. PAYMENT CENTER SECTION -->
+        <section id="payments" class="page-section">
+            <div class="card">
+                <h2 class="section-title">School Fee Payment Center</h2>
+                
+                <!-- Payment Switcher Tabs -->
+                <div class="payment-tabs">
+                    <div class="payment-tab-btn active" onclick="switchPayTab('online-pay')" id="tab-online-pay">1. Online Payment</div>
+                    <div class="payment-tab-btn" onclick="switchPayTab('handcash-pay')" id="tab-handcash-pay">2. Hand Cash Payment</div>
+                    <div class="payment-tab-btn" onclick="switchPayTab('exam-pay')" id="tab-exam-pay">3. Exam Fee Payment</div>
+                    <div class="payment-tab-btn" onclick="switchPayTab('fine-pay')" id="tab-fine-pay">4. Fine Payment</div>
+                </div>
+
+                <!-- Global Payment Stored Receipts Quick Download Button -->
+                <div style="margin-bottom: 1.5rem; text-align: right;">
+                    <button class="btn btn-warning" onclick="showStoredReceiptsModal()"><i class="fa-solid fa-receipt"></i> Online Payment Slip Store</button>
+                </div>
+
+                <!-- TAB 1: ONLINE PAYMENT -->
+                <div id="online-pay" class="pay-sub-tab">
+                    <h3>Online Monthly Fee Payment</h3>
+                    <p style="margin-bottom: 1rem; color: #718096; font-size: 0.9rem;">
+                        Note: Enter Roll Number starting with <strong>2024</strong> followed by Roll No (01 to 50). Examples: <code>202401</code>, <code>202405</code>, <code>202450</code>.
+                    </p>
+                    
+                    <div id="online-pay-alert" class="alert alert-danger"></div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Student Full Name</label>
+                            <input type="text" id="on-name" class="form-control" placeholder="Enter full name">
+                        </div>
+                        <div class="form-group">
+                            <label>Roll Number (2024 + 01 to 50)</label>
+                            <input type="text" id="on-roll" class="form-control" placeholder="e.g. 202401">
+                        </div>
+                        <div class="form-group">
+                            <label>Select Class</label>
+                            <select id="on-class" class="form-control">
+                                <option value="">-- Choose Class --</option>
+                                <option>Nursery</option><option>UKG</option>
+                                <option>Class 1</option><option>Class 2</option><option>Class 3</option>
+                                <option>Class 4</option><option>Class 5</option><option>Class 6</option>
+                                <option>Class 7</option><option>Class 8</option><option>Class 9</option>
+                                <option>Class 10</option><option>Class 11</option><option>Class 12</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Fee Amount (₹)</label>
+                            <input type="number" id="on-amount" class="form-control" placeholder="Enter amount">
+                        </div>
+                    </div>
+
+                    <button onclick="processOnlineValidation()" class="btn btn-success"><i class="fa-solid fa-qrcode"></i> Proceed to Pay (QR Code / UPI)</button>
+
+                    <!-- Hidden Gateway Screen -->
+                    <div id="qr-gateway-screen" style="display: none; margin-top: 2rem; background: #f7fafc; padding: 1.5rem; border: 2px solid var(--secondary-color); border-radius: 8px; text-align: center;">
+                        <h3 style="color: var(--primary-color);">Scan QR Code or Use UPI to Pay</h3>
+                        <div style="margin: 1.5rem 0;">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=JKBNATIONALSCHOOLFEE" alt="Payment QR Code" style="border: 4px solid var(--primary-color); border-radius: 8px;">
+                            <p style="margin-top: 10px; font-weight: bold;">UPI ID: jkbnschool@upi</p>
+                        </div>
+                        <button onclick="completeOnlinePayment()" class="btn btn-success"><i class="fa-solid fa-circle-check"></i> I Have Paid - Generate Receipt</button>
+                    </div>
+                </div>
+
+                <!-- TAB 2: HAND CASH PAYMENT -->
+                <div id="handcash-pay" class="pay-sub-tab" style="display: none;">
+                    <h3>Hand Cash Office Fee Entry</h3>
+                    <p style="margin-bottom: 1rem; color: #718096; font-size: 0.9rem;">Cash transactions collected directly at the school accounts desk.</p>
+                    
+                    <div id="cash-pay-alert" class="alert alert-danger"></div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Student Full Name</label>
+                            <input type="text" id="hc-name" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Roll Number</label>
+                            <input type="text" id="hc-roll" class="form-control" placeholder="e.g. 202401">
+                        </div>
+                        <div class="form-group">
+                            <label>Class</label>
+                            <select id="hc-class" class="form-control">
+                                <option value="">-- Choose Class --</option>
+                                <option>Nursery</option><option>UKG</option>
+                                <option>Class 1</option><option>Class 2</option><option>Class 3</option>
+                                <option>Class 4</option><option>Class 5</option><option>Class 6</option>
+                                <option>Class 7</option><option>Class 8</option><option>Class 9</option>
+                                <option>Class 10</option><option>Class 11</option><option>Class 12</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Cash Amount Received (₹)</label>
+                            <input type="number" id="hc-amount" class="form-control">
+                        </div>
+                    </div>
+
+                    <button onclick="processHandCashPayment()" class="btn btn-success"><i class="fa-solid fa-money-bill-wave"></i> Submit Cash Entry & Generate Slip</button>
+                </div>
+
+                <!-- TAB 3: EXAM FEE PAYMENT -->
+                <div id="exam-pay" class="pay-sub-tab" style="display: none;">
+                    <h3>Pay Your Examination Fee Online</h3>
+                    <form onsubmit="event.preventDefault(); processExamPayment();">
+                        <h4 style="margin: 1rem 0 0.5rem; color: var(--secondary-color);">Student Information</h4>
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Student Name</label>
+                                <input type="text" id="ex-name" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Admission No.</label>
+                                <input type="text" id="ex-adm" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Class</label>
+                                <input type="text" id="ex-class" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Section</label>
+                                <input type="text" id="ex-sec" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Roll Number</label>
+                                <input type="text" id="ex-roll" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Exam Name</label>
+                                <select id="ex-examname" class="form-control" required>
+                                    <option value="">Select Exam</option>
+                                    <option>Mid-Term Examination</option>
+                                    <option>Final Term Examination</option>
+                                    <option>Unit Test</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Mobile Number</label>
+                                <input type="tel" id="ex-mobile" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <h4 style="margin: 1rem 0 0.5rem; color: var(--secondary-color);">Fee Details</h4>
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Exam Fee (₹)</label>
+                                <input type="number" id="ex-fee" class="form-control" value="500" oninput="calculateExamTotal()" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Late Fee (If Applicable) (₹)</label>
+                                <input type="number" id="ex-latefee" class="form-control" value="0" oninput="calculateExamTotal()">
+                            </div>
+                            <div class="form-group">
+                                <label>Total Amount (₹)</label>
+                                <input type="number" id="ex-total" class="form-control" value="500" readonly style="background: #e2e8f0; font-weight: bold;">
+                            </div>
+                        </div>
+
+                        <h4 style="margin: 1rem 0 0.5rem; color: var(--secondary-color);">Payment Method</h4>
+                        <div class="form-group">
+                            <select id="ex-method" class="form-control" required>
+                                <option value="">Select Method</option>
+                                <option>UPI (Google Pay / PhonePe / Paytm)</option>
+                                <option>Debit Card</option>
+                                <option>Credit Card</option>
+                                <option>Net Banking</option>
+                            </select>
+                        </div>
+
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 1rem;">
+                            <button type="submit" class="btn btn-success"><i class="fa-solid fa-lock"></i> Pay Now</button>
+                            <button type="button" onclick="alert('Checking Status: Payment Gateway Server active.');" class="btn"><i class="fa-solid fa-rotate"></i> Check Payment Status</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- TAB 4: FINE PAYMENT -->
+                <div id="fine-pay" class="pay-sub-tab" style="display: none;">
+                    <h3>Pay Your Fine Online & Offline</h3>
+                    <p style="margin-bottom: 1rem;">Students and guardians can pay school fines through both Online and Offline payment methods.</p>
+
+                    <form onsubmit="event.preventDefault(); processFinePayment();">
+                        <h4 style="margin: 1rem 0 0.5rem; color: var(--secondary-color);">Fine Details</h4>
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Student Name</label>
+                                <input type="text" id="fn-name" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Admission No.</label>
+                                <input type="text" id="fn-adm" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Class</label>
+                                <input type="text" id="fn-class" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Section</label>
+                                <input type="text" id="fn-sec" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Roll Number</label>
+                                <input type="text" id="fn-roll" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Fine Type</label>
+                                <select id="fn-type" class="form-control" required>
+                                    <option>Late Library Book Return</option>
+                                    <option>Late Fee Submission Fine</option>
+                                    <option>Absence Fine</option>
+                                    <option>Other Miscellaneous Fine</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Fine Amount (₹)</label>
+                                <input type="number" id="fn-amount" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Reason for Fine</label>
+                                <input type="text" id="fn-reason" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <h4 style="margin: 1rem 0 0.5rem; color: var(--secondary-color);">Online Payment Method</h4>
+                        <div class="form-group">
+                            <select id="fn-method" class="form-control" required>
+                                <option>UPI (Google Pay / PhonePe / Paytm)</option>
+                                <option>Debit Card / Credit Card</option>
+                                <option>Net Banking</option>
+                                <option>QR Code Payment</option>
+                            </select>
+                        </div>
+
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 1rem;">
+                            <button type="submit" class="btn btn-success"><i class="fa-solid fa-credit-card"></i> Pay Fine Online</button>
+                            <button type="button" onclick="showOfflineInstructions()" class="btn btn-warning"><i class="fa-solid fa-building-columns"></i> Offline Payment Details</button>
+                            <button type="button" onclick="alert('Fine Status: No pending fine recorded once paid.');" class="btn"><i class="fa-solid fa-magnifying-glass"></i> Check Fine Status</button>
+                        </div>
+                    </form>
+
+                    <!-- Offline Details Accordion Box -->
+                    <div id="offline-details-box" style="display: none; margin-top: 1.5rem; background: #fffaf0; border: 1px solid #feebc8; padding: 1.5rem; border-radius: 6px;">
+                        <h4 style="color: #c05621;"><i class="fa-solid fa-circle-info"></i> Offline Payment Instructions</h4>
+                        <p style="margin-top: 0.5rem;">Pay your fine at the School Accounts Office during office hours.</p>
+                        <p style="margin-top: 0.5rem;"><strong>Office Hours:</strong> Monday – Saturday | 10:00 AM – 4:00 PM</p>
+                        <div style="margin-top: 1rem; background: #ffffff; padding: 1rem; border-radius: 4px; border: 1px solid #e2e8f0;">
+                            <h5>Important Instructions:</h5>
+                            <ul style="margin-left: 1.2rem; margin-top: 0.5rem; font-size: 0.9rem; line-height: 1.6;">
+                                <li>Please pay the fine before the due date.</li>
+                                <li>Keep the payment receipt for future reference.</li>
+                                <li>If you have already paid, ignore any pending notifications.</li>
+                                <li>For any payment-related assistance, contact the School Office.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                                            <!-- Dynamic Content Inserted Here -->
+                        </div>
+                        <div style="margin-top: 2rem; display: flex; justify-content: space-between; align-items: flex-end;">
+                            <div>
+                                <p style="font-size: 0.8rem; color: #718096;">Generated Electronically. Valid without physical signature.</p>
+                                <p style="font-size: 0.85rem; font-weight: bold;" id="receipt-timestamp"></p>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="border-bottom: 1px solid #000; width: 150px; margin-bottom: 5px;"></div>
+                                <p style="font-size: 0.85rem; font-weight: bold;">Accounts Officer</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="no-print" style="margin-top: 1rem; text-align: center;">
+                        <button onclick="window.print()" class="btn btn-success"><i class="fa-solid fa-print"></i> Download / Print Receipt PDF</button>
+                    </div>
+                </div>
+
+                <!-- STORED RECEIPTS MODAL/LIST SECTION -->
+                <div id="stored-receipts-container" style="display: none; margin-top: 2rem; background: #f7fafc; padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 8px;">
+                    <h3><i class="fa-solid fa-database"></i> Stored Online Payment Slips Repository</h3>
+                    <p style="margin-bottom: 1rem; font-size: 0.9rem;">History of completed transactions on this browser session:</p>
+                    <div id="stored-slips-list"></div>
+                </div>
+
+            </div>
+        </section>
+
     </div>
 
     <!-- Footer -->
-    <footer class="bg-slate-900 text-white text-center py-4 text-xs">
-        © 2026 J.K.B. National School. Helpline: +91 8617061244
+    <footer>
+        <p>&copy; 2026 J.K.B. NATIONAL SCHOOL. All Rights Reserved.</p>
     </footer>
 
+    <!-- JavaScript Application Logic -->
     <script>
-        function navigateTo(id) {
-            document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
-            document.getElementById('sec-' + id).classList.add('active');
+        // Array to store transactions session-wide
+        let paymentStorage = [];
+
+        // Navigation Controller
+        function showPage(pageId) {
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.querySelectorAll('nav a').forEach(nav => {
+                nav.classList.remove('active');
+            });
+
+            document.getElementById(pageId).classList.add('active');
+            document.getElementById('nav-' + pageId).classList.add('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function handleFeePayment(e) {
-            e.preventDefault();
-            const roll = document.getElementById('payRoll').value.trim();
-            const rollErr = document.getElementById('rollErr');
-            const pattern = /^2024(0[1-9]|[1-4][0-9]|50)$/;
+        // Switch Payment Tabs
+        function switchPayTab(tabId) {
+            document.querySelectorAll('.pay-sub-tab').forEach(tab => {
+                tab.style.display = 'none';
+            });
+            document.querySelectorAll('.payment-tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
 
-            if(!pattern.test(roll)) {
-                rollErr.classList.remove('hidden');
+            document.getElementById(tabId).style.display = 'block';
+            document.getElementById('tab-' + tabId).classList.add('active');
+            
+            // Hide Printable Area when switching tabs
+            document.getElementById('printable-area').style.display = 'none';
+        }
+
+        // Student Portal Search Validation
+        function verifyStudentPortal() {
+            const roll = document.getElementById('sp-roll').value.trim();
+            const cls = document.getElementById('sp-class').value;
+            const alertBox = document.getElementById('sp-alert');
+            const resultBox = document.getElementById('sp-result');
+
+            alertBox.style.display = 'none';
+            resultBox.style.display = 'none';
+
+            if (!validateRollRule(roll) || cls === "") {
+                alertBox.style.display = 'block';
+                alertBox.innerText = "Invalid Roll Number or Class! Roll number must start with 2024 followed by a 2-digit roll between 01 and 50 (e.g. 202401 to 202450).";
                 return;
-            } else {
-                rollErr.classList.add('hidden');
             }
 
-            document.getElementById('rNo').innerText = 'JKB-2026-' + Math.floor(1000 + Math.random() * 9000);
-            document.getElementById('rName').innerText = document.getElementById('payName').value;
-            document.getElementById('rRoll').innerText = roll;
-            document.getElementById('rAmt').innerText = document.getElementById('payAmount').value;
+            resultBox.style.display = 'block';
+        }
 
-            document.getElementById('receiptModal').classList.remove('hidden');
+        // Core Rule: Check if Roll starts with '2024' followed by numbers between 01 and 50
+        function validateRollRule(roll) {
+            if (!roll.startsWith("2024")) return false;
+            const numPart = parseInt(roll.substring(4), 10);
+            return (!isNaN(numPart) && numPart >= 1 && numPart <= 50 && roll.length === 6);
+        }
+
+        // Online Payment - Step 1: Validate Roll
+        function processOnlineValidation() {
+            const name = document.getElementById('on-name').value.trim();
+            const roll = document.getElementById('on-roll').value.trim();
+            const cls = document.getElementById('on-class').value;
+            const amount = document.getElementById('on-amount').value;
+            const alertBox = document.getElementById('online-pay-alert');
+
+            alertBox.style.display = 'none';
+
+            if (!name || cls === "" || !amount) {
+                alertBox.style.display = 'block';
+                alertBox.innerText = "Please complete all fields correctly.";
+                return;
+            }
+
+            if (!validateRollRule(roll)) {
+                alertBox.style.display = 'block';
+                alertBox.innerText = "INVALID ROLL NUMBER! Roll Number must begin with '2024' followed by digits from 01 to 50 (Example: 202401, 202425, 202450).";
+                return;
+            }
+
+            // Open QR gateway
+            document.getElementById('qr-gateway-screen').style.display = 'block';
+            window.scrollTo({ top: document.getElementById('qr-gateway-screen').offsetTop - 100, behavior: 'smooth' });
+        }
+
+        // Online Payment - Step 2: Complete & Generate Receipt
+        function completeOnlinePayment() {
+            const name = document.getElementById('on-name').value.trim();
+            const roll = document.getElementById('on-roll').value.trim();
+            const cls = document.getElementById('on-class').value;
+            const amount = document.getElementById('on-amount').value;
+
+            const transaction = {
+                type: 'Online Monthly Fee',
+                txnId: 'TXN' + Math.floor(100000 + Math.random() * 900000),
+                name: name,
+                roll: roll,
+                class: cls,
+                amount: '₹ ' + amount,
+                date: new Date().toLocaleString()
+            };
+
+            paymentStorage.push(transaction);
+            document.getElementById('qr-gateway-screen').style.display = 'none';
+            renderReceipt(transaction);
+        }
+
+        // Hand Cash Payment
+        function processHandCashPayment() {
+            const name = document.getElementById('hc-name').value.trim();
+            const roll = document.getElementById('hc-roll').value.trim();
+            const cls = document.getElementById('hc-class').value;
+            const amount = document.getElementById('hc-amount').value;
+            const alertBox = document.getElementById('cash-pay-alert');
+
+            alertBox.style.display = 'none';
+
+            if (!name || !roll || cls === "" || !amount) {
+                alertBox.style.display = 'block';
+                alertBox.innerText = "Please fill in all details for Hand Cash Payment entry.";
+                return;
+            }
+
+            const transaction = {
+                type: 'Hand Cash Payment (School Office)',
+                txnId: 'CASH' + Math.floor(100000 + Math.random() * 900000),
+                name: name,
+                roll: roll,
+                class: cls,
+                amount: '₹ ' + amount,
+                date: new Date().toLocaleString()
+            };
+
+            paymentStorage.push(transaction);
+            renderReceipt(transaction);
+        }
+
+        // Exam Fee Calculation
+        function calculateExamTotal() {
+            const fee = parseFloat(document.getElementById('ex-fee').value) || 0;
+            const late = parseFloat(document.getElementById('ex-latefee').value) || 0;
+            document.getElementById('ex-total').value = fee + late;
+        }
+
+        // Process Exam Payment
+        function processExamPayment() {
+            const transaction = {
+                type: 'Examination Fee (' + document.getElementById('ex-examname').value + ')',
+                txnId: 'EXM' + Math.floor(100000 + Math.random() * 900000),
+                name: document.getElementById('ex-name').value,
+                admissionNo: document.getElementById('ex-adm').value,
+                class: document.getElementById('ex-class').value + ' (Sec: ' + document.getElementById('ex-sec').value + ')',
+                roll: document.getElementById('ex-roll').value,
+                amount: '₹ ' + document.getElementById('ex-total').value,
+                paymentMethod: document.getElementById('ex-method').value,
+                date: new Date().toLocaleString()
+            };
+
+            paymentStorage.push(transaction);
+            renderReceipt(transaction);
+        }
+
+        // Process Fine Payment
+        function processFinePayment() {
+            const transaction = {
+                type: 'Fine Payment (' + document.getElementById('fn-type').value + ')',
+                txnId: 'FIN' + Math.floor(100000 + Math.random() * 900000),
+                name: document.getElementById('fn-name').value,
+                admissionNo: document.getElementById('fn-adm').value,
+                class: document.getElementById('fn-class').value + ' (Sec: ' + document.getElementById('fn-sec').value + ')',
+                roll: document.getElementById('fn-roll').value,
+                reason: document.getElementById('fn-reason').value,
+                amount: '₹ ' + document.getElementById('fn-amount').value,
+                paymentMethod: document.getElementById('fn-method').value,
+                date: new Date().toLocaleString()
+            };
+
+            paymentStorage.push(transaction);
+            renderReceipt(transaction);
+        }
+
+        function showOfflineInstructions() {
+            const box = document.getElementById('offline-details-box');
+            box.style.display = (box.style.display === 'none' || box.style.display === '') ? 'block' : 'none';
+        }
+
+        // Generic Render Receipt Function
+        function renderReceipt(data) {
+            const receiptBox = document.getElementById('printable-area');
+            const body = document.getElementById('receipt-content-body');
+            
+            let html = `
+                <table style="width: 100%; margin-bottom: 1rem;">
+                    <tr><td><strong>Receipt / Txn ID:</strong> ${data.txnId}</td><td style="text-align: right;"><strong>Payment Category:</strong> ${data.type}</td></tr>
+                    <tr><td><strong>Student Name:</strong> ${data.name}</td><td style="text-align: right;"><strong>Class/Grade:</strong> ${data.class}</td></tr>
+                    <tr><td><strong>Roll Number:</strong> ${data.roll}</td><td style="text-align: right;"><strong>Admission No:</strong> ${data.admissionNo || 'N/A'}</td></tr>
+                    ${data.reason ? `<tr><td colspan="2"><strong>Reason/Notes:</strong> ${data.reason}</td></tr>` : ''}
+                    ${data.paymentMethod ? `<tr><td colspan="2"><strong>Payment Method:</strong> ${data.paymentMethod}</td></tr>` : ''}
+                </table>
+                <div style="background: #edf2f7; padding: 1rem; border-radius: 6px; text-align: center; margin-top: 1rem;">
+                    <h3 style="color: var(--primary-color);">Total Paid Amount: ${data.amount}</h3>
+                    <p style="color: var(--success-color); font-weight: bold; margin-top: 5px;"><i class="fa-solid fa-circle-check"></i> Transaction Status: SUCCESSFUL</p>
+                </div>
+            `;
+
+            body.innerHTML = html;
+            document.getElementById('receipt-timestamp').innerText = "Date & Time: " + data.date;
+            receiptBox.style.display = 'block';
+            window.scrollTo({ top: receiptBox.offsetTop - 50, behavior: 'smooth' });
+        }
+
+        // Display all accumulated slips
+        function showStoredReceiptsModal() {
+            const container = document.getElementById('stored-receipts-container');
+            const list = document.getElementById('stored-slips-list');
+
+            if (paymentStorage.length === 0) {
+                list.innerHTML = "<p>No payments recorded in this session yet.</p>";
+            } else {
+                let html = "<table><thead><tr><th>Txn ID</th><th>Type</th><th>Student Name</th><th>Roll</th><th>Amount</th><th>Date</th></tr></thead><tbody>";
+                paymentStorage.forEach(item => {
+                    html += `<tr>
+                        <td>${item.txnId}</td>
+                        <td>${item.type}</td>
+                        <td>${item.name}</td>
+                        <td>${item.roll}</td>
+                        <td>${item.amount}</td>
+                        <td>${item.date}</td>
+                    </tr>`;
+                });
+                html += "</tbody></table>";
+                list.innerHTML = html;
+            }
+
+            container.style.display = (container.style.display === 'none' || container.style.display === '') ? 'block' : 'none';
         }
     </script>
 </body>
-</html>
+    </html>

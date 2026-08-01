@@ -286,19 +286,20 @@
             margin-top: auto;
         }
 
-        /* Print Media Styles */
+        /* Corrected Print Styles - Fixes Blank Receipt Issue */
         @media print {
             body * {
-                visibility: hidden;
+                visibility: hidden !important;
             }
             #printable-area, #printable-area * {
-                visibility: visible;
+                visibility: visible !important;
             }
             #printable-area {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
+                position: absolute !important;
+                left: 0 !important;
+                top: 0 !important;
+                width: 100% !important;
+                display: block !important;
             }
             .no-print {
                 display: none !important;
@@ -325,7 +326,7 @@
         <a onclick="showPage('payments')" id="nav-payments"><i class="fa-solid fa-credit-card"></i> Payment Center</a>
     </nav>
 
-    <!-- Main Content Area -->
+    <!-- Main Container -->
     <div class="container">
 
         <!-- 1. HOME SECTION -->
@@ -524,7 +525,8 @@
                 </form>
             </div>
         </section>
-             <!-- 6. MONTHLY FEES STRUCTURE SECTION -->
+
+        <!-- 6. MONTHLY FEES STRUCTURE SECTION -->
         <section id="fees" class="page-section">
             <div class="card">
                 <h2 class="section-title">Academic Fee Structure</h2>
@@ -622,11 +624,16 @@
 
                     <button onclick="processOnlineValidation()" class="btn btn-success"><i class="fa-solid fa-qrcode"></i> Proceed to Pay (QR Code / UPI)</button>
 
-                    <!-- Hidden Gateway Screen -->
+                    <!-- QR Code Display Gateway -->
                     <div id="qr-gateway-screen" style="display: none; margin-top: 2rem; background: #f7fafc; padding: 1.5rem; border: 2px solid var(--secondary-color); border-radius: 8px; text-align: center;">
                         <h3 style="color: var(--primary-color);">Scan QR Code or Use UPI to Pay</h3>
                         <div style="margin: 1.5rem 0;">
-                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=JKBNATIONALSCHOOLFEE" alt="Payment QR Code" style="border: 4px solid var(--primary-color); border-radius: 8px;">
+                            
+                            <!-- ============================================================== -->
+                            <!--  এখানে data= এর পর আপনার নিজের UPI ID বসিয়ে দিন (যেমন: 9800xxxxxx@ybl) -->
+                            <!-- ============================================================== -->
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=jkbnschool@upi" alt="Payment QR Code" style="border: 4px solid var(--primary-color); border-radius: 8px;">
+                            
                             <p style="margin-top: 10px; font-weight: bold;">UPI ID: jkbnschool@upi</p>
                         </div>
                         <button onclick="completeOnlinePayment()" class="btn btn-success"><i class="fa-solid fa-circle-check"></i> I Have Paid - Generate Receipt</button>
@@ -742,9 +749,9 @@
                             <button type="button" onclick="alert('Checking Status: Payment Gateway Server active.');" class="btn"><i class="fa-solid fa-rotate"></i> Check Payment Status</button>
                         </div>
                     </form>
-                </div>
+                                </div>
 
-                <!-- TAB 4: FINE PAYMENT -->
+        <!-- TAB 4: FINE PAYMENT -->
                 <div id="fine-pay" class="pay-sub-tab" style="display: none;">
                     <h3>Pay Your Fine Online & Offline</h3>
                     <p style="margin-bottom: 1rem;">Students and guardians can pay school fines through both Online and Offline payment methods.</p>
@@ -808,7 +815,7 @@
                         </div>
                     </form>
 
-                    <!-- Offline Details Accordion Box -->
+                    <!-- Offline Details Box -->
                     <div id="offline-details-box" style="display: none; margin-top: 1.5rem; background: #fffaf0; border: 1px solid #feebc8; padding: 1.5rem; border-radius: 6px;">
                         <h4 style="color: #c05621;"><i class="fa-solid fa-circle-info"></i> Offline Payment Instructions</h4>
                         <p style="margin-top: 0.5rem;">Pay your fine at the School Accounts Office during office hours.</p>
@@ -825,7 +832,16 @@
                     </div>
                 </div>
 
-                                            <!-- Dynamic Content Inserted Here -->
+                <!-- DYNAMIC RECEIPT GENERATION AREA (FIXED PRINT BUG) -->
+                <div id="printable-area" style="display: none;">
+                    <div class="receipt-box">
+                        <div class="receipt-header">
+                            <h2>J.K.B. NATIONAL SCHOOL</h2>
+                            <p>Official Payment Receipt / Acknowledgement Slip</p>
+                            <p style="font-size: 0.85rem;">Affiliated & Recognized Academic Institution</p>
+                        </div>
+                        <div id="receipt-content-body">
+                            <!-- Dynamic Receipt Data Inserted Here -->
                         </div>
                         <div style="margin-top: 2rem; display: flex; justify-content: space-between; align-items: flex-end;">
                             <div>
@@ -843,7 +859,7 @@
                     </div>
                 </div>
 
-                <!-- STORED RECEIPTS MODAL/LIST SECTION -->
+                <!-- STORED RECEIPTS CONTAINER -->
                 <div id="stored-receipts-container" style="display: none; margin-top: 2rem; background: #f7fafc; padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 8px;">
                     <h3><i class="fa-solid fa-database"></i> Stored Online Payment Slips Repository</h3>
                     <p style="margin-bottom: 1rem; font-size: 0.9rem;">History of completed transactions on this browser session:</p>
@@ -862,10 +878,8 @@
 
     <!-- JavaScript Application Logic -->
     <script>
-        // Array to store transactions session-wide
         let paymentStorage = [];
 
-        // Navigation Controller
         function showPage(pageId) {
             document.querySelectorAll('.page-section').forEach(section => {
                 section.classList.remove('active');
@@ -879,7 +893,6 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Switch Payment Tabs
         function switchPayTab(tabId) {
             document.querySelectorAll('.pay-sub-tab').forEach(tab => {
                 tab.style.display = 'none';
@@ -890,12 +903,9 @@
 
             document.getElementById(tabId).style.display = 'block';
             document.getElementById('tab-' + tabId).classList.add('active');
-            
-            // Hide Printable Area when switching tabs
             document.getElementById('printable-area').style.display = 'none';
         }
 
-        // Student Portal Search Validation
         function verifyStudentPortal() {
             const roll = document.getElementById('sp-roll').value.trim();
             const cls = document.getElementById('sp-class').value;
@@ -914,14 +924,12 @@
             resultBox.style.display = 'block';
         }
 
-        // Core Rule: Check if Roll starts with '2024' followed by numbers between 01 and 50
         function validateRollRule(roll) {
             if (!roll.startsWith("2024")) return false;
             const numPart = parseInt(roll.substring(4), 10);
             return (!isNaN(numPart) && numPart >= 1 && numPart <= 50 && roll.length === 6);
         }
 
-        // Online Payment - Step 1: Validate Roll
         function processOnlineValidation() {
             const name = document.getElementById('on-name').value.trim();
             const roll = document.getElementById('on-roll').value.trim();
@@ -943,12 +951,10 @@
                 return;
             }
 
-            // Open QR gateway
             document.getElementById('qr-gateway-screen').style.display = 'block';
             window.scrollTo({ top: document.getElementById('qr-gateway-screen').offsetTop - 100, behavior: 'smooth' });
         }
 
-        // Online Payment - Step 2: Complete & Generate Receipt
         function completeOnlinePayment() {
             const name = document.getElementById('on-name').value.trim();
             const roll = document.getElementById('on-roll').value.trim();
@@ -970,7 +976,6 @@
             renderReceipt(transaction);
         }
 
-        // Hand Cash Payment
         function processHandCashPayment() {
             const name = document.getElementById('hc-name').value.trim();
             const roll = document.getElementById('hc-roll').value.trim();
@@ -1000,14 +1005,12 @@
             renderReceipt(transaction);
         }
 
-        // Exam Fee Calculation
         function calculateExamTotal() {
             const fee = parseFloat(document.getElementById('ex-fee').value) || 0;
             const late = parseFloat(document.getElementById('ex-latefee').value) || 0;
             document.getElementById('ex-total').value = fee + late;
         }
 
-        // Process Exam Payment
         function processExamPayment() {
             const transaction = {
                 type: 'Examination Fee (' + document.getElementById('ex-examname').value + ')',
@@ -1025,7 +1028,6 @@
             renderReceipt(transaction);
         }
 
-        // Process Fine Payment
         function processFinePayment() {
             const transaction = {
                 type: 'Fine Payment (' + document.getElementById('fn-type').value + ')',
@@ -1049,7 +1051,7 @@
             box.style.display = (box.style.display === 'none' || box.style.display === '') ? 'block' : 'none';
         }
 
-        // Generic Render Receipt Function
+         // Render Receipt Correctly
         function renderReceipt(data) {
             const receiptBox = document.getElementById('printable-area');
             const body = document.getElementById('receipt-content-body');
@@ -1071,10 +1073,12 @@
             body.innerHTML = html;
             document.getElementById('receipt-timestamp').innerText = "Date & Time: " + data.date;
             receiptBox.style.display = 'block';
-            window.scrollTo({ top: receiptBox.offsetTop - 50, behavior: 'smooth' });
+            
+            setTimeout(() => {
+                window.scrollTo({ top: receiptBox.offsetTop - 50, behavior: 'smooth' });
+            }, 100);
         }
 
-        // Display all accumulated slips
         function showStoredReceiptsModal() {
             const container = document.getElementById('stored-receipts-container');
             const list = document.getElementById('stored-slips-list');
@@ -1101,4 +1105,4 @@
         }
     </script>
 </body>
-    </html>
+</html>

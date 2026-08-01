@@ -1,736 +1,419 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>J.K.B. NATIONAL SCHOOL (H.S)</title>
-    <!-- Favicon / DP in tab -->
-    <link rel="icon" type="image/jpeg" href="45383.jpg">
-    <style>
-        :root {
-            --primary: #1a365d;
-            --secondary: #2b6cb0;
-            --accent: #d69e2e;
-            --light: #f7fafc;
-            --dark: #2d3748;
-            --white: #ffffff;
-        }
+```react
+import React, { useState } from 'react';
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+// --- MOCK INITIAL STORED RECEIPTS FOR TESTING ---
+const INITIAL_RECEIPTS = [
+  {
+    receiptId: "REC-2026-8801",
+    studentName: "Rahul Sharma",
+    rollNumber: "202401",
+    studentClass: "Class 5",
+    section: "A",
+    admissionNo: "ADM2024-01",
+    feeType: "Monthly Tuition Fee (Feb 2026)",
+    amount: 1500,
+    paymentMode: "UPI / Online",
+    transactionId: "TXN9928172635",
+    date: "2026-02-05",
+    status: "SUCCESS"
+  },
+  {
+    receiptId: "REC-2026-8802",
+    studentName: "Ananya Roy",
+    rollNumber: "202415",
+    studentClass: "Class 8",
+    section: "B",
+    admissionNo: "ADM2024-15",
+    feeType: "Annual Exam Fee",
+    amount: 850,
+    paymentMode: "Hand Cash",
+    transactionId: "CASH-2026-042",
+    date: "2026-02-10",
+    status: "SUCCESS"
+  }
+];
 
-        body {
-            background-color: var(--light);
-            color: var(--dark);
-            line-height: 1.6;
-        }
+// --- TEACHERS DATA FROM PROSPECTUS ---
+const TEACHERS_LIST = [
+  { id: 1, name: "Dr. Rahmatullah", degree: "PhD (English)", role: "English Literature & Language Specialist", detail: "Deep knowledge of English literature & compassionate guidance." },
+  { id: 2, name: "Santosh Kumar Mondal", degree: "B.Com (Hons)", role: "Commerce & Mathematics Lead", detail: "Expert guidance in Commerce and logical Mathematics skills." },
+  { id: 3, name: "Nasim Akhtar Sk", degree: "B.A (History Hons)", role: "History Faculty", detail: "Brings historical events to life with interactive pedagogy." },
+  { id: 4, name: "Md Wasim Akram", degree: "B.A (Education Hons)", role: "Educational Pedagogy Specialist", detail: "Focuses on modern teaching methodologies and student growth." },
+  { id: 5, name: "Islima Parvin", degree: "B.A (English Hons), B.Ed", role: "English & Methodology Teacher", detail: "Seamless integration of English language skills and teaching techniques." },
+  { id: 6, name: "Madhumita Sinha", degree: "B.A (English), D.El.Ed", role: "Primary Foundation Teacher", detail: "Building foundational literacy, care, and spoken English skills." },
+  { id: 7, name: "Nayantara Khatun", degree: "B.A (History Hons)", role: "Social Studies Educator", detail: "Analytical approach to historical & social science concepts." },
+  { id: 8, name: "Rupsa Das", degree: "Higher Secondary (H.S)", role: "Early Childhood Care Giver", detail: "Responsible care and nurturing for primary level kids." },
+  { id: 9, name: "Srimanta Mondal", degree: "Higher Secondary (H.S)", role: "Discipline & Foundation Faculty", detail: "Promotes disciplined habits and sound core education." },
+  { id: 10, name: "Khadija Khatun", degree: "Higher Secondary (H.S)", role: "Moral & Behavioral Educator", detail: "Emphasizes moral values, character building, and ethics." },
+  { id: 11, name: "Palashee Saha", degree: "Higher Secondary (H.S)", role: "Primary Care Instructor", detail: "Warm, affectionate primary learning environment." }
+];
 
-        /* Top Bar */
-        .top-bar {
-            background-color: var(--primary);
-            color: var(--white);
-            padding: 10px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 13px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
+// --- WEEKLY FOOD MENU DATA ---
+const FOOD_MENU = [
+  { day: "Monday", breakfast: "Milk & Roti", lunch: "Rice, Dal, Mixed Veg", snack: "Fresh Fruits", dinner: "Roti & Mixed Veg" },
+  { day: "Tuesday", breakfast: "Suji Paratha", lunch: "Fish Curry & Rice", snack: "Chana Muri", dinner: "Rice, Dal & Veg" },
+  { day: "Wednesday", breakfast: "Special Khichdi", lunch: "Rice, Dal & Sabji", snack: "Milk & Cake", dinner: "Roti & Tadka" },
+  { day: "Thursday", breakfast: "Luchi & Sabji", lunch: "Chicken Curry & Rice", snack: "Fresh Fruits", dinner: "Roti & Mixed Veg" },
+  { day: "Friday", breakfast: "Egg & Roti", lunch: "Rice, Dal & Paneer", snack: "Milk & Biscuits", dinner: "Rice, Dal & Veg" },
+  { day: "Saturday", breakfast: "Special Upma", lunch: "Egg Kalia & Rice", snack: "Sweets", dinner: "Roti & Mixed Veg" },
+  { day: "Sunday", breakfast: "Sunday Special", lunch: "Pulao & Mutton Curry", snack: "Special Evening Snack", dinner: "Roti & Paneer Curry" }
+];
 
-        .top-bar div {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
+export default function App() {
+  const [activeTab, setActiveTab] = useState('home');
+  const [paymentSubTab, setPaymentSubTab] = useState('monthly');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [storedReceipts, setStoredReceipts] = useState(INITIAL_RECEIPTS);
+  const [currentReceiptModal, setCurrentReceiptModal] = useState(null);
+  const [statusCheckModal, setStatusCheckModal] = useState(null);
+  const [offlineDetailsModal, setOfflineDetailsModal] = useState(false);
 
-        /* Header & Nav */
-        header {
-            background-color: var(--white);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+  // --- ONLINE MONTHLY FEE FORM STATE ---
+  const [monthlyForm, setMonthlyForm] = useState({
+    rollNumber: '',
+    studentName: '',
+    studentClass: 'Class 5',
+    feeMonth: 'February 2026',
+    amount: 1500
+  });
+  const [monthlyError, setMonthlyError] = useState('');
+  const [showQRModal, setShowQRModal] = useState(false);
 
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 5%;
-        }
+  // --- HAND CASH FORM STATE ---
+  const [handCashForm, setHandCashForm] = useState({
+    rollNumber: '',
+    studentName: '',
+    studentClass: 'Class 5',
+    feeType: 'Tuition Fee (Cash)',
+    amount: 1500,
+    collectedBy: 'Accounts Counter 1'
+  });
 
-        .logo-section {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
+  // --- EXAM FEE FORM STATE ---
+  const [examForm, setExamForm] = useState({
+    studentName: '',
+    admissionNo: '',
+    studentClass: 'Class 8',
+    section: 'A',
+    rollNumber: '',
+    examName: 'Annual Examination 2026',
+    mobileNumber: '',
+    examFee: 500,
+    lateFee: 0,
+    paymentMethod: 'UPI'
+  });
 
-        /* School DP / Logo Image */
-        .logo-img {
-            width: 65px;
-            height: 65px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--accent);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
-        }
+  // --- FINE PAYMENT FORM STATE ---
+  const [fineForm, setFineForm] = useState({
+    studentName: '',
+    admissionNo: '',
+    studentClass: 'Class 7',
+    section: 'A',
+    rollNumber: '',
+    fineType: 'Late Book Return Fine',
+    fineAmount: 150,
+    reason: 'Library book overdue by 15 days',
+    paymentMethod: 'UPI'
+  });
 
-        .school-title h1 {
-            font-size: 24px;
-            color: var(--primary);
-            text-transform: uppercase;
-        }
+  // Receipt Search State
+  const [searchReceiptQuery, setSearchReceiptQuery] = useState('');
 
-        .school-title p {
-            font-size: 13px;
-            color: #666;
-            font-weight: 500;
-        }
+  // ----------------------------------------------------
+  // ROLL NUMBER VALIDATION FUNCTION
+  // Rule: Must start with 2024 + 2 digits (01 to 50) -> e.g. 202401 to 202450
+  // ----------------------------------------------------
+  const validateRollNumber = (roll) => {
+    const trimmed = roll.trim();
+    const rollRegex = /^2024(0[1-9]|[1-4][0-9]|50)$/;
+    return rollRegex.test(trimmed);
+  };
 
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 18px;
-        }
+  // Handle Monthly Payment Submission
+  const handleMonthlySubmit = (e) => {
+    e.preventDefault();
+    if (!validateRollNumber(monthlyForm.rollNumber)) {
+      setMonthlyError('Invalid Roll Number! Roll must start with "2024" followed by 01 to 50 (e.g., 202401 to 202450).');
+      return;
+    }
+    if (!monthlyForm.studentName.trim()) {
+      setMonthlyError('Please enter student name.');
+      return;
+    }
+    setMonthlyError('');
+    setShowQRModal(true);
+  };
 
-        nav a {
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 600;
-            transition: color 0.3s;
-            font-size: 14px;
-        }
+  // Complete Monthly Online Payment
+  const confirmOnlinePayment = () => {
+    setShowQRModal(false);
+    const newReceipt = {
+      receiptId: "REC-2026-" + Math.floor(1000 + Math.random() * 9000),
+      studentName: monthlyForm.studentName,
+      rollNumber: monthlyForm.rollNumber,
+      studentClass: monthlyForm.studentClass,
+      section: "A",
+      admissionNo: "ADM-" + monthlyForm.rollNumber,
+      feeType: `Monthly Tuition Fee (${monthlyForm.feeMonth})`,
+      amount: Number(monthlyForm.amount),
+      paymentMode: "UPI / QR Code",
+      transactionId: "ONLINE" + Date.now(),
+      date: new Date().toISOString().split('T')[0],
+      status: "SUCCESS"
+    };
+    setStoredReceipts([newReceipt, ...storedReceipts]);
+    setCurrentReceiptModal(newReceipt);
+  };
 
-        nav a:hover {
-            color: var(--secondary);
-        }
+  // Submit Hand Cash Payment
+  const handleHandCashSubmit = (e) => {
+    e.preventDefault();
+    if (!handCashForm.rollNumber.trim() || !handCashForm.studentName.trim()) {
+      alert("Please fill in Roll Number and Student Name!");
+      return;
+    }
+    const newReceipt = {
+      receiptId: "CASH-REC-" + Math.floor(1000 + Math.random() * 9000),
+      studentName: handCashForm.studentName,
+      rollNumber: handCashForm.rollNumber,
+      studentClass: handCashForm.studentClass,
+      section: "A",
+      admissionNo: "ADM-" + handCashForm.rollNumber,
+      feeType: handCashForm.feeType,
+      amount: Number(handCashForm.amount),
+      paymentMode: "Hand Cash (School Counter)",
+      transactionId: "CASH-OFFLINE-" + Math.floor(100000 + Math.random() * 900000),
+      date: new Date().toISOString().split('T')[0],
+      status: "SUCCESS",
+      cashCollector: handCashForm.collectedBy
+    };
+    setStoredReceipts([newReceipt, ...storedReceipts]);
+    setCurrentReceiptModal(newReceipt);
+  };
 
-        /* Hero Banner */
-        .hero {
-            background: linear-gradient(rgba(26, 54, 93, 0.85), rgba(43, 108, 176, 0.85)), url('45374.jpg');
-            background-size: cover;
-            background-position: center;
-            color: var(--white);
-            text-align: center;
-            padding: 120px 20px;
-        }
+  // Submit Exam Fee Payment
+  const handleExamPaymentSubmit = (e) => {
+    e.preventDefault();
+    if (!examForm.studentName || !examForm.rollNumber || !examForm.admissionNo) {
+      alert("Please enter all required student information!");
+      return;
+    }
+    const totalAmount = Number(examForm.examFee) + Number(examForm.lateFee);
+    const newReceipt = {
+      receiptId: "EXAM-REC-" + Math.floor(1000 + Math.random() * 9000),
+      studentName: examForm.studentName,
+      rollNumber: examForm.rollNumber,
+      studentClass: examForm.studentClass,
+      section: examForm.section,
+      admissionNo: examForm.admissionNo,
+      feeType: `Examination Fee (${examForm.examName})`,
+      amount: totalAmount,
+      paymentMode: examForm.paymentMethod,
+      transactionId: "EXAM-TXN-" + Date.now(),
+      date: new Date().toISOString().split('T')[0],
+      status: "SUCCESS"
+    };
+    setStoredReceipts([newReceipt, ...storedReceipts]);
+    setCurrentReceiptModal(newReceipt);
+  };
 
-        .hero h2 {
-            font-size: 42px;
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
+  // Submit Fine Payment
+  const handleFinePaymentSubmit = (e) => {
+    e.preventDefault();
+    if (!fineForm.studentName || !fineForm.rollNumber || !fineForm.admissionNo) {
+      alert("Please complete the Fine Details form!");
+      return;
+    }
+    const newReceipt = {
+      receiptId: "FINE-REC-" + Math.floor(1000 + Math.random() * 9000),
+      studentName: fineForm.studentName,
+      rollNumber: fineForm.rollNumber,
+      studentClass: fineForm.studentClass,
+      section: fineForm.section,
+      admissionNo: fineForm.admissionNo,
+      feeType: `School Fine (${fineForm.fineType})`,
+      amount: Number(fineForm.fineAmount),
+      paymentMode: fineForm.paymentMethod,
+      transactionId: "FINE-TXN-" + Date.now(),
+      date: new Date().toISOString().split('T')[0],
+      status: "SUCCESS",
+      reason: fineForm.reason
+    };
+    setStoredReceipts([newReceipt, ...storedReceipts]);
+    setCurrentReceiptModal(newReceipt);
+  };
 
-        .hero p {
-            font-size: 18px;
-            max-width: 800px;
-            margin: 0 auto 25px auto;
-        }
+  // Filtered Receipts for Slip Archive
+  const filteredReceipts = storedReceipts.filter(r => 
+    r.rollNumber.toLowerCase().includes(searchReceiptQuery.toLowerCase()) ||
+    r.studentName.toLowerCase().includes(searchReceiptQuery.toLowerCase()) ||
+    r.receiptId.toLowerCase().includes(searchReceiptQuery.toLowerCase())
+  );
 
-        .btn {
-            display: inline-block;
-            background-color: var(--accent);
-            color: var(--primary);
-            padding: 12px 28px;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 5px;
-            transition: 0.3s;
-        }
-
-        .btn:hover {
-            background-color: #b7791f;
-            color: var(--white);
-        }
-
-        /* Section Container */
-        .container {
-            max-width: 1200px;
-            margin: 50px auto;
-            padding: 0 20px;
-        }
-
-        .section-title {
-            text-align: center;
-            color: var(--primary);
-            margin-bottom: 35px;
-            position: relative;
-            font-size: 28px;
-            text-transform: uppercase;
-        }
-
-        .section-title::after {
-            content: '';
-            width: 60px;
-            height: 3px;
-            background-color: var(--accent);
-            display: block;
-            margin: 10px auto 0 auto;
-        }
-
-        /* Notice & Principal Grid */
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 30px;
-        }
-
-        .card {
-            background-color: var(--white);
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            border-top: 4px solid var(--primary);
-        }
-
-        .notice-list {
-            list-style: none;
-        }
-
-        .notice-item {
-            padding: 12px 0;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .notice-date {
-            background-color: var(--secondary);
-            color: var(--white);
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: bold;
-            min-width: 95px;
-            text-align: center;
-        }
-
-        /* Photo Gallery Grid */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .gallery-item {
-            background-color: var(--white);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.08);
-            transition: transform 0.3s ease;
-        }
-
-        .gallery-item:hover {
-            transform: translateY(-5px);
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            display: block;
-        }
-
-        .gallery-caption {
-            padding: 15px;
-            text-align: center;
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--primary);
-        }
-
-        /* Rules & Discipline Styling */
-        .discipline-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 25px;
-        }
-
-        .discipline-card {
-            background: var(--white);
-            border-radius: 8px;
-            padding: 25px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            border-top: 4px solid var(--secondary);
-        }
-
-        .discipline-card h3 {
-            color: var(--primary);
-            margin-bottom: 15px;
-            border-bottom: 2px solid var(--light);
-            padding-bottom: 10px;
-            font-size: 18px;
-        }
-
-        .rules-list {
-            list-style-type: none;
-            max-height: 420px;
-            overflow-y: auto;
-            padding-right: 10px;
-        }
-
-        .rules-list::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .rules-list::-webkit-scrollbar-thumb {
-            background-color: var(--secondary);
-            border-radius: 3px;
-        }
-
-        .rules-list li {
-            position: relative;
-            padding-left: 25px;
-            margin-bottom: 10px;
-            font-size: 13.5px;
-            color: var(--dark);
-            line-height: 1.5;
-        }
-
-        .rules-list li::before {
-            content: "✔";
-            position: absolute;
-            left: 0;
-            color: var(--accent);
-            font-weight: bold;
-        }
-
-        /* Features */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .feature-box {
-            background-color: var(--white);
-            padding: 25px;
-            text-align: center;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            transition: transform 0.3s;
-        }
-
-        .feature-box:hover {
-            transform: translateY(-5px);
-        }
-
-        .feature-icon {
-            font-size: 35px;
-            color: var(--secondary);
-            margin-bottom: 15px;
-        }
-
-        /* Faculty Grid */
-        .faculty-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .faculty-card {
-            background: var(--white);
-            padding: 20px;
-            border-radius: 8px;
-            border-left: 4px solid var(--accent);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-
-        .faculty-card h4 {
-            color: var(--primary);
-            font-size: 16px;
-            margin-bottom: 5px;
-        }
-
-        .faculty-card p {
-            font-size: 13px;
-            color: #666;
-        }
-
-        /* Map Section */
-        .map-container {
-            width: 100%;
-            height: 380px;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            margin-top: 20px;
-        }
-
-        .map-container iframe {
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
-        /* Contact Details Grid */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-
-        /* Footer */
-        footer {
-            background-color: var(--primary);
-            color: var(--white);
-            padding: 40px 5% 20px 5%;
-            margin-top: 60px;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto 30px auto;
-        }
-
-        .footer-col h3 {
-            color: var(--accent);
-            margin-bottom: 15px;
-        }
-
-        .footer-col p, .footer-col ul {
-            font-size: 14px;
-            color: #cbd5e0;
-        }
-
-        .footer-col ul {
-            list-style: none;
-        }
-
-        .footer-col ul li {
-            margin-bottom: 8px;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            font-size: 14px;
-            color: #cbd5e0;
-        }
-
-        @media (max-width: 768px) {
-            .grid-2, .contact-grid {
-                grid-template-columns: 1fr;
-            }
-            .header-container {
-                flex-direction: column;
-                gap: 15px;
-            }
-            nav ul {
-                gap: 10px;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <!-- Top Info Bar -->
-    <div class="top-bar">
-        <div>📍 Chandermore Station Road, Bhairabpur, West Bengal 742201</div>
-        <div>📞 +91 8617061244 / 7384361623 | ✉️ jkbnationalschool@gmail.com</div>
-    </div>
-
-    <!-- Header / Navbar -->
-    <header>
-        <div class="header-container">
-            <div class="logo-section">
-                <!-- School Official Logo / DP (New Photo: 45383.jpg) -->
-                <img src="45383.jpg" alt="J.K.B. National School Logo" class="logo-img">
-                <div class="school-title">
-                    <h1>J.K.B. NATIONAL SCHOOL (H.S)</h1>
-                    <p>Bengali & CBSE Curriculum | English Medium | Hostel Available</p>
-                </div>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About Us</a></li>
-                    <li><a href="#discipline">Discipline & Rules</a></li>
-                    <li><a href="#gallery">Campus Gallery</a></li>
-                    <li><a href="#academics">Academics</a></li>
-                    <li><a href="#faculty">Faculty</a></li>
-                    <li><a href="#admissions">Admissions</a></li>
-                    <li><a href="#notice">Notices</a></li>
-                    <li><a href="#contact">Contact & Map</a></li>
-                </ul>
-            </nav>
+  return (
+    <div className="min-h-screen bg-slate-50 text-slate-800 font-sans flex flex-col">
+      {/* ----------------- TOP ANNOUNCEMENT BAR ----------------- */}
+      <div className="bg-amber-500 text-slate-950 px-4 py-2 text-xs md:text-sm font-semibold flex justify-between items-center shadow-inner">
+        <div className="flex items-center space-x-2 overflow-hidden">
+          <span className="bg-slate-900 text-white px-2 py-0.5 rounded text-xs uppercase tracking-wide animate-pulse">Announcement</span>
+          <span className="truncate">ADMISSION OPEN FOR 2026 SESSION (Bengali & CBSE Curriculum) | Entrance Exam: 21st Feb 2026</span>
         </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <h2>Empowering Minds, Shaping Futures</h2>
-        <p>At J.K.B. National School (H.S), we provide quality education blended with moral values, modern technology, and comprehensive co-curricular growth.</p>
-        <a href="#admissions" class="btn">Admissions Open 2026</a>
-    </section>
-
-    <!-- Main Content Container -->
-    <div class="container">
-        <!-- Notice & Principal Message Grid -->
-        <div class="grid-2">
-            <!-- Notice Board -->
-            <div class="card" id="notice">
-                <h2 style="color: var(--primary); margin-bottom: 15px;">📌 Notice Board</h2>
-                <ul class="notice-list">
-                    <li class="notice-item">
-                        <span class="notice-date">02 FEB 2026</span>
-                        <span>Admission process for Academic Session 2026 begins.</span>
-                    </li>
-                    <li class="notice-item">
-                        <span class="notice-date">21 FEB 2026</span>
-                        <span>Entrance Examination scheduled for new applicants.</span>
-                    </li>
-                    <li class="notice-item">
-                        <span class="notice-date">01 MAR 2026</span>
-                        <span>Commencement of regular classes for session 2026.</span>
-                    </li>
-                    <li class="notice-item">
-                        <span class="notice-date">15 AUG 2026</span>
-                        <span>Independence Day Celebration & Co-curricular Competitions.</span>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Principal / Management Note -->
-            <div class="card" id="about">
-                <h3 style="color: var(--primary); margin-bottom: 10px;">Administration Message</h3>
-                <p style="font-size: 14px; color: #555;">
-                    "Education is the key to the future, for tomorrow belongs to those who prepare for it today. Our goal is to nurture young minds into confident, morally responsible global citizens."
-                </p>
-                <a href="#faculty" style="display: inline-block; margin-top: 15px; color: var(--secondary); font-weight: bold; text-decoration: none;">View Faculty Details &rarr;</a>
-            </div>
+        <div className="hidden md:flex space-x-4 text-xs font-bold">
+          <a href="tel:8617061244" className="hover:underline">📞 Helpline: 8617061244</a>
+          <a href="mailto:jkbnationalschool@gmail.com" className="hover:underline">✉️ jkbnationalschool@gmail.com</a>
         </div>
+      </div>
 
-        <!-- Discipline & Code of Conduct Section in Bengali -->
-        <h2 class="section-title" id="discipline" style="margin-top: 60px;">বিদ্যালয়ের শৃঙ্খলা ও নিয়মাবলী (Discipline & Rules)</h2>
-        <div class="discipline-grid">
-            <!-- Student Rules -->
-            <div class="discipline-card">
-                <h3>📜 ছাত্র-ছাত্রীদের জন্য নিয়মাবলী</h3>
-                <ul class="rules-list">
-                    <li>প্রতিদিন নির্ধারিত সময়ের অন্তত ১০ মিনিট আগে বিদ্যালয়ে উপস্থিত হতে হবে।</li>
-                    <li>বিদ্যালয়ের নির্ধারিত, পরিষ্কার এবং ইস্ত্রি করা ইউনিফর্ম পরে আসতে হবে।</li>
-                    <li>পরিচয়পত্র (Identity Card) প্রতিদিন গলায় পরা বা সঙ্গে রাখা বাধ্যতামূলক।</li>
-                    <li>ক্লাসের পড়া এবং বাড়ির কাজ (Homework) প্রতিদিন নিয়মিত সম্পন্ন করে আনতে হবে।</li>
-                    <li>শিক্ষক-শিক্ষিকা এবং বিদ্যালয়ের কর্মীদের প্রতি সর্বদা শ্রদ্ধা ও মার্জিত আচরণ প্রদর্শন করতে হবে।</li>
-                    <li>সহপাঠীদের সঙ্গে সৌহার্দ্যপূর্ণ ও সহমর্মী আচরণ বজায় রাখতে হবে।</li>
-                    <li>ক্লাস চলাকালীন শান্ত থাকতে হবে এবং শিক্ষকের নির্দেশ মনোযোগ দিয়ে শুনতে হবে।</li>
-                    <li>বেঞ্চ, টেবিল, ব্ল্যাকবোর্ড বা বিদ্যালয়ের কোনো সম্পত্তি নষ্ট করা যাবে না।</li>
-                    <li>শ্রেণীকক্ষ, বারান্দা এবং বিদ্যালয় প্রাঙ্গণ সর্বদা পরিষ্কার-পরিচ্ছন্ন রাখতে হবে।</li>
-                    <li>অনুমতি ছাড়া ক্লাস চলাকালীন বা টিফিনের সময় বিদ্যালয় প্রাঙ্গণের বাইরে যাওয়া যাবে না।</li>
-                    <li>বিদ্যালয়ে মোবাইল ফোন, স্মার্টওয়াচ বা অন্য কোনো ইলেকট্রনিক গ্যাজেট আনা সম্পূর্ণ নিষিদ্ধ।</li>
-                    <li>কোনো প্রকার দামি গয়না, অপ্রয়োজনীয় জিনিসপত্র বা অতিরিক্ত টাকা স্কুলে আনা যাবে না।</li>
-                    <li>সকালের প্রার্থনাসভায় (Assembly) সারিবদ্ধভাবে দাঁড়াতে হবে এবং নীরবতা বজায় রাখতে হবে।</li>
-                    <li>কোনো ধরণের শারীরিক বা মানসিক উত্ত্যক্তকরণ (Bullying) বা হিংসাত্মক আচরণে লিপ্ত হওয়া যাবে না।</li>
-                    <li>অনুপস্থিত থাকার প্রয়োজন হলে অভিভাবকের স্বাক্ষরসহ ছুটির আবেদনপত্র জমা দিতে হবে।</li>
-                    <li>পরীক্ষার সময় কোনো প্রকার অসদুপায় অবলম্বন করা কঠোরভাবে নিষিদ্ধ।</li>
-                </ul>
+      {/* ----------------- MAIN HEADER & NAVIGATION ----------------- */}
+      <header className="bg-slate-900 text-white sticky top-0 z-40 shadow-xl border-b border-amber-500/30">
+        <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+          {/* Logo */}
+          <div className="flex items-center space-x-3 cursor-pointer" onClick={() => setActiveTab('home')}>
+            <div className="w-12 h-12 bg-gradient-to-tr from-amber-500 to-amber-300 rounded-full flex items-center justify-center shadow-lg border-2 border-white">
+              <span className="text-slate-950 font-black text-xl tracking-wider">JKB</span>
             </div>
-
-            <!-- Parent Rules -->
-            <div class="discipline-card">
-                <h3>🤝 অভিভাবক ও অভিভাবিকাদের নির্দেশিকা</h3>
-                <ul class="rules-list">
-                    <li>সন্তানকে প্রতিদিন নির্দিষ্ট সময়ে নিয়ম মেনে বিদ্যালয়ে পাঠানো সুনিশ্চিত করতে হবে।</li>
-                    <li>সন্তান পরিচ্ছন্ন ইউনিফর্ম ও সঠিক জুতো পরে আসছে কিনা সেদিকে খেয়াল রাখতে হবে।</li>
-                    <li>প্রতিদিনের ডায়রি (School Diary) নিয়মিত পরীক্ষা করতে হবে এবং শিক্ষকের নোটিশে স্বাক্ষর করতে হবে।</li>
-                    <li>সন্তানের প্রতিদিনের পড়াশোনা ও বাড়ির কাজ ঠিকমতো হচ্ছে কিনা তা তদারকি করতে হবে।</li>
-                    <li>অভিভাবক-শিক্ষক সভায় (PTM) নিয়মিত ও নির্দিষ্ট সময়ে উপস্থিত থাকা বাধ্যতামূলক।</li>
-                    <li>বাসস্থান বা যোগাযোগের ফোন নম্বর পরিবর্তিত হলে অবিলম্বে বিদ্যালয় কর্তৃপক্ষকে জানাতে হবে।</li>
-                    <li>সন্তান সংক্রামক ব্যাধিতে আক্রান্ত হলে সুস্থ না হওয়া পর্যন্ত তাকে স্কুলে পাঠানো যাবে না।</li>
-                    <li>টিফিনে সন্তানকে পুষ্টিকর ও স্বাস্থ্যকর খাবার দিতে হবে; প্রক্রিয়াজাত বা জাঙ্ক ফুড এড়িয়ে চলাই শ্রেয়।</li>
-                    <li>বিদ্যালয়ের নির্দিষ্ট সময়ের মধ্যে সকল প্রকার ফি ও পাওনা পরিশোধ করতে হবে।</li>
-                    <li>ক্লাস চলাকালীন অনুমতি ছাড়া সরাসরি শ্রেণীকক্ষে প্রবেশ করা বা শিক্ষকের সাথে দেখা করা যাবে না।</li>
-                    <li>শিক্ষক-শিক্ষিকা ও বিদ্যালয় কর্তৃপক্ষের সাথে সবসময় মার্জিত ও সম্মানজনক ভাষায় কথা বলতে হবে।</li>
-                </ul>
-            </div>
-
-            <!-- Teacher & Staff Rules -->
-            <div class="discipline-card">
-                <h3>👨‍🏫 শিক্ষক ও কর্মচারীদের আচরণবিধি</h3>
-                <ul class="rules-list">
-                    <li>প্রতিদিন সকালের অ্যাসেম্বলির (Assembly) অন্তত ১০ মিনিট আগে স্কুলে উপস্থিত হতে হবে।</li>
-                    <li>স্কুলে প্রবেশ এবং প্রস্থান করার সময় বায়োমেট্রিক হাজিরা দেওয়া বাধ্যতামূলক।</li>
-                    <li>শিক্ষিকাদের জন্য নিয়মিত শাড়ি পরিধান করা এবং সকলের আইডি কার্ড পরা বাধ্যতামূলক।</li>
-                    <li>প্রতি সপ্তাহে শিক্ষকদের আগে থেকে Lesson Plan এবং Lesson Diary তৈরি করে জমা দিতে হবে।</li>
-                    <li>পিরিয়ড পরিবর্তনের বেল পড়ার ৩ মিনিটের মধ্যে নিজ নিজ ক্লাসে প্রবেশ করতে হবে।</li>
-                    <li>শিক্ষার্থীদের ওপর কোনো রূপ শারীরিক নির্যাতন (Corporal Punishment) সম্পূর্ণ নিষিদ্ধ।</li>
-                    <li>ক্লাস বা অ্যাসেম্বলি চলাকালীন শিক্ষক-শিক্ষিকাদের মোবাইল ফোন ব্যবহার সম্পূর্ণ নিষিদ্ধ।</li>
-                    <li>স্কুল প্রাঙ্গণে ধূমপান, তামাকজাত দ্রব্য বা কোনো ধরনের মাদক সেবন কঠোরভাবে নিষিদ্ধ।</li>
-                    <li>বার্ষিক প্রশ্নপত্র, রেজাল্ট এবং শিক্ষার্থীদের তথ্যের সর্বোচ্চ গোপনীয়তা বজায় রাখতে হবে।</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Photo Gallery Section -->
-        <h2 class="section-title" id="gallery" style="margin-top: 60px;">Campus & Life at J.K.B.</h2>
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <img src="45362.jpg" alt="Morning Assembly & Campus Building">
-                <div class="gallery-caption">Morning Assembly & Boys Hostel Building</div>
-            </div>
-            <div class="gallery-item">
-                <img src="45359.jpg" alt="Outdoor Assembly & Prayer">
-                <div class="gallery-caption">Students & Teachers at Outdoor Prayer</div>
-            </div>
-            <div class="gallery-item">
-                <img src="45368.jpg" alt="Indoor Corridor Assembly">
-                <div class="gallery-caption">Indoor Corridor Assembly & Pledge</div>
-            </div>
-            <div class="gallery-item">
-                <img src="45372.jpg" alt="Students in School Uniform">
-                <div class="gallery-caption">Students Assembly in School Uniform</div>
-            </div>
-            <div class="gallery-item">
-                <img src="45369.jpg" alt="Classroom Study Session">
-                <div class="gallery-caption">Interactive Classroom Learning</div>
-            </div>
-            <div class="gallery-item">
-                <img src="45373.jpg" alt="School Main Gate & Campus Overview">
-                <div class="gallery-caption">Main Entrance Gate & Campus View</div>
-            </div>
-            <div class="gallery-item">
-                <img src="45374.jpg" alt="Cultural Event & Festival">
-                <div class="gallery-caption">Cultural Festival & Student Event</div>
-            </div>
-            <div class="gallery-item">
-                <img src="45370.jpg" alt="Senior Students in School Uniform">
-                <div class="gallery-caption">Senior Students Group Photo</div>
-            </div>
-        </div>
-
-        <!-- Academic Offerings -->
-        <h2 class="section-title" id="academics" style="margin-top: 60px;">Academic Offerings & Features</h2>
-        <div class="features-grid">
-            <div class="feature-box">
-                <div class="feature-icon">📚</div>
-                <h3>Class I - IV</h3>
-                <p>English Medium Day School focusing on foundational literacy, numeracy, and spoken English.</p>
-            </div>
-            <div class="feature-box">
-                <div class="feature-icon">🔬</div>
-                <h3>Class V - XII</h3>
-                <p>Science & Arts streams with rigorous curriculum preparation and hostel facility available.</p>
-            </div>
-            <div class="feature-box">
-                <div class="feature-icon">📝</div>
-                <h3>Daily Study Material</h3>
-                <p>Regular study materials, unit tests, class tests, homework tracking, and concept-clearing repeat classes.</p>
-            </div>
-            <div class="feature-box">
-                <div class="feature-icon">🏠</div>
-                <h3>Hostel & Mess</h3>
-                <p>Nutritious meal routine planned by nutritionists, disciplined environment, and 24/7 care.</p>
-            </div>
-        </div>
-
-        <!-- Faculty Section -->
-        <h2 class="section-title" id="faculty" style="margin-top: 60px;">Qualified Faculty</h2>
-        <div class="faculty-grid">
-            <div class="faculty-card">
-                <h4>Dr. Rahmatullah</h4>
-                <p><strong>Qualification:</strong> Ph.D. (English)</p>
-                <p>Deep expertise in English Literature, Language, and Guidance.</p>
-            </div>
-            <div class="faculty-card">
-                <h4>Santosh Kumar Mondal</h4>
-                <p><strong>Qualification:</strong> B.Com (Hons) (PQ)</p>
-                <p>Expert guidance in Commerce & Mathematics.</p>
-            </div>
-            <div class="faculty-card">
-                <h4>Nasim Aktar Sheikh</h4>
-                <p><strong>Qualification:</strong> B.A. (History Hons)</p>
-                <p>Bringing historical events to life with interactive teaching.</p>
-            </div>
-            <div class="faculty-card">
-                <h4>Md Wasim Akram</h4>
-                <p><strong>Qualification:</strong> B.A. (Education Hons)</p>
-                <p>Educational Science & Modern Pedagogy.</p>
-            </div>
-            <div class="faculty-card">
-                <h4>Islema Parvin</h4>
-                <p><strong>Qualification:</strong> English Hons, B.Ed</p>
-                <p>English Language and Pedagogy Integration.</p>
-            </div>
-            <div class="faculty-card">
-                <h4>Noyontara Khatun</h4>
-                <p><strong>Qualification:</strong> History Hons</p>
-                <p>Historical Analysis and Critical Thinking.</p>
-            </div>
-        </div>
-
-        <!-- Contact & Google Maps Section -->
-        <h2 class="section-title" id="contact" style="margin-top: 60px;">Location & Contact Information</h2>
-        <div class="contact-grid">
-            <!-- Contact Details -->
-            <div class="card">
-                <h3 style="color: var(--primary); margin-bottom: 15px;">School Address & Contacts</h3>
-                <p style="margin-bottom: 10px;"><strong>📍 Address:</strong><br>JKB NATIONAL SCHOOL (H.S), Chandermore Station Road, Bhairabpur, West Bengal 742201.</p>
-                <p style="margin-bottom: 10px;"><strong>📞 Helpline Numbers:</strong><br>+91 8617061244 / +91 7384361623</p>
-                <p style="margin-bottom: 10px;"><strong>✉️ Official Email:</strong><br>jkbnationalschool@gmail.com</p>
-                <p style="margin-bottom: 10px;"><strong>💼 Careers:</strong><br>Send CV to <em>jkbnationalschool@gmail.com</em></p>
-            </div>
-
-            <!-- Google Map Embed -->
             <div>
-                <h3 style="color: var(--primary); margin-bottom: 15px;">Google Map Location</h3>
-                <div class="map-container">
-                    <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.902442428311!2d88.0!3d24.5!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjTCsDMwJzAwLjAiTiA4OMKwMDAnMDAuMCJF!5e0!3m2!1sen!2sin!4v1620000000000!5m2!1sen!2sin&q=Chandermore+Station+Road+Bhairabpur+West+Bengal+742201" 
-                        allowfullscreen="" 
-                        loading="lazy" 
-                        referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
+              <h1 className="text-xl md:text-2xl font-black tracking-wider text-amber-400 leading-none">J.K.B. NATIONAL SCHOOL</h1>
+              <p className="text-xs text-slate-300 tracking-wider mt-1">Bengali & CBSE Curriculum | English Medium</p>
+            </div>
+          </div>
+
+          {/* Desktop Nav */}
+          <nav className="hidden lg:flex items-center space-x-1 font-medium text-sm">
+            {[
+              { id: 'home', label: 'Home' },
+              { id: 'about', label: 'About Us' },
+              { id: 'teachers', label: 'Faculty' },
+              { id: 'hostel', label: 'Hostel & Mess' },
+              { id: 'rules', label: 'Discipline' },
+              { id: 'admission', label: 'Admission 2026' },
+              { id: 'payment', label: 'Payment Hub', badge: 'Online/Offline' },
+              { id: 'careers', label: 'Careers' },
+              { id: 'contact', label: 'Contact Us' }
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`px-3 py-2 rounded-lg transition-all duration-200 relative ${
+                  activeTab === tab.id
+                    ? 'bg-amber-500 text-slate-950 font-bold shadow-md'
+                    : 'text-slate-200 hover:bg-slate-800 hover:text-amber-400'
+                }`}
+              >
+                {tab.label}
+                {tab.badge && (
+                  <span className="absolute -top-1 -right-1 bg-emerald-500 text-slate-950 text-[9px] font-black px-1.5 py-0.5 rounded-full">
+                    {tab.badge}
+                  </span>
+                )}
+              </button>
+            ))}
+          </nav>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden p-2 rounded-lg bg-slate-800 text-amber-400 focus:outline-none"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {mobileMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
+        </div>
+
+        {/* Mobile Navigation Drawer */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden bg-slate-950 border-t border-slate-800 px-4 py-3 space-y-2">
+            {[
+              { id: 'home', label: 'Home' },
+              { id: 'about', label: 'About Us' },
+              { id: 'teachers', label: 'Faculty Members' },
+              { id: 'hostel', label: 'Hostel & Food Menu' },
+              { id: 'rules', label: 'Rules & Discipline' },
+              { id: 'admission', label: 'Admission 2026' },
+              { id: 'payment', label: 'Payment Hub (Online/Cash/Exam/Fine)' },
+              { id: 'careers', label: 'Careers' },
+              { id: 'contact', label: 'Contact Us' }
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => {
+                  setActiveTab(tab.id);
+                  setMobileMenuOpen(false);
+                }}
+                className={`w-full text-left px-4 py-2.5 rounded-md text-sm font-semibold ${
+                  activeTab === tab.id ? 'bg-amber-500 text-slate-950' : 'text-slate-300 hover:bg-slate-800'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        )}
+      </header>
+
+      {/* ----------------- MAIN CONTENT AREA ----------------- */}
+      <main className="flex-grow">
+        {/* ==================== HOME SECTION ==================== */}
+        {activeTab === 'home' && (
+          <div>
+            {/* HERO BANNER */}
+            <div className="relative bg-gradient-to-r from-slate-950 via-slate-900 to-indigo-950 text-white py-16 md:py-24 px-4 overflow-hidden border-b-4 border-amber-500">
+              <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#f59e0b_1px,transparent_1px)] [background-size:16px_16px]"></div>
+              <div className="max-w-6xl mx-auto relative z-10 text-center space-y-6">
+                <span className="inline-block bg-amber-500/20 text-amber-400 border border-amber-500/40 px-4 py-1.5 rounded-full text-xs md:text-sm font-bold tracking-widest uppercase">
+                  Fulfilling Every Student's Dream
+                </span>
+                <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-white leading-tight">
+                  Welcome to <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-200">J.K.B. NATIONAL SCHOOL</span>
+                </h1>
+                <p className="max-w-3xl mx-auto text-slate-300 text-sm md:text-lg">
+                  Quality English Medium Education integrated with Bengali & CBSE Curriculum. Offering holistic development, expert faculty, modern hostel facilities, and strong moral values.
+                </p>
+
+                <div className="flex flex-wrap justify-center gap-4 pt-4">
+                  <button
+                    onClick={() => setActiveTab('admission')}
+                    className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-black px-6 py-3.5 rounded-xl shadow-lg hover:shadow-amber-500/30 transition transform hover:-translate-y-0.5 text-sm md:text-base uppercase tracking-wider"
+                  >
+                    Admission Open 2026
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('payment')}
+                    className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-6 py-3.5 rounded-xl shadow-lg hover:shadow-emerald-600/30 transition transform hover:-translate-y-0.5 text-sm md:text-base"
+                  >
+                    Pay School Fees Online
+                  </button>
                 </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Footer Section -->
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h3>J.K.B. NATIONAL SCHOOL</h3>
-                <p>Bengali & CBSE Curriculum English Medium School providing quality education, hostel facilities, and holistic character building.</p>
+                {/* KEY HIGHLIGHT CARDS */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto pt-8">
+                  <div className="bg-slate-900/80 border border-slate-800 p-4 rounded-xl text-center">
+                    <div className="text-2xl font-black text-amber-400">Class I - IV</div>
+                    <div className="text-xs text-slate-400 mt-1">English Medium Day School</div>
+                  </div>
+                  <div className="bg-slate-900/80 border border-slate-800 p-4 rounded-xl text-center">
+                    <div className="text-2xl font-black text-amber-400">Class V - XII</div>
+                    <div className="text-xs text-slate-400 mt-1">Science & Arts with Hostel</div>
+                  </div>
+                  <div className="bg-slate-900/80 border border-slate-800 p-4 rounded-xl text-center">
+                    <div className="text-2xl font-black text-amber-400">100% Care</div>
+                    <div className="text-xs text-slate-400 mt-1">Qualified & Affectionate Faculty</div>
+                  </div>
+                  <div className="bg-slate-900/80 border border-slate-800 p-4 rounded-xl text-center">
+                    <div className="text-2xl font-black text-amber-400">Hostel</div>
+                    <div className="text-xs text-slate-400 mt-1">Hygienic Dining & 24/7 Security</div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="footer-col">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li>• <a href="#home" style="color:#cbd5e0; text-decoration:none;">Home</a></li>
-                    <li>• <a href="#about" style="color:#cbd5e0; text-decoration:none;">About Us</a></li>
-                    <li>• <a href="#discipline" style="color:#cbd5e0; text-decoration:none;">Discipline & Rules</a></li>
-                    <li>• <a href="#gallery" style="color:#cbd5e0; text-decoration:none;">Campus Gallery</a></li>
-                    <li>• <a href="#academics" style="color:#cbd5e0; text-decoration:none;">Academics</a></li>
-                    <li>• <a href="#notice" style="color:#cbd5e0; text-decoration:none;">Notices</a></li>
-                    <li>• <a href="#contact" style="color:#cbd5e0; text-decoration:none;">Contact Us</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h3>Contact Info</h3>
-                <p>📍 Chandermore Station Road, Bhairabpur, West Bengal 742201</p>
-                <p>📞 +91 8617061244</p>
-                <p>✉️ jkbnationalschool@gmail.com</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            &copy; 2026 J.K.B. NATIONAL SCHOOL (H.S). All Rights Reserved.
-        </div>
-    </footer>
 
-</body>
-</html>
+            {/* ADMISSION DATES & QUICK OVERVIEW */}
+            <div className="max-w-7xl mx-auto px-4 py-12">
+              <div className="grid md:grid-cols-3 gap-8">
+                {/* Important Dates Box */}
+                <div className="bg-amber-500 te

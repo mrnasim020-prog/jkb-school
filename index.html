@@ -1,312 +1,582 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>J.K.B. NATIONAL SCHOOL</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- React & ReactDOM -->
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <!-- Babel -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>J.K.B. National School - Official Portal</title>
+  <style>
+    /* CSS Styles */
+    :root {
+      --primary: #1e3a8a;
+      --secondary: #d97706;
+      --light-bg: #f8fafc;
+      --dark: #0f172a;
+      --white: #ffffff;
+      --border: #cbd5e1;
+      --success: #16a34a;
+      --error: #dc2626;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--light-bg);
+      color: var(--dark);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Navigation Bar */
+    header {
+      background-color: var(--primary);
+      color: var(--white);
+      padding: 1rem 2rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo-area h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .logo-area p {
+      font-size: 0.8rem;
+      color: #93c5fd;
+    }
+
+    nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .nav-btn {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid transparent;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .nav-btn:hover, .nav-btn.active {
+      background-color: var(--secondary);
+      border-color: var(--secondary);
+    }
+
+    /* Main Container */
+    main {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      flex: 1;
+      width: 100%;
+    }
+
+    .page-section {
+      display: none;
+      background: var(--white);
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .page-section.active {
+      display: block;
+    }
+
+    h2 {
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      border-bottom: 2px solid var(--secondary);
+      padding-bottom: 0.5rem;
+    }
+
+    /* Grid Layouts */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.5rem;
+      background: var(--white);
+    }
+
+    .card h3 {
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background-color: var(--primary);
+      color: var(--white);
+    }
+
+    tr:nth-child(even) {
+      background-color: #f1f5f9;
+    }
+
+    /* Forms */
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+
+    .btn-submit {
+      background-color: var(--primary);
+      color: var(--white);
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .btn-submit:hover {
+      background-color: #1e40af;
+    }
+
+    .error-msg {
+      color: var(--error);
+      font-weight: bold;
+      margin-top: 0.5rem;
+      display: none;
+    }
+
+    /* Payments Tab Styling */
+    .sub-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+    }
+
+    .sub-btn {
+      background: #e2e8f0;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .sub-btn.active {
+      background: var(--secondary);
+      color: var(--white);
+    }
+
+    .sub-content {
+      display: none;
+    }
+
+    .sub-content.active {
+      display: block;
+    }
+
+    .qr-box {
+      text-align: center;
+      padding: 1.5rem;
+      border: 2px dashed var(--primary);
+      border-radius: 8px;
+      margin-top: 1rem;
+      background: #eff6ff;
+    }
+
+    .receipt-box {
+      border: 2px solid var(--dark);
+      padding: 2rem;
+      border-radius: 6px;
+      background: #fff;
+      max-width: 600px;
+      margin: 1rem auto;
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--dark);
+      color: var(--white);
+      text-align: center;
+      padding: 1rem;
+      margin-top: auto;
+    }
+  </style>
 </head>
-<body class="bg-slate-50 font-sans text-slate-800">
-    <div id="root"></div>
+<body>
 
-    <script type="text/babel">
-        const { useState } = React;
+  <!-- Header / Navigation -->
+  <header>
+    <div class="nav-container">
+      <div class="logo-area">
+        <h1>J.K.B. NATIONAL SCHOOL</h1>
+        <p>Bengali & CBSE Curriculum | English Medium</p>
+      </div>
+      <nav>
+        <button class="nav-btn active" onclick="switchPage('home')">Home</button>
+        <button class="nav-btn" onclick="switchPage('about')">About</button>
+        <button class="nav-btn" onclick="switchPage('teachers')">Teachers List</button>
+        <button class="nav-btn" onclick="switchPage('food')">Food Menu</button>
+        <button class="nav-btn" onclick="switchPage('admission')">Admission Portal</button>
+        <button class="nav-btn" onclick="switchPage('fees')">Fees & Payments</button>
+      </nav>
+    </div>
+  </header>
 
-        function App() {
-            const [activeTab, setActiveTab] = useState('fees');
-            const [paymentMode, setPaymentMode] = useState('online'); // 'online' or 'cash'
-            
-            // Form Fields
-            const [studentClass, setStudentClass] = useState('');
-            const [studentName, setStudentName] = useState('');
-            const [rollNumber, setRollNumber] = useState('');
-            
-            // Flow & Receipts
-            const [errorMsg, setErrorMsg] = useState('');
-            const [step, setStep] = useState(1); // 1: Form, 2: QR Payment, 3: Receipt, 4: Stored Slips
-            const [currentReceipt, setCurrentReceipt] = useState(null);
-            const [savedReceipts, setSavedReceipts] = useState([]);
+  <!-- Main Content Sections -->
+  <main>
 
-            const handleTabSwitch = (tab) => {
-                setActiveTab(tab);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            };
+    <!-- 1. Home Section -->
+    <section id="home" class="page-section active">
+      <h2>Welcome to J.K.B. National School</h2>
+      <p>Empowering students through comprehensive education, holistic development, and excellence in learning.</p>
+      <div class="grid-3" style="margin-top: 1.5rem;">
+        <div class="card">
+          <h3>Quality Education</h3>
+          <p>Providing high standards of teaching across CBSE & English Medium curriculums.</p>
+        </div>
+        <div class="card">
+          <h3>Hostel Available</h3>
+          <p>Safe, comfortable, and disciplined residential environment for students.</p>
+        </div>
+        <div class="card">
+          <h3>Modern Facilities</h3>
+          <p>Focus on spoken English, smart mock tests, and concept-clearing classes.</p>
+        </div>
+      </div>
+    </section>
 
-            const resetForm = () => {
-                setStudentClass('');
-                setStudentName('');
-                setRollNumber('');
-                setErrorMsg('');
-                setStep(1);
-            };
+    <!-- 2. About Section -->
+    <section id="about" class="page-section">
+      <h2>About Our Institution</h2>
+      <p>J.K.B. National School is dedicated to nurturing young minds and bringing out their full potential through disciplined education, ethical values, and extracurricular activities.</p>
+      <div class="grid-3" style="margin-top: 1.5rem;">
+        <div class="card">
+          <h3>Key Features</h3>
+          <ul>
+            <li>Daily study materials provided</li>
+            <li>Regular unit and class tests</li>
+            <li>Smart motivational classes</li>
+            <li>Focus on spoken English skills</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Contact Details</h3>
+          <p><strong>Main Campus:</strong> Chandermore, Sujnipara Station Road, Murshidabad, Pin - 742201</p>
+          <p><strong>Helpline:</strong> 8617061244 / 7384361623</p>
+          <p><strong>Email:</strong> jkbnationalschool@gmail.com</p>
+        </div>
+      </div>
+    </section>
 
-            // Online Payment Validation & Logic
-            const handleOnlineProceed = (e) => {
-                e.preventDefault();
-                setErrorMsg('');
+    <!-- 3. Teachers List Section -->
+    <section id="teachers" class="page-section">
+      <h2>Our Faculty & Teachers List</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Qualification</th>
+            <th>Specialization</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Dr. Rahmatullah</td><td>PhD (English)</td><td>Deep Knowledge of English Literature & Language</td></tr>
+          <tr><td>2</td><td>Santosh Kumar Mondal</td><td>B.Com (Hons)</td><td>Commerce & Mathematics Guidance</td></tr>
+          <tr><td>3</td><td>Nasim Aktar Sk</td><td>B.A. (History Hons)</td><td>Interactive Historical Studies</td></tr>
+          <tr><td>4</td><td>Md. Wasim Akram</td><td>B.A. (Education Hons)</td><td>Educational Pedagogy & Teaching Methods</td></tr>
+          <tr><td>5</td><td>Islima Parvin</td><td>English Hons, B.Ed</td><td>English Language & Training</td></tr>
+          <tr><td>6</td><td>Madhumita Sinha</td><td>Graduation, D.El.Ed</td><td>Primary Education & Foundation English</td></tr>
+          <tr><td>7</td><td>Nayantara Khatun</td><td>History Hons</td><td>Historical Analysis & Humanities</td></tr>
+          <tr><td>8</td><td>Rupsa Das</td><td>H.S.</td><td>Primary Care & Early Learning</td></tr>
+          <tr><td>9</td><td>Srimanta Mondal</td><td>H.S.</td><td>Discipline & Elementary Studies</td></tr>
+          <tr><td>10</td><td>Khadija Khatun</td><td>H.S.</td><td>Behavioral & Moral Education</td></tr>
+          <tr><td>11</td><td>Palashi Saha</td><td>H.S.</td><td>Primary Foundation Care</td></tr>
+        </tbody>
+      </table>
+    </section>
 
-                if (!studentClass || !studentName.trim() || !rollNumber.trim()) {
-                    setErrorMsg('Please enter all required student details.');
-                    return;
-                }
+    <!-- 4. Food Menu Section -->
+    <section id="food" class="page-section">
+      <h2>Weekly Hostel Food Menu & Nutrition Plan</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Mon</th>
+            <th>Tue</th>
+            <th>Wed</th>
+            <th>Thu</th>
+            <th>Fri</th>
+            <th>Sat</th>
+            <th>Sun</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Morning (7:30 AM)</strong></td>
+            <td>Roti & Veg</td>
+            <td>Suji / Paratha</td>
+            <td>Khichdi</td>
+            <td>Luchi & Veg</td>
+            <td>Egg & Roti</td>
+            <td>Upma</td>
+            <td>Special</td>
+          </tr>
+          <tr>
+            <td><strong>Lunch (1:30 PM)</strong></td>
+            <td>Rice, Dal, Veg</td>
+            <td>Fish Curry & Rice</td>
+            <td>Rice, Dal, Veg</td>
+            <td>Chicken Curry & Rice</td>
+            <td>Rice, Dal, Paneer</td>
+            <td>Egg Curry & Rice</td>
+            <td>Pulao & Mutton Curry</td>
+          </tr>
+          <tr>
+            <td><strong>Afternoon (4:30 PM)</strong></td>
+            <td>Milk & Biscuit</td>
+            <td>Fruits</td>
+            <td>Chana Muri</td>
+            <td>Milk & Cake</td>
+            <td>Fruits</td>
+            <td>Milk & Biscuit</td>
+            <td>Sweets</td>
+          </tr>
+          <tr>
+            <td><strong>Night (8:30 PM)</strong></td>
+            <td>Roti & Veg</td>
+            <td>Rice, Dal, Veg</td>
+            <td>Roti & Tadka</td>
+            <td>Roti & Veg</td>
+            <td>Rice, Dal, Veg</td>
+            <td>Roti & Veg</td>
+            <td>Roti & Paneer</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
 
-                // Roll Number Logic: Must start with 2024 followed by 01-50 (e.g. 202401)
-                const rollRegex = /^2024(0[1-9]|[1-4][0-9]|50)$/;
-                if (!rollRegex.test(rollNumber.trim())) {
-                    setErrorMsg('Invalid Roll Number! Must start with "2024" followed by 01 to 50 (e.g., 202401).');
-                    return;
-                }
+    <!-- 5. Admission Portal Section -->
+    <section id="admission" class="page-section">
+      <h2>Admission Portal 2026</h2>
+      <p>Important Dates: Admission Starts on 2nd Feb 2026 | Entrance Exam: 21st Feb 2026 | Classes Begin: 1st March 2026</p>
+      <form style="margin-top: 1.5rem; max-width: 500px;" onsubmit="event.preventDefault(); alert('Admission Form Submitted Successfully!');">
+        <div class="form-group">
+          <label>Applicant Name</label>
+          <input type="text" required placeholder="Enter student full name">
+        </div>
+        <div class="form-group">
+          <label>Applying For Class</label>
+          <select required>
+            <option value="">Select Class</option>
+            <option value="Nursery">Nursery</option>
+            <option value="UKG">UKG</option>
+            <option value="Class 1">Class 1</option>
+            <option value="Class 2">Class 2</option>
+            <option value="Class 3">Class 3</option>
+            <option value="Class 4">Class 4</option>
+            <option value="Class 5">Class 5</option>
+            <option value="Class 6">Class 6</option>
+            <option value="Class 7">Class 7</option>
+            <option value="Class 8">Class 8</option>
+            <option value="Class 9">Class 9</option>
+            <option value="Class 10">Class 10</option>
+            <option value="Class 11">Class 11</option>
+            <option value="Class 12">Class 12</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Guardian Contact Number</label>
+          <input type="tel" required placeholder="Enter mobile number">
+        </div>
+        <button type="submit" class="btn-submit">Submit Application</button>
+      </form>
+    </section>
 
-                setStep(2); // Move to QR / Payment page
-            };
+    <!-- 6. Fees & Payments Portal Section -->
+    <section id="fees" class="page-section">
+      <h2>Fees & Payment Portal</h2>
 
-            const handleOnlineSuccess = () => {
-                const receipt = {
-                    receiptId: 'JKB-ONL-' + Math.floor(100000 + Math.random() * 900000),
-                    studentName: studentName.trim(),
-                    studentClass: studentClass,
-                    rollNumber: rollNumber.trim(),
-                    amount: '₹ 1,500.00',
-                    type: 'Online (UPI / QR Code)',
-                    date: new Date().toLocaleDateString('en-GB'),
-                    time: new Date().toLocaleTimeString(),
-                    status: 'PAYMENT SUCCESSFUL'
-                };
-                setCurrentReceipt(receipt);
-                setSavedReceipts([receipt, ...savedReceipts]);
-                setStep(3); // Show Receipt Page
-            };
+      <!-- Payment Sub Tabs -->
+      <div class="sub-tabs">
+        <button class="sub-btn active" onclick="switchSubTab('online-pay')">Online Payment</button>
+        <button class="sub-btn" onclick="switchSubTab('cash-pay')">Hand Cash Payment</button>
+        <button class="sub-btn" onclick="switchSubTab('pay-history')">Online Payment Receipts</button>
+      </div>
 
-            // Hand Cash Payment Logic
-            const handleCashProceed = (e) => {
-                e.preventDefault();
-                setErrorMsg('');
+      <!-- Tab 1: Online Payment -->
+      <div id="online-pay" class="sub-content active">
+        <!-- Step 1: Verification Form -->
+        <div id="online-step-1">
+          <h3>Student Details Verification</h3>
+          <div style="max-width: 450px; margin-top: 1rem;">
+            <div class="form-group">
+              <label>Student Name</label>
+              <input type="text" id="on-name" placeholder="Enter student name">
+            </div>
+            <div class="form-group">
+              <label>Select Class</label>
+              <select id="on-class">
+                <option value="">-- Select Class --</option>
+                <option value="Nursery">Nursery</option>
+                <option value="UKG">UKG</option>
+                <option value="Class 1">Class 1</option>
+                <option value="Class 2">Class 2</option>
+                <option value="Class 3">Class 3</option>
+                <option value="Class 4">Class 4</option>
+                <option value="Class 5">Class 5</option>
+                <option value="Class 6">Class 6</option>
+                <option value="Class 7">Class 7</option>
+                <option value="Class 8">Class 8</option>
+                <option value="Class 9">Class 9</option>
+                <option value="Class 10">Class 10</option>
+                <option value="Class 11">Class 11</option>
+                <option value="Class 12">Class 12</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Roll Number (Format: 202401 to 202450)</label>
+              <input type="text" id="on-roll" placeholder="e.g. 202401">
+            </div>
+            <div class="form-group">
+              <label>Monthly Fee Amount (₹)</label>
+              <input type="number" id="on-amount" value="1200" placeholder="Fee Amount">
+            </div>
+            <div id="on-error" class="error-msg">Invalid Roll Number! Must be prefixed with 2024 and followed by roll 01 to 50 (e.g. 202401 to 202450).</div>
+            <button class="btn-submit" style="margin-top: 1rem;" onclick="validateOnlineStudent()">Proceed to Pay</button>
+          </div>
+        </div>
 
-                if (!studentClass || !studentName.trim() || !rollNumber.trim()) {
-                    setErrorMsg('Please fill in Class, Name, and Roll Number.');
-                    return;
-                }
+        <!-- Step 2: Payment Gateway / QR Code -->
+        <div id="online-step-2" style="display: none;">
+          <h3>Scan QR Code or Use UPI to Pay</h3>
+          <div class="qr-box" style="max-width: 400px; margin: 1rem auto;">
+            <p><strong>Scan & Pay via any UPI App</strong></p>
+            <div style="background: #fff; padding: 20px; display: inline-block; margin: 15px 0; border: 1px solid #ccc;">
+              <div style="width: 150px; height: 150px; background: #000; margin: 0 auto; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 0.8rem;">
+                [ UPI QR CODE ]
+              </div>
+            </div>
+            <p>UPI ID: <strong>jkb@upi</strong></p>
+            <p style="margin-top: 10px;">Amount: ₹<span id="qr-display-amount">0</span></p>
+            <button class="btn-submit" style="margin-top: 1.5rem; background-color: var(--success);" onclick="confirmOnlinePayment()">Complete Payment & Generate Receipt</button>
+          </div>
+        </div>
 
-                const cashReceipt = {
-                    receiptId: 'JKB-CSH-' + Math.floor(100000 + Math.random() * 900000),
-                    studentName: studentName.trim(),
-                    studentClass: studentClass,
-                    rollNumber: rollNumber.trim(),
-                    amount: '₹ 1,500.00',
-                    type: 'Hand Cash (School Counter)',
-                    date: new Date().toLocaleDateString('en-GB'),
-                    time: new Date().toLocaleTimeString(),
-                    status: 'RECEIVED AT COUNTER'
-                };
-                setCurrentReceipt(cashReceipt);
-                setSavedReceipts([cashReceipt, ...savedReceipts]);
-                setStep(3); // Show Receipt Page
-            };
+        <!-- Step 3: Generated Receipt -->
+        <div id="online-step-3" style="display: none;">
+          <div class="receipt-box">
+            <h2 style="text-align: center; border: none;">J.K.B. NATIONAL SCHOOL</h2>
+            <p style="text-align: center; font-size: 0.9rem;">Online Fee Payment Receipt</p>
+            <hr style="margin: 1rem 0;">
+            <p><strong>Receipt ID:</strong> <span id="rcpt-id"></span></p>
+            <p><strong>Date:</strong> <span id="rcpt-date"></span></p>
+            <p><strong>Student Name:</strong> <span id="rcpt-name"></span></p>
+            <p><strong>Class:</strong> <span id="rcpt-class"></span></p>
+            <p><strong>Roll Number:</strong> <span id="rcpt-roll"></span></p>
+            <p><strong>Paid Amount:</strong> ₹<span id="rcpt-amount"></span></p>
+            <p><strong>Payment Mode:</strong> Online (UPI / QR)</p>
+            <p><strong>Status:</strong> <span style="color: var(--success); font-weight: bold;">SUCCESS</span></p>
+            <hr style="margin: 1rem 0;">
+            <button class="btn-submit" onclick="window.print()">Print / Download Receipt</button>
+            <button class="sub-btn" onclick="resetOnlineForm()">Make Another Payment</button>
+          </div>
+        </div>
+      </div>
 
-            return (
-                <div class="min-h-screen flex flex-col">
-                    {/* Header */}
-                    <header class="bg-indigo-900 text-white shadow-lg sticky top-0 z-50">
-                        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col md:flex-row justify-between items-center">
-                            <div class="flex items-center space-x-3 mb-2 md:mb-0 cursor-pointer" onClick={() => handleTabSwitch('home')}>
-                                <div class="w-10 h-10 bg-amber-400 text-indigo-950 font-black rounded-full flex items-center justify-center text-lg">
-                                    JKB
-                                </div>
-                                <div>
-                                    <h1 class="text-lg font-bold tracking-wide">J.K.B. NATIONAL SCHOOL</h1>
-                                    <p class="text-xs text-amber-300">English Medium | Bengali & CBSE Curriculum</p>
-                                </div>
-                            </div>
-                            {/* Navigation */}
-                            <nav class="flex flex-wrap gap-1 md:gap-2 text-xs md:text-sm font-medium">
-                                <button onClick={() => handleTabSwitch('home')} class={`px-3 py-1.5 rounded ${activeTab === 'home' ? 'bg-amber-400 text-indigo-950 font-bold' : 'hover:bg-indigo-800'}`}>Home</button>
-                                <button onClick={() => handleTabSwitch('about')} class={`px-3 py-1.5 rounded ${activeTab === 'about' ? 'bg-amber-400 text-indigo-950 font-bold' : 'hover:bg-indigo-800'}`}>About Us</button>
-                                <button onClick={() => handleTabSwitch('teachers')} class={`px-3 py-1.5 rounded ${activeTab === 'teachers' ? 'bg-amber-400 text-indigo-950 font-bold' : 'hover:bg-indigo-800'}`}>Teachers</button>
-                                <button onClick={() => handleTabSwitch('admission')} class={`px-3 py-1.5 rounded ${activeTab === 'admission' ? 'bg-amber-400 text-indigo-950 font-bold' : 'hover:bg-indigo-800'}`}>Admission</button>
-                                <button onClick={() => handleTabSwitch('food')} class={`px-3 py-1.5 rounded ${activeTab === 'food' ? 'bg-amber-400 text-indigo-950 font-bold' : 'hover:bg-indigo-800'}`}>Food Chart</button>
-                                <button onClick={() => handleTabSwitch('rules')} class={`px-3 py-1.5 rounded ${activeTab === 'rules' ? 'bg-amber-400 text-indigo-950 font-bold' : 'hover:bg-indigo-800'}`}>Rules</button>
-                                <button onClick={() => { handleTabSwitch('fees'); resetForm(); }} class={`px-3 py-1.5 rounded ${activeTab === 'fees' ? 'bg-amber-400 text-indigo-950 font-bold' : 'bg-emerald-600 hover:bg-emerald-500 font-semibold text-white'}`}>
-                                    Fees & Payments
-                                </button>
-                            </nav>
-                        </div>
-                    </header>
+      <!-- Tab 2: Hand Cash Payment -->
+      <div id="cash-pay" class="sub-content">
+        <h3>Hand Cash Payment Entry</h3>
+        <p>Record direct cash collected at school office instantly without online QR.</p>
+        <div style="max-width: 450px; margin-top: 1rem;">
+          <div class="form-group">
+            <label>Student Name</label>
+            <input type="text" id="cash-name" placeholder="Enter student name">
+          </div>
+          <div class="form-group">
+            <label>Select Class</label>
+            <select id="cash-class">
+              <option value="">-- Select Class --</option>
+              <option value="Nursery">Nursery</option>
+              <option value="UKG">UKG</option>
+              <option value="Class 1">Class 1</option>
+              <option value="Class 2">Class 2</option>
+              <option value="Class 3">Class 3</option>
+              <option value="Class 4">Class 4</option>
+              <option value="Class 5">Class 5</option>
+              <option value="Class 6">Class 6</option>
+              <option value="Class 7">Class 7</option>
+              <option value="Class 8">Class 8</option>
+              <option value="Class 9">Class 9</option>
+              <option value="Class 10">Class 10</option>
+              <option value="Class 11">Class 11</option>
+              <option value="Class 12">Class 12</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Roll Number</label>
+            <input type="text" id="cash-roll" placeholder="Enter roll number">
+          </div>
+          <div class="form-group">
+            <label>Collected Cash Amount (₹)</label>
+            <input type="number" id="cash-amount" placeholder="Amount">
+          </div>
+          <button class="btn-submit" style="background-color: var(--success);" onclick="processCashPayment()">Submit Cash Receipt</button>
+        </div>
 
-                    {/* Content Section */}
-                    <main class="flex-grow max-w-7xl w-full mx-auto p-4 md:p-6">
-
-                        {/* HOME TAB */}
-                        {activeTab === 'home' && (
-                            <div class="space-y-6">
-                                <div class="bg-indigo-900 text-white rounded-2xl p-8 text-center shadow-lg">
-                                    <h2 class="text-3xl font-bold mb-2">Welcome to J.K.B. NATIONAL SCHOOL</h2>
-                                    <p class="text-amber-300 text-sm mb-6 max-w-xl mx-auto">Educating minds and enriching lives with excellence and values.</p>
-                                    <button onClick={() => { handleTabSwitch('fees'); resetForm(); }} class="bg-emerald-500 hover:bg-emerald-400 text-white px-6 py-2.5 rounded-lg font-bold transition">
-                                        Pay Monthly Fees
-                                    </button>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* ABOUT TAB */}
-                        {activeTab === 'about' && (
-                            <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
-                                <h2 class="text-xl font-bold text-indigo-900 border-b pb-2 mb-4">About Our School</h2>
-                                <p class="text-slate-600 text-sm leading-relaxed mb-4">
-                                    J.K.B. National School provides quality English medium education focusing on holistic academic growth, discipline, and multi-lingual expertise.
-                                </p>
-                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                    <div class="p-4 bg-slate-50 border rounded-lg">
-                                        <h3 class="font-bold text-indigo-900 text-sm">Dr. Rahmatullah</h3>
-                                        <p class="text-xs text-indigo-600 font-semibold">PhD (English)</p>
-                                    </div>
-                                    <div class="p-4 bg-slate-50 border rounded-lg">
-                                        <h3 class="font-bold text-indigo-900 text-sm">Santos Kumar Mondal</h3>
-                                        <p class="text-xs text-indigo-600 font-semibold">B.Com Hons (PQ)</p>
-                                    </div>
-                                    <div class="p-4 bg-slate-50 border rounded-lg">
-                                        <h3 class="font-bold text-indigo-900 text-sm">Nasim Aktar Sk</h3>
-                                        <p class="text-xs text-indigo-600 font-semibold">B.A. (History Hons)</p>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* TEACHERS TAB */}
-                        {activeTab === 'teachers' && (
-                            <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
-                                <h2 class="text-xl font-bold text-indigo-900 border-b pb-4 mb-4">Teachers List</h2>
-                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                                    {[
-                                        "Dr. Rahmatullah - PhD (English)",
-                                        "Santos Kumar Mondal - B.Com Hons",
-                                        "Nasim Aktar Sk - B.A. (History Hons)",
-                                        "Md. Wasim Akram - B.A. (Education Hons)",
-                                        "Islema Parvin - English Hons, B.Ed",
-                                        "Madhumita Sinha - Graduation, D.El.Ed",
-                                        "Nayantara Khatun - History Hons",
-                                        "Rupsa Das - H.S.",
-                                        "Srimanta Mondal - H.S.",
-                                        "Khadija Khatun - H.S.",
-                                        "Palashi Saha - H.S."
-                                    ].map((t, idx) => (
-                                        <div key={idx} class="p-3 bg-slate-50 border rounded-lg text-sm font-semibold text-slate-700 flex items-center gap-2">
-                                            <i class="fa-solid fa-user-tie text-indigo-600"></i> {t}
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-
-                        {/* ADMISSION TAB */}
-                        {activeTab === 'admission' && (
-                            <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
-                                <h2 class="text-xl font-bold text-indigo-900 border-b pb-4 mb-4">Admission Details (2026)</h2>
-                                <ul class="space-y-2 text-sm text-slate-700">
-                                    <li><strong>Admission Start Date:</strong> 2nd February 2026</li>
-                                    <li><strong>Entrance Exam:</strong> 21st February 2026</li>
-                                    <li><strong>Classes Start:</strong> 1st March 2026</li>
-                                    <li><strong>Classes Offered:</strong> Nursery to Class 12</li>
-                                </ul>
-                            </div>
-                        )}
-
-                        {/* FOOD CHART TAB */}
-                        {activeTab === 'food' && (
-                            <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
-                                <h2 class="text-xl font-bold text-indigo-900 border-b pb-4 mb-4">Hostel Weekly Food Schedule</h2>
-                                <div class="overflow-x-auto">
-                                    <table class="w-full text-xs text-left border border-slate-200">
-                                        <thead class="bg-indigo-900 text-white">
-                                            <tr>
-                                                <th class="p-2 border">Meal Time</th>
-                                                <th class="p-2 border">Mon</th>
-                                                <th class="p-2 border">Tue</th>
-                                                <th class="p-2 border">Wed</th>
-                                                <th class="p-2 border">Thu</th>
-                                                <th class="p-2 border">Fri</th>
-                                                <th class="p-2 border">Sat</th>
-                                                <th class="p-2 border">Sun</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="divide-y text-slate-700">
-                                            <tr>
-                                                <td class="p-2 font-bold bg-slate-50 border">Morning</td>
-                                                <td class="p-2 border">Suji / Paratha</td>
-                                                <td class="p-2 border">Khichdi</td>
-                                                <td class="p-2 border">Luchi Sabji</td>
-                                                <td class="p-2 border">Egg Roti</td>
-                                                <td class="p-2 border">Upma</td>
-                                                <td class="p-2 border">Special</td>
-                                                <td class="p-2 border">Special</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="p-2 font-bold bg-slate-50 border">Lunch</td>
-                                                <td class="p-2 border">Rice, Dal, Veg</td>
-                                                <td class="p-2 border">Fish Curry</td>
-                                                <td class="p-2 border">Rice & Dal</td>
-                                                <td class="p-2 border">Chicken Curry</td>
-                                                <td class="p-2 border">Paneer Curry</td>
-                                                <td class="p-2 border">Egg Kalia</td>
-                                                <td class="p-2 border">Polao & Mutton</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="p-2 font-bold bg-slate-50 border">Night</td>
-                                                <td class="p-2 border">Roti Sabji</td>
-                                                <td class="p-2 border">Rice Dal</td>
-                                                <td class="p-2 border">Roti Tadka</td>
-                                                <td class="p-2 border">Roti Sabji</td>
-                                                <td class="p-2 border">Rice Dal</td>
-                                                <td class="p-2 border">Roti Sabji</td>
-                                                <td class="p-2 border">Roti Paneer</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* RULES TAB */}
-                        {activeTab === 'rules' && (
-                            <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
-                                <h2 class="text-xl font-bold text-indigo-900 border-b pb-4 mb-4">School Discipline & Rules</h2>
-                                <ul class="list-disc list-inside space-y-2 text-sm text-slate-700">
-                                    <li>Students must arrive 10 minutes prior to assembly.</li>
-                                    <li>Clean uniform and Identity Card are mandatory every day.</li>
-                                    <li>Mobile phones and electronic gadgets are strictly forbidden.</li>
-                                    <li>Parents must attend all scheduled Parent-Teacher Meetings (PTM).</li>
-                                </ul>
-                            </div>
-                        )}
-
-                        {/* FEES & PAYMENTS TAB */}
-                        {activeTab === 'fees' && (
-                            <div class="space-y-6">
-                                {/* Mode Selection Controls */}
-                                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-wrap gap-3 justify-between items-center">
-                                    <div class="flex gap-2">
-                                        <button 
-                                            onClick={() => { setPaymentMode('online'); resetForm(); }}
-                                            class={`px-4 py-2 rounded-lg text-xs md:text-sm font-bold ${paymentMode === 'online' ? 'bg-indigo-900 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'}`}
-                                        >
-                                            <i class="fa-solid fa-qrcode mr-1"></i> Online Payment
-                                        </button>
-                                        <button 
-                                            onClick={() => { setPaymentMode('cash'); resetForm(); }}
-                                            class={`px-4 py-2 rounded-lg text-xs md:text-sm font-bold ${paymentMode === 'cash' ? 'bg-indigo-900 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'}`}
-                                        >
-                                            <i class="fa-solid fa-money-bill-wave mr-1"></i> Hand Cash Payment
-                                        </button>
-                                    </div>
-
-                                    {/* Download Stored Receipts Store */}
-                                    <button 
-    
+        <div id="cash-receipt-out" style="display: none; margin-top: 1.5rem;">
+          <div class="receipt-box">
+            <h3 style="text-align: center;">Hand Cash Official Receipt</h3>
+            <hr style="margin: 0.5rem 0;">
+            <p><strong>Receipt No:</strong> <span id="c-rcpt-

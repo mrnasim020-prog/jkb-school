@@ -4,281 +4,666 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>J.K.B. NATIONAL SCHOOL</title>
-    <!-- Tailwind CSS for modern styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- React & ReactDOM -->
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <!-- Babel for JSX compilation in browser -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #0b2545;
+            --secondary-color: #134074;
+            --accent-color: #e63946;
+            --light-bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-dark: #1d2d44;
+            --text-muted: #6c757d;
+            --border-color: #e0e6ed;
+            --success-color: #2a9d8f;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 8px 5%;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .top-bar .info-item {
+            margin-right: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .top-bar a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        /* Header */
+        header {
+            background: #fff;
+            padding: 15px 5%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .brand-logo {
+            width: 55px;
+            height: 55px;
+            background: var(--primary-color);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .brand-text h1 {
+            font-size: 22px;
+            color: var(--primary-color);
+            letter-spacing: 0.5px;
+        }
+
+        .brand-text p {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: var(--secondary-color);
+            padding: 0 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none;
+        }
+
+        .nav-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            color: #e0e6ed;
+            padding: 16px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-btn:hover {
+            color: #fff;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-btn.active {
+            color: #fff;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-bottom: 3px solid var(--accent-color);
+        }
+
+        /* Main Content Container */
+        main {
+            flex: 1;
+            padding: 30px 5%;
+            max-width: 1300px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Page Layout */
+        .page-content {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .page-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hero Banner */
+        .hero {
+            background: linear-gradient(rgba(11, 37, 69, 0.85), rgba(19, 64, 116, 0.85)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+            color: white;
+            padding: 60px 40px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .hero h2 {
+            font-size: 32px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 16px;
+            max-width: 750px;
+            margin: 0 auto 25px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .hero .quote {
+            font-style: italic;
+            font-size: 14px;
+            color: #ffd166;
+            margin-top: 15px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 15px;
+            display: inline-block;
+        }
+
+        /* Cards & Grids */
+        .section-title {
+            font-size: 24px;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background-color: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .card h3 {
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h3 i {
+            color: var(--accent-color);
+        }
+
+        .card ul {
+            list-style: none;
+        }
+
+        .card ul li {
+            padding: 8px 0;
+            border-bottom: 1px dashed var(--border-color);
+            font-size: 14px;
+            color: #4a5568;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card ul li:last-child {
+            border-bottom: none;
+        }
+
+        .card ul li i {
+            color: var(--success-color);
+            font-size: 12px;
+        }
+
+        /* Teacher Cards Specifics */
+        .teacher-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .teacher-card {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            padding: 25px 20px;
+            transition: all 0.3s ease;
+        }
+
+        .teacher-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .teacher-avatar {
+            width: 80px;
+            height: 80px;
+            background: #e3f2fd;
+            color: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin: 0 auto 15px;
+            border: 3px solid #bbdefb;
+        }
+
+        .teacher-name {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .teacher-qual {
+            font-size: 12px;
+            background: #e2e8f0;
+            color: #475569;
+            padding: 3px 10px;
+            border-radius: 12px;
+            display: inline-block;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .teacher-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Tables styling */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+            margin-bottom: 25px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 14px 18px;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: var(--secondary-color);
+            color: #fff;
+            font-weight: 500;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        tr:hover {
+            background-color: #f1f5f9;
+        }
+
+        /* Form Controls & Payments */
+        .form-container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(19, 64, 116, 0.1);
+        }
+
+        .btn-submit {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-submit:hover {
+            background-color: #d62828;
+        }
+
+        /* Payment Selector Tabs */
+        .payment-toggle {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .pay-tab {
+            flex: 1;
+            min-width: 180px;
+            padding: 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            background: #f8fafc;
+        }
+
+        .pay-tab.active {
+            border-color: var(--secondary-color);
+            background: #eff6ff;
+            color: var(--secondary-color);
+        }
+
+        /* Receipt Box Styling */
+        .receipt-card {
+            background: #fff;
+            border: 2px solid var(--secondary-color);
+            border-radius: 10px;
+            padding: 25px;
+            max-width: 600px;
+            margin: 20px auto;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            position: relative;
+        }
+
+        .receipt-header {
+            text-align: center;
+            border-bottom: 2px dashed #cbd5e1;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .receipt-header h3 {
+            color: var(--primary-color);
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .receipt-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 14px;
+        }
+
+        .receipt-row .label {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .receipt-row .value {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background: #dcfce7;
+            color: #15803d;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: #cbd5e1;
+            padding: 40px 5% 20px;
+            margin-top: 50px;
+            font-size: 14px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+            max-width: 1300px;
+            margin: 0 auto 30px;
+        }
+
+        .footer-col h4 {
+            color: #fff;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .footer-col p, .footer-col li {
+            line-height: 1.8;
+            font-size: 13px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 13px;
+            color: #94a3b8;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            .brand {
+                flex-direction: column;
+            }
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            .top-bar {
+                flex-direction: column;
+                gap: 5px;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
-<body class="bg-slate-50 font-sans text-slate-800">
-    <div id="root"></div>
+<body>
 
-    <script type="text/babel">
-        const { useState, useEffect } = React;
+    <!-- Top Contact Bar -->
+    <div class="top-bar">
+        <div>
+            <span class="info-item"><i class="fa-solid fa-phone"></i> Helpline: +91 8617061244 / 7384361623</span>
+            <span class="info-item"><i class="fa-solid fa-envelope"></i> jkbnationalschool@gmail.com</span>
+        </div>
+        <div>
+            <span class="info-item"><i class="fa-solid fa-location-dot"></i> Chandermore, Sujnipara Station Road, Murshidabad - 742201</span>
+        </div>
+    </div>
 
-        function App() {
-            const [activeTab, setActiveTab] = useState('home');
-            
-            // Payment Portal State
-            const [paymentMode, setPaymentMode] = useState('online'); // 'online' or 'cash'
-            const [studentClass, setStudentClass] = useState('');
-            const [rollNumber, setRollNumber] = useState('');
-            const [studentName, setStudentName] = useState('');
-            const [errorMessage, setErrorMessage] = useState('');
-            const [paymentStep, setPaymentStep] = useState(1); // 1: Input Form, 2: Payment Gateway, 3: Receipt
-            
-            // Receipt Data State
-            const [currentReceipt, setCurrentReceipt] = useState(null);
-            const [savedReceipts, setSavedReceipts] = useState([]);
+    <!-- Main Header -->
+    <header>
+        <div class="brand">
+            <div class="brand-logo">JKB</div>
+            <div class="brand-text">
+                <h1>J.K.B. NATIONAL SCHOOL</h1>
+                <p>Bengali & CBSE Curriculum | English Medium | Hostel Available</p>
+            </div>
+        </div>
+        <div>
+            <button class="btn-submit" onclick="switchPage('admission')" style="padding: 8px 16px; font-size: 13px;">
+                <i class="fa-solid fa-graduation-cap"></i> Admission 2026 Open
+            </button>
+        </div>
+    </header>
 
-            // Navigation Handlers
-            const navigateTo = (tab) => {
-                setActiveTab(tab);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            };
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="nav-container">
+            <button class="nav-btn active" onclick="switchPage('home')"><i class="fa-solid fa-house"></i> Home</button>
+            <button class="nav-btn" onclick="switchPage('about')"><i class="fa-solid fa-circle-info"></i> About Us</button>
+            <button class="nav-btn" onclick="switchPage('teachers')"><i class="fa-solid fa-chalkboard-user"></i> Faculty Members</button>
+            <button class="nav-btn" onclick="switchPage('admission')"><i class="fa-solid fa-user-plus"></i> Admission Portal</button>
+            <button class="nav-btn" onclick="switchPage('fees')"><i class="fa-solid fa-credit-card"></i> Fees & Payments</button>
+            <button class="nav-btn" onclick="switchPage('food')"><i class="fa-solid fa-utensils"></i> Hostel Food Chart</button>
+            <button class="nav-btn" onclick="switchPage('rules')"><i class="fa-solid fa-scroll"></i> Discipline & Rules</button>
+            <button class="nav-btn" onclick="switchPage('student-portal')"><i class="fa-solid fa-id-card"></i> Student Portal</button>
+        </div>
+    </nav>
 
-            // Online Payment Step 1 Validation & Proceed
-            const handleProceedOnlinePayment = (e) => {
-                e.preventDefault();
-                setErrorMessage('');
+    <!-- Main Content Pages Container -->
+    <main>
 
-                // Validation Rule: Roll number must start with 2024 followed by a 2-digit number from 01 to 50 (e.g. 202401 to 202450)
-                const rollRegex = /^2024(0[1-9]|[1-4][0-9]|50)$/;
+        <!-- PAGE 1: HOME -->
+        <section id="home" class="page-content active">
+            <div class="hero">
+                <h2>Welcome to J.K.B. NATIONAL SCHOOL</h2>
+                <p>Empowering students to achieve their dreams through academic excellence, character building, and holistic education in a supportive environment.</p>
+                <div class="quote">"Education is the key to the future, for tomorrow belongs to those who prepare for it today!"</div>
+            </div>
 
-                if (!studentClass || !studentName.trim() || !rollNumber.trim()) {
-                    setErrorMessage('Please fill in all mandatory student details.');
-                    return;
-                }
+            <h2 class="section-title">Important Dates for Admission (2026)</h2>
+            <div class="grid-3">
+                <div class="card" style="border-top: 4px solid #0284c7;">
+                    <h3><i class="fa-solid fa-calendar-check"></i> Admission Starts</h3>
+                    <p style="font-size: 20px; font-weight: 600; color: #0284c7; margin-top: 10px;">February 02, 2026</p>
+                    <p style="font-size: 13px; color: var(--text-muted); margin-top: 5px;">Application forms available online & offline.</p>
+                </div>
+                <div class="card" style="border-top: 4px solid #e11d48;">
+                    <h3><i class="fa-solid fa-file-pen"></i> Entrance Exam</h3>
+                    <p style="font-size: 20px; font-weight: 600; color: #e11d48; margin-top: 10px;">February 21, 2026</p>
+                    <p style="font-size: 13px; color: var(--text-muted); margin-top: 5px;">Mandatory entrance assessment test.</p>
+                </div>
+                <div class="card" style="border-top: 4px solid #16a34a;">
+                    <h3><i class="fa-solid fa-school-flag"></i> Classes Commence</h3>
+                    <p style="font-size: 20px; font-weight: 600; color: #16a34a; margin-top: 10px;">March 01, 2026</p>
+                    <p style="font-size: 13px; color: var(--text-muted); margin-top: 5px;">Orientation & regular class schedules start.</p>
+                </div>
+            </div>
 
-                if (!rollRegex.test(rollNumber.trim())) {
-                    setErrorMessage('Invalid Roll Number! Roll number must start with "2024" followed by 01 to 50 (Example: 202401).');
-                    return;
-                }
-
-                // Proceed to QR / Payment Page
-                setPaymentStep(2);
-            };
-
-            // Online Payment Step 2 Completion
-            const handleCompleteOnlinePayment = () => {
-                const newReceipt = {
-                    receiptId: 'JKB-ONL-' + Math.floor(100000 + Math.random() * 900000),
-                    studentName: studentName.trim(),
-                    studentClass: studentClass,
-                    rollNumber: rollNumber.trim(),
-                    amount: '₹ 1,500.00',
-                    paymentType: 'Online (UPI / QR Code)',
-                    date: new Date().toLocaleDateString('en-GB'),
-                    time: new Date().toLocaleTimeString(),
-                    status: 'SUCCESS'
-                };
-                
-                setCurrentReceipt(newReceipt);
-                setSavedReceipts(prev => [newReceipt, ...prev]);
-                setPaymentStep(3);
-            };
-
-            // Hand Cash Payment Processing
-            const handleProcessCashPayment = (e) => {
-                e.preventDefault();
-                setErrorMessage('');
-
-                if (!studentClass || !studentName.trim() || !rollNumber.trim()) {
-                    setErrorMessage('Please fill in all details for cash receipt generation.');
-                    return;
-                }
-
-                const cashReceipt = {
-                    receiptId: 'JKB-CSH-' + Math.floor(100000 + Math.random() * 900000),
-                    studentName: studentName.trim(),
-                    studentClass: studentClass,
-                    rollNumber: rollNumber.trim(),
-                    amount: '₹ 1,500.00',
-                    paymentType: 'Hand Cash (School Counter)',
-                    date: new Date().toLocaleDateString('en-GB'),
-                    time: new Date().toLocaleTimeString(),
-                    status: 'RECEIVED AT COUNTER'
-                };
-
-                setCurrentReceipt(cashReceipt);
-                setSavedReceipts(prev => [cashReceipt, ...prev]);
-                setPaymentStep(3);
-            };
-
-            // Reset Payment Forms
-            const resetPaymentForm = () => {
-                setStudentClass('');
-                setRollNumber('');
-                setStudentName('');
-                setErrorMessage('');
-                setPaymentStep(1);
-            };
-
-            return (
-                <div class="min-h-screen flex flex-col">
-                    {/* Header Banner */}
-                    <header class="bg-indigo-900 text-white shadow-lg sticky top-0 z-50">
-                        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col md:flex-row justify-between items-center">
-                            <div class="flex items-center space-x-3 mb-2 md:mb-0 cursor-pointer" onClick={() => navigateTo('home')}>
-                                <div class="w-12 h-12 bg-amber-400 rounded-full flex items-center justify-center text-indigo-900 font-bold text-xl border-2 border-white">
-                                    JKB
-                                </div>
-                                <div>
-                                    <h1 class="text-xl font-bold tracking-wide">J.K.B. NATIONAL SCHOOL</h1>
-                                    <p class="text-xs text-amber-300">Bengali & CBSE Curriculum | English Medium</p>
-                                </div>
-                            </div>
-                            {/* Navigation Bar */}
-                            <nav class="flex flex-wrap gap-1 md:gap-2 text-sm font-medium">
-                                <button onClick={() => navigateTo('home')} class={`px-3 py-1.5 rounded transition ${activeTab === 'home' ? 'bg-amber-400 text-indigo-950 font-bold' : 'hover:bg-indigo-800'}`}>Home</button>
-                                <button onClick={() => navigateTo('about')} class={`px-3 py-1.5 rounded transition ${activeTab === 'about' ? 'bg-amber-400 text-indigo-950 font-bold' : 'hover:bg-indigo-800'}`}>About Us</button>
-                                <button onClick={() => navigateTo('teachers')} class={`px-3 py-1.5 rounded transition ${activeTab === 'teachers' ? 'bg-amber-400 text-indigo-950 font-bold' : 'hover:bg-indigo-800'}`}>Teachers List</button>
-                                <button onClick={() => navigateTo('admission')} class={`px-3 py-1.5 rounded transition ${activeTab === 'admission' ? 'bg-amber-400 text-indigo-950 font-bold' : 'hover:bg-indigo-800'}`}>Admission Portal</button>
-                                <button onClick={() => navigateTo('food')} class={`px-3 py-1.5 rounded transition ${activeTab === 'food' ? 'bg-amber-400 text-indigo-950 font-bold' : 'hover:bg-indigo-800'}`}>Food Chart</button>
-                                <button onClick={() => navigateTo('rules')} class={`px-3 py-1.5 rounded transition ${activeTab === 'rules' ? 'bg-amber-400 text-indigo-950 font-bold' : 'hover:bg-indigo-800'}`}>Rules & Guidelines</button>
-                                <button onClick={() => { navigateTo('fees'); resetPaymentForm(); }} class={`px-3 py-1.5 rounded transition ${activeTab === 'fees' ? 'bg-amber-400 text-indigo-950 font-bold' : 'bg-emerald-600 hover:bg-emerald-500 font-semibold'}`}>
-                                    <i class="fa-solid fa-credit-card mr-1"></i> Fees & Payments
-                                </button>
-                            </nav>
-                        </div>
-                    </header>
-
-                    {/* Main Dynamic Content Area */}
-                    <main class="flex-grow max-w-7xl w-full mx-auto p-4 md:p-6">
-
-                        {/* TAB 1: HOME */}
-                        {activeTab === 'home' && (
-                            <div class="space-y-6">
-                                <div class="bg-indigo-800 text-white rounded-2xl p-8 text-center shadow-md relative overflow-hidden">
-                                    <h2 class="text-3xl font-extrabold mb-2">Welcome to J.K.B. NATIONAL SCHOOL</h2>
-                                    <p class="text-amber-300 text-lg mb-6 max-w-2xl mx-auto">The premier institution dedicated to fulfilling students' academic aspirations and moral development.</p>
-                                    <div class="flex flex-wrap justify-center gap-4">
-                                        <button onClick={() => navigateTo('admission')} class="bg-amber-400 text-indigo-950 px-6 py-2.5 rounded-lg font-bold hover:bg-amber-300 transition">Admission Open 2026</button>
-                                        <button onClick={() => { navigateTo('fees'); resetPaymentForm(); }} class="bg-emerald-500 text-white px-6 py-2.5 rounded-lg font-bold hover:bg-emerald-400 transition">Pay Monthly Fees Online</button>
-                                    </div>
-                                </div>
-
-                                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-                                        <div class="text-indigo-600 text-2xl mb-3"><i class="fa-solid fa-book-open"></i></div>
-                                        <h3 class="font-bold text-lg mb-2">Comprehensive Study Plan</h3>
-                                        <p class="text-sm text-slate-600">Daily study materials, regular unit tests, class tests, and smart mock tests for concept clearing.</p>
-                                    </div>
-                                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-                                        <div class="text-indigo-600 text-2xl mb-3"><i class="fa-solid fa-[#00A86B] fa-building"></i></div>
-                                        <h3 class="font-bold text-lg mb-2">Hostel & Campus</h3>
-                                        <p class="text-sm text-slate-600">Separate hostel available with nutritional food menu, disciplined environment, and continuous faculty care.</p>
-                                    </div>
-                                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-                                        <div class="text-indigo-600 text-2xl mb-3"><i class="fa-solid fa-language"></i></div>
-                                        <h3 class="font-bold text-lg mb-2">Language Skills</h3>
-                                        <p class="text-sm text-slate-600">Special focus on spoken English communication, multi-lingual proficiency, and personality development.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* TAB 2: ABOUT US */}
-                        {activeTab === 'about' && (
-                            <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 space-y-6">
-                                <h2 class="text-2xl font-bold text-indigo-900 border-b pb-2">About Our Institution</h2>
-                                <p class="text-slate-700 leading-relaxed">
-                                    J.K.B. National School stands as a beacon of modern education blending Bengali traditions with CBSE standards in an English Medium framework. We focus on academic excellence, physical health, and moral integrity.
-                                </p>
-                                
-                                <h3 class="text-xl font-bold text-indigo-900 pt-4">Administration & Leadership</h3>
-                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                    <div class="p-4 bg-slate-50 rounded-lg border">
-                                        <h4 class="font-bold text-indigo-900">Dr. Rahmatullah</h4>
-                                        <p class="text-xs text-indigo-600 font-semibold mb-2">PhD (English)</p>
-                                        <p class="text-sm text-slate-600">Deep expertise in English literature and language guidance.</p>
-                                    </div>
-                                    <div class="p-4 bg-slate-50 rounded-lg border">
-                                        <h4 class="font-bold text-indigo-900">Santos Kumar Mondal</h4>
-                                        <p class="text-xs text-indigo-600 font-semibold mb-2">B.Com Hons (PQ)</p>
-                                        <p class="text-sm text-slate-600">Accurate direction in Commerce and Mathematical problem-solving.</p>
-                                    </div>
-                                    <div class="p-4 bg-slate-50 rounded-lg border">
-                                        <h4 class="font-bold text-indigo-900">Nasim Aktar Sk</h4>
-                                        <p class="text-xs text-indigo-600 font-semibold mb-2">B.A. (History Hons)</p>
-                                        <p class="text-sm text-slate-600">Bringing historical events to life with interactive pedagogical techniques.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* TAB 3: TEACHERS LIST */}
-                        {activeTab === 'teachers' && (
-                            <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
-                                <h2 class="text-2xl font-bold text-indigo-900 border-b pb-4 mb-4">Our Dedicated Faculty</h2>
-                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                                    {[
-                                        { id: 1, name: "Dr. Rahmatullah", qual: "PhD (English), B.Ed", role: "English Literature & Higher Grammar" },
-                                        { id: 2, name: "Santos Kumar Mondal", qual: "B.Com Hons (PQ)", role: "Mathematics & Commerce" },
-                                        { id: 3, name: "Nasim Aktar Sk", qual: "B.A. (History Hons)", role: "History & Social Sciences" },
-                                        { id: 4, name: "Md. Wasim Akram", qual: "B.A. (Education Hons)", role: "Education & Modern Teaching Methods" },
-                                        { id: 5, name: "Islema Parvin", qual: "M.A. English Hons, B.Ed", role: "English Language & Literature" },
-                                        { id: 6, name: "Madhumita Sinha", qual: "English Graduation, D.El.Ed", role: "Primary Education & Foundation English" },
-                                        { id: 7, name: "Nayantara Khatun", qual: "B.A. History Hons", role: "Historical Analysis & Social Studies" },
-                                        { id: 8, name: "Rupsa Das", qual: "H.S.", role: "Primary Care & Pre-Primary Learning" },
-                                        { id: 9, name: "Srimanta Mondal", qual: "H.S.", role: "Discipline & Physical Education" },
-                                        { id: 10, name: "Khadija Khatun", qual: "H.S.", role: "Moral Education & Behavioral Care" },
-                                        { id: 11, name: "Palashi Saha", qual: "H.S.", role: "Early Childhood Education" },
-                                    ].map(teacher => (
-                                        <div key={teacher.id} class="p-4 rounded-lg border border-slate-200 bg-slate-50 hover:shadow-md transition">
-                                            <div class="flex items-center space-x-3">
-                                                <div class="w-10 h-10 bg-indigo-100 text-indigo-800 rounded-full flex items-center justify-center font-bold">
-                                                    {teacher.id}
-                                                </div>
-                                                <div>
-                                                    <h3 class="font-bold text-slate-900">{teacher.name}</h3>
-                                                    <p class="text-xs text-indigo-700 font-medium">{teacher.qual}</p>
-                                                    <p class="text-xs text-slate-500 mt-1">{teacher.role}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-
-                        {/* TAB 4: ADMISSION PORTAL */}
-                        {activeTab === 'admission' && (
-                            <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 space-y-6">
-                                <h2 class="text-2xl font-bold text-indigo-900 border-b pb-2">Admission Portal (2026 Session)</h2>
-                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                    <div class="p-4 bg-amber-50 border border-amber-200 rounded-lg">
-                                        <h4 class="font-bold text-amber-900">Admission Starts</h4>
-                                        <p class="text-xl font-extrabold text-amber-700">2nd February 2026</p>
-                                    </div>
-                                    <div class="p-4 bg-indigo-50 border border-indigo-200 rounded-lg">
-                                        <h4 class="font-bold text-indigo-900">Entrance Examination</h4>
-                                        <p class="text-xl font-extrabold text-indigo-700">21st February 2026</p>
-                                    </div>
-                                    <div class="p-4 bg-emerald-50 border border-emerald-200 rounded-lg">
-                                        <h4 class="font-bold text-emerald-900">Classes Commence</h4>
-                                        <p class="text-xl font-extrabold text-emerald-700">1st March 2026</p>
-                                    </div>
-                                </div>
-
-                                <div class="border-t pt-4">
-                                    <h3 class="font-bold text-lg mb-2">Teaching Levels Offered:</h3>
-                                    <ul class="list-disc list-inside space-y-1 text-slate-700">
-                                        <li><strong>Nursery to Class IV:</strong> English Medium Day School Program</li>
-                                        <li><strong>Class V to Class XII:</strong> Science & Arts Streams with Hostel Facilities</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* TAB 5: FOOD CHART */}
-                        {activeTab === 'food' && (
-                            <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
-                                <h2 class="text-2xl font-bold text-indigo-900 border-b pb-4 mb-4">Hostel Weekly Nutrition & Food Schedule</h2>
-                                <div class="overflow-x-auto">
-                                    <table class="w-full text-sm text-left border-collapse border border-slate-200">
-                                        <thead class="bg-indig
+            <h2 class="section-title">Academic Facilities & Offerings</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <h3><i class="fa-solid fa-book-open-reader"></i> Academic Excellence</h3>
+                    <ul>
+                        <li><i class="fa-solid fa-check-circle"></i> Daily basis study materials provided</li>
+                        <li><i class="fa-solid fa-check-circle"></i> Regular unit tests & class tests</li>
+                        <

@@ -3,22 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>J.K.B. NATIONAL SCHOOL | English Medium & CBSE Curriculum</title>
+    <title>J.K.B. National School - Official Portal</title>
     <!-- Google Fonts & FontAwesome Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --primary-color: #0c2340;
-            --secondary-color: #0056b3;
-            --accent-color: #f39c12;
-            --light-bg: #f8f9fa;
-            --dark-text: #2c3e50;
+            --primary-color: #0b3c5d;
+            --secondary-color: #328cc1;
+            --accent-color: #d9b310;
+            --dark-color: #1d2731;
+            --light-color: #f8f9fa;
             --white: #ffffff;
-            --success: #27ae60;
-            --danger: #e74c3c;
-            --border-color: #cbd5e1;
+            --shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         * {
@@ -29,37 +27,36 @@
         }
 
         body {
-            background-color: var(--light-bg);
-            color: var(--dark-text);
+            background-color: #f4f7f6;
+            color: #333;
             line-height: 1.6;
         }
 
-        /* Top Bar */
-        .top-bar {
-            background-color: var(--primary-color);
+        /* Top Header */
+        .top-header {
+            background-color: var(--dark-color);
             color: var(--white);
             padding: 8px 5%;
+            font-size: 13px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.85rem;
         }
 
-        .top-bar i {
-            color: var(--accent-color);
-            margin-right: 5px;
+        .top-header div span {
+            margin-right: 15px;
         }
 
-        /* Navigation Header */
+        /* Main Header & Navbar */
         header {
-            background-color: var(--white);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            background-color: var(--primary-color);
             position: sticky;
             top: 0;
             z-index: 1000;
+            box-shadow: var(--shadow);
         }
 
-        .nav-container {
+        .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -69,225 +66,216 @@
         .logo-container {
             display: flex;
             align-items: center;
-            gap: 15px;
+            color: var(--white);
+            text-decoration: none;
         }
 
         .logo-icon {
-            width: 50px;
-            height: 50px;
-            background-color: var(--primary-color);
+            font-size: 32px;
             color: var(--accent-color);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.4rem;
-            font-weight: bold;
+            margin-right: 12px;
         }
 
         .logo-text h1 {
-            font-size: 1.3rem;
-            color: var(--primary-color);
+            font-size: 20px;
             font-weight: 700;
+            letter-spacing: 1px;
         }
 
         .logo-text p {
-            font-size: 0.75rem;
-            color: #666;
+            font-size: 11px;
+            color: #bdc3c7;
         }
 
-        nav ul {
+        .nav-links {
             display: flex;
             list-style: none;
-            gap: 8px;
         }
 
-        nav ul li a {
+        .nav-links li {
+            margin-left: 20px;
+        }
+
+        .nav-links a {
+            color: var(--white);
             text-decoration: none;
-            color: var(--dark-text);
             font-weight: 500;
-            padding: 8px 14px;
-            border-radius: 6px;
-            transition: all 0.3s ease;
+            font-size: 14px;
+            transition: 0.3s;
             cursor: pointer;
-            font-size: 0.9rem;
+            padding: 8px 12px;
+            border-radius: 4px;
         }
 
-        nav ul li a:hover, nav ul li a.active {
-            background-color: var(--primary-color);
+        .nav-links a:hover, .nav-links a.active {
+            background-color: var(--secondary-color);
             color: var(--white);
         }
 
-        /* Page Layout & View Control */
-        .page-view {
+        /* Page Container Settings */
+        .page-section {
             display: none;
             padding: 40px 5%;
             min-height: 80vh;
-            animation: fadeIn 0.3s ease-in-out;
+            animation: fadeIn 0.4s ease-in-out;
         }
 
-        .page-view.active-page {
+        .page-section.active {
             display: block;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         .section-title {
             text-align: center;
-            margin-bottom: 35px;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+            position: relative;
         }
 
         .section-title h2 {
-            font-size: 2rem;
-            color: var(--primary-color);
-            position: relative;
-            display: inline-block;
-            padding-bottom: 8px;
+            font-size: 28px;
+            text-transform: uppercase;
         }
 
-        .section-title h2::after {
+        .section-title::after {
             content: '';
-            position: absolute;
-            width: 50%;
+            width: 80px;
             height: 3px;
             background-color: var(--accent-color);
-            bottom: 0;
-            left: 25%;
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
-        /* Hero Banner */
+        /* Hero Banner (Home Page) */
         .hero {
-            background: linear-gradient(rgba(12, 35, 64, 0.85), rgba(12, 35, 64, 0.85)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80') center/cover;
+            background: linear-gradient(rgba(11, 60, 93, 0.75), rgba(11, 60, 93, 0.75)), url('https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
             color: var(--white);
-            padding: 80px 5%;
-            border-radius: 12px;
             text-align: center;
-            margin-bottom: 40px;
+            padding: 100px 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
         }
 
         .hero h2 {
-            font-size: 2.5rem;
+            font-size: 38px;
             margin-bottom: 15px;
         }
 
         .hero p {
-            font-size: 1.1rem;
-            max-width: 800px;
+            font-size: 16px;
+            max-width: 700px;
             margin: 0 auto 25px;
-            color: #ddd;
         }
 
-        .hero-btn {
-            padding: 12px 30px;
+        .btn {
+            display: inline-block;
+            padding: 10px 25px;
             background-color: var(--accent-color);
-            color: var(--white);
-            border: none;
-            border-radius: 6px;
+            color: var(--dark-color);
+            text-decoration: none;
             font-weight: 600;
+            border-radius: 5px;
+            border: none;
             cursor: pointer;
+            transition: 0.3s;
         }
 
-        /* Grid Framework */
-        .grid-3 {
+        .btn:hover {
+            background-color: #b8970d;
+        }
+
+        /* Cards Layout */
+        .grid-cards {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 25px;
+            margin-top: 20px;
         }
 
         .card {
             background-color: var(--white);
+            border-radius: 8px;
             padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+            border-top: 4px solid var(--secondary-color);
         }
 
+        .card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        /* Teachers Grid */
         .teacher-card {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
             text-align: center;
         }
 
         .teacher-card i {
-            font-size: 3rem;
+            font-size: 50px;
             color: var(--secondary-color);
             margin-bottom: 15px;
         }
 
         .teacher-card h3 {
             color: var(--primary-color);
-            margin-bottom: 5px;
+            font-size: 18px;
         }
 
-        .teacher-card .qual {
-            color: var(--accent-color);
-            font-weight: 600;
-            font-size: 0.85rem;
-            margin-bottom: 10px;
+        .teacher-card p {
+            color: #666;
+            font-size: 13px;
+            margin-top: 5px;
         }
 
-        /* Custom Tables */
-        .custom-table {
+        /* Tables (Food & Routine) */
+        .styled-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 15px;
-            background: var(--white);
+            margin: 25px 0;
+            font-size: 14px;
+            background-color: var(--white);
+            box-shadow: var(--shadow);
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
-        .custom-table th, .custom-table td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .custom-table th {
+        .styled-table thead tr {
             background-color: var(--primary-color);
             color: var(--white);
+            text-align: left;
         }
 
-        /* Fees Sub-Navigation */
-        .payment-tabs {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
+        .styled-table th, .styled-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #dddddd;
         }
 
-        .pay-tab-btn {
-            padding: 10px 20px;
-            border: 2px solid var(--primary-color);
-            background: transparent;
-            color: var(--primary-color);
-            font-weight: 600;
-            border-radius: 30px;
-            cursor: pointer;
+        .styled-table tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
         }
 
-        .pay-tab-btn.active, .pay-tab-btn:hover {
-            background: var(--primary-color);
-            color: var(--white);
-        }
-
-        .payment-sub-section {
-            display: none;
-            max-width: 650px;
+        /* Forms Styling */
+        .form-container {
+            max-width: 600px;
             margin: 0 auto;
             background: var(--white);
             padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
         }
 
-        .payment-sub-section.active {
-            display: block;
-        }
-
-        /* Forms & Buttons */
         .form-group {
             margin-bottom: 20px;
         }
@@ -300,58 +288,55 @@
 
         .form-group input, .form-group select {
             width: 100%;
-            padding: 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            font-size: 1rem;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
         }
 
-        .btn-submit {
-            width: 100%;
-            padding: 12px;
-            background: var(--primary-color);
-            color: var(--white);
-            border: none;
-            border-radius: 6px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .btn-submit:hover {
-            background: var(--secondary-color);
-        }
-
-        /* QR Code Modal Box */
-        .qr-box {
-            text-align: center;
+        .error-msg {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
             display: none;
-            padding: 20px;
-            background: #f8fafc;
-            border-radius: 8px;
-            margin-top: 20px;
-            border: 2px dashed var(--secondary-color);
         }
 
-        .qr-box img {
-            width: 180px;
-            height: 180px;
-            margin: 15px 0;
+        /* Payment Sub-Tabs */
+        .payment-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
         }
 
-        /* Printable Receipt Card */
-        .receipt-card {
-            border: 2px solid var(--primary-color);
+        .tab-btn {
+            padding: 10px 20px;
+            background-color: #e0e0e0;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        /* Payment Details Box */
+        .receipt-box {
+            background: var(--white);
+            border: 2px dashed var(--primary-color);
             padding: 25px;
             border-radius: 8px;
-            background: var(--white);
-            margin-top: 20px;
+            max-width: 500px;
+            margin: 20px auto;
         }
 
-        .receipt-header {
+        .receipt-box h3 {
             text-align: center;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 15px;
+            color: var(--primary-color);
             margin-bottom: 15px;
         }
 
@@ -359,26 +344,14 @@
             display: flex;
             justify-content: space-between;
             margin-bottom: 10px;
-            font-size: 0.95rem;
-        }
-
-        .alert {
-            padding: 12px 15px;
-            border-radius: 6px;
-            margin-bottom: 15px;
-            font-size: 0.9rem;
-            display: none;
-        }
-
-        .alert-danger {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+            font-size: 14px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
         }
 
         /* Footer */
         footer {
-            background-color: var(--primary-color);
+            background-color: var(--dark-color);
             color: var(--white);
             padding: 40px 5% 20px;
             margin-top: 50px;
@@ -386,190 +359,266 @@
 
         .footer-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 30px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .footer-col h4 {
-            color: var(--accent-color);
             margin-bottom: 15px;
+            color: var(--accent-color);
         }
 
         .footer-bottom {
             text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            font-size: 0.85rem;
+            border-top: 1px solid #444;
+            padding-top: 15px;
+            font-size: 12px;
             color: #aaa;
-        }
-
-        @media (max-width: 768px) {
-            .nav-container {
-                flex-direction: column;
-                gap: 15px;
-            }
-            nav ul {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Top Contact Info Bar -->
-    <div class="top-bar">
+    <!-- Top Bar -->
+    <div class="top-header">
         <div>
-            <i class="fa-solid fa-location-dot"></i> Chandermore, Sujnipara Station Road, Murshidabad - 742201[span_9](start_span)[span_9](end_span)[span_10](start_span)[span_10](end_span)
+            <span><i class="fas fa-map-marker-alt"></i> Chandermore, Sujnipara Station Road, Murshidabad - 742201</span>
+            <span><i class="fas fa-phone"></i> +91-8617061244</span>
         </div>
         <div>
-            <i class="fa-solid fa-phone"></i> +91 8617061244 / 7384361623 | 
-            <i class="fa-solid fa-envelope"></i> jkbnationalschool@gmail.com[span_11](start_span)[span_11](end_span)[span_12](start_span)[span_12](end_span)
+            <span><i class="fas fa-envelope"></i> jkbnationalschool@gmail.com</span>
         </div>
     </div>
 
-    <!-- Header Navigation Bar -->
+    <!-- Main Navigation Bar -->
     <header>
-        <div class="nav-container">
-            <div class="logo-container">
-                <div class="logo-icon">JKB</div>
+        <nav class="navbar">
+            <a href="#" class="logo-container" onclick="showPage('home')">
+                <i class="fas fa-school logo-icon"></i>
                 <div class="logo-text">
-                    <h1>J.K.B. NATIONAL SCHOOL</h1>[span_13](start_span)[span_13](end_span)
-                    <p>Bengali & CBSE Curriculum | English Medium</p>[span_14](start_span)[span_14](end_span)
+                    <h1>J.K.B. NATIONAL SCHOOL</h1>
+                    <p>Bengali & CBSE Curriculum | English Medium</p>
                 </div>
-            </div>
-            <nav>
-                <ul>
-                    <li><a class="nav-link active" onclick="navigateTo('home-page', this)">Home</a></li>
-                    <li><a class="nav-link" onclick="navigateTo('about-page', this)">About Us</a></li>
-                    <li><a class="nav-link" onclick="navigateTo('teachers-page', this)">Teachers List</a></li>
-                    <li><a class="nav-link" onclick="navigateTo('student-page', this)">Student Portal</a></li>
-                    <li><a class="nav-link" onclick="navigateTo('admission-page', this)">Admission Portal</a></li>
-                    <li><a class="nav-link" onclick="navigateTo('fees-page', this)">Fees & Payments</a></li>
-                </ul>
-            </nav>
-        </div>
+            </a>
+            <ul class="nav-links">
+                <li><a onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
+                <li><a onclick="showPage('about')" id="nav-about">About Us</a></li>
+                <li><a onclick="showPage('teachers')" id="nav-teachers">Teachers List</a></li>
+                <li><a onclick="showPage('food')" id="nav-food">Food Menu</a></li>
+                <li><a onclick="showPage('rules')" id="nav-rules">Rules & Disciplines</a></li>
+                <li><a onclick="showPage('payments')" id="nav-payments">Fees & Payments</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <!-- PAGE 1: HOME PAGE -->
-    <div id="home-page" class="page-view active-page">
+    <!-- ================= HOME PAGE ================= -->
+    <div id="home" class="page-section active">
         <div class="hero">
-            <h2>Welcome to J.K.B. National School</h2>[span_15](start_span)[span_15](end_span)
-            <p>Providing excellence in academic guidance, discipline, and holistic character development.</p>
-            <button class="hero-btn" onclick="openAdmissionDirect()">Apply For Admission 2026</button>[span_16](start_span)[span_16](end_span)[span_17](start_span)[span_17](end_span)
+            <h2>Welcome to J.K.B. National School</h2>
+            <p>Empowering students through modern education, moral values, and academic excellence.</p>
+            <button class="btn" onclick="showPage('payments')">Pay Fees Online</button>
         </div>
 
         <div class="section-title">
-            <h2>Key School Features</h2>[span_18](start_span)[span_18](end_span)
+            <h2>Key Highlights</h2>
         </div>
-
-        <div class="grid-3">
+        <div class="grid-cards">
             <div class="card">
-                <i class="fa-solid fa-book-open" style="font-size:2rem; color:var(--secondary-color); margin-bottom:10px;"></i>
-                <h3>Dual Curriculum</h3>
-                <p>Support for both Bengali and CBSE English medium curriculums.</p>[span_19](start_span)[span_19](end_span)
+                <h3><i class="fas fa-book-reader"></i> Quality Curriculum</h3>
+                <p>Offering both Bengali & CBSE Curriculum in English Medium for holistic learning.</p>
             </div>
             <div class="card">
-                <i class="fa-solid fa-hotel" style="font-size:2rem; color:var(--secondary-color); margin-bottom:10px;"></i>
-                <h3>Hostel & Day School</h3>
-                <p>Class I-IV English Medium Day School, Class V-XII Arts & Science Hostel available.</p>[span_20](start_span)[span_20](end_span)
+                <h3><i class="fas fa-hotel"></i> Hostel Available</h3>
+                <p>Safe, hygienic, and well-disciplined hostel facilities available for students from Class V to XII.</p>
             </div>
             <div class="card">
-                <i class="fa-solid fa-brain" style="font-size:2rem; color:var(--secondary-color); margin-bottom:10px;"></i>
-                <h3>Spoken English & Mock Tests</h3>
-                <p>Special focus on English communication, smart mock tests, and concept-clearing classes.</p>[span_21](start_span)[span_21](end_span)[span_22](start_span)[span_22](end_span)
+                <h3><i class="fas fa-user-graduate"></i> Expert Faculty</h3>
+                <p>Highly qualified and affectionate teaching staff committed to students' success.</p>
             </div>
         </div>
     </div>
 
-    <!-- PAGE 2: ABOUT US PAGE -->
-    <div id="about-page" class="page-view">
+    <!-- ================= ABOUT PAGE ================= -->
+    <div id="about" class="page-section">
         <div class="section-title">
-            <h2>About Our School & Administration</h2>[span_23](start_span)[span_23](end_span)
+            <h2>About Our Institution</h2>
         </div>
-
-        <div class="card" style="margin-bottom: 30px;">
-            <h3>School Management & Administration</h3>[span_24](start_span)[span_24](end_span)
-            <p style="margin-top:10px;">Our school is run by dedicated academicians committed to high moral and educational standards:</p>
-            <ul style="margin-left: 20px; margin-top: 15px;">
-                <li><strong>Dr. Rahmatullah:</strong> PhD (English) - Deep Knowledge in Literature & Affectionate Guidance[span_25](start_span)[span_25](end_span)[span_26](start_span)[span_26](end_span).</li>
-                <li><strong>Santosh Kumar Mandal:</strong> B.Com Hons. - Expertise in Commerce & Mathematics[span_27](start_span)[span_27](end_span)[span_28](start_span)[span_28](end_span).</li>
-                <li><strong>Nasim Aktar Sk:</strong> B.A (History Hons.) - Experiential Historical Learning[span_29](start_span)[span_29](end_span)[span_30](start_span)[span_30](end_span).</li>
-            </ul>
+        <div class="card" style="margin-bottom: 20px;">
+            <h3>Our Mission & Vision</h3>
+            <p>J.K.B. National School aims to deliver modern education integrated with moral and cultural values. We focus on concept-clearing classes, daily study materials, regular unit tests, and spoken English development.</p>
         </div>
-
-        <div class="section-title">
-            <h2>Weekly Hostel Nutrition & Mess Food Schedule</h2>[span_31](start_span)[span_31](end_span)
-        </div>
-        <div style="overflow-x:auto;">
-            <table class="custom-table">
-                <thead>
-                    <tr>
-                        <th>Meal Time</th>
-                        <th>Monday</th>
-                        <th>Tuesday</th>
-                        <th>Wednesday</th>
-                        <th>Thursday</th>
-                        <th>Friday</th>
-                        <th>Saturday</th>
-                        <th>Sunday</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Morning (07:30 AM)</strong></td>[span_32](start_span)[span_32](end_span)
-                        <td>Suji-Roti</td>[span_33](start_span)[span_33](end_span)
-                        <td>Paratha</td>[span_34](start_span)[span_34](end_span)
-                        <td>Khichdi</td>[span_35](start_span)[span_35](end_span)
-                        <td>Luchi-Suji</td>[span_36](start_span)[span_36](end_span)
-                        <td>Egg-Roti</td>[span_37](start_span)[span_37](end_span)
-                        <td>Upma</td>[span_38](start_span)[span_38](end_span)
-                        <td>Special Item</td>[span_39](start_span)[span_39](end_span)
-                    </tr>
-                    <tr>
-                        <td><strong>Lunch (01:30 PM)</strong></td>[span_40](start_span)[span_40](end_span)
-                        <td>Rice, Dal, Veg</td>[span_41](start_span)[span_41](end_span)
-                        <td>Fish Curry, Rice</td>[span_42](start_span)[span_42](end_span)
-                        <td>Rice, Dal, Veg</td>[span_43](start_span)[span_43](end_span)
-                        <td>Chicken Curry, Rice</td>[span_44](start_span)[span_44](end_span)
-                        <td>Rice, Dal, Paneer</td>[span_45](start_span)[span_45](end_span)
-                        <td>Egg Curry, Rice</td>[span_46](start_span)[span_46](end_span)
-                        <td>Pulao, Mutton Curry</td>[span_47](start_span)[span_47](end_span)
-                    </tr>
-                    <tr>
-                        <td><strong>Afternoon (04:30 PM)</strong></td>[span_48](start_span)[span_48](end_span)
-                        <td>Milk-Biscuit</td>[span_49](start_span)[span_49](end_span)
-                        <td>Fruits</td>[span_50](start_span)[span_50](end_span)
-                        <td>Chana-Muri</td>[span_51](start_span)[span_51](end_span)
-                        <td>Milk-Cake</td>[span_52](start_span)[span_52](end_span)
-                        <td>Fruits</td>[span_53](start_span)[span_53](end_span)
-                        <td>Milk-Biscuit</td>[span_54](start_span)[span_54](end_span)
-                        <td>Sweets</td>[span_55](start_span)[span_55](end_span)
-                    </tr>
-                    <tr>
-                        <td><strong>Dinner (08:30 PM)</strong></td>[span_56](start_span)[span_56](end_span)
-                        <td>Roti-Veg</td>[span_57](start_span)[span_57](end_span)
-                        <td>Rice, Dal, Veg</td>[span_58](start_span)[span_58](end_span)
-                        <td>Roti-Tadka</td>[span_59](start_span)[span_59](end_span)
-                        <td>Roti-Veg</td>[span_60](start_span)[span_60](end_span)
-                        <td>Rice, Dal, Veg</td>[span_61](start_span)[span_61](end_span)
-                        <td>Roti-Veg</td>[span_62](start_span)[span_62](end_span)
-                        <td>Roti-Paneer</td>[span_63](start_span)[span_63](end_span)
-                    </tr>
-                </tbody>
-            </table>
+        <div class="grid-cards">
+            <div class="card">
+                <h3>Administration</h3>
+                <p><strong>Dr. Rahmatullah:</strong> PhD (English) - Deep knowledge in literature & language.</p>
+                <p><strong>Santos Kumar Mondal:</strong> B.Com Hons - Guidance in Commerce & Mathematics.</p>
+                <p><strong>Nasim Aktar Sk:</strong> B.A (History Hons) - Bringing history to life.</p>
+            </div>
+            <div class="card">
+                <h3>Facilities Provided</h3>
+                <ul>
+                    <li>Daily based study materials</li>
+                    <li>Regular unit & class tests</li>
+                    <li>Smart mock tests</li>
+                    <li>Special focus on Spoken English</li>
+                </ul>
+            </div>
         </div>
     </div>
 
-    <!-- PAGE 3: TEACHERS LIST PAGE -->
-    <div id="teachers-page" class="page-view">
+    <!-- ================= TEACHERS LIST PAGE ================= -->
+    <div id="teachers" class="page-section">
         <div class="section-title">
-            <h2>Our Qualified & Dedicated Faculty</h2>[span_64](start_span)[span_64](end_span)[span_65](start_span)[span_65](end_span)
+            <h2>Our Respected Faculty</h2>
+        </div>
+        <div class="grid-cards">
+            <div class="teacher-card">
+                <i class="fas fa-user-tie"></i>
+                <h3>Dr. Rahmatullah</h3>
+                <p><strong>Qualification:</strong> PhD (English)</p>
+                <p>English Language & Literature Expert</p>
+            </div>
+            <div class="teacher-card">
+                <i class="fas fa-user-tie"></i>
+                <h3>Santos Kumar Mondal</h3>
+                <p><strong>Qualification:</strong> B.Com Hons</p>
+                <p>Commerce & Mathematics Specialist</p>
+            </div>
+            <div class="teacher-card">
+                <i class="fas fa-user-tie"></i>
+                <h3>Nasim Aktar Sk</h3>
+                <p><strong>Qualification:</strong> B.A (History Hons)</p>
+                <p>History & Social Studies Faculty</p>
+            </div>
+            <div class="teacher-card">
+                <i class="fas fa-user-tie"></i>
+                <h3>Md. Wasim Akram</h3>
+                <p><strong>Qualification:</strong> B.A (Education Hons)</p>
+                <p>Pedagogy & Education Science</p>
+            </div>
+            <div class="teacher-card">
+                <i class="fas fa-user-tie"></i>
+                <h3>Islima Parvin</h3>
+                <p><strong>Qualification:</strong> M.A (English), B.Ed</p>
+                <p>English Medium Faculty</p>
+            </div>
+            <div class="teacher-card">
+                <i class="fas fa-user-tie"></i>
+                <h3>Madhumita Sinha</h3>
+                <p><strong>Qualification:</strong> Graduate, D.El.Ed</p>
+                <p>Primary Education Specialist</p>
+            </div>
+            <div class="teacher-card">
+                <i class="fas fa-user-tie"></i>
+                <h3>Noyontara Khatun</h3>
+                <p><strong>Qualification:</strong> History Hons</p>
+                <p>Assistant Teacher - History</p>
+            </div>
+            <div class="teacher-card">
+                <i class="fas fa-user-tie"></i>
+                <h3>Rupsa Das</h3>
+                <p><strong>Qualification:</strong> H.S.</p>
+                <p>Primary Caretaker & Teacher</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= FOOD MENU PAGE ================= -->
+    <div id="food" class="page-section">
+        <div class="section-title">
+            <h2>Hostel Food Schedule & Nutrition Plan</h2>
+        </div>
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Day</th>
+                    <th>Breakfast (7:30 AM)</th>
+                    <th>Lunch (1:30 PM)</th>
+                    <th>Afternoon (4:30 PM)</th>
+                    <th>Dinner (8:30 PM)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Monday</strong></td>
+                    <td>Suji / Paratha</td>
+                    <td>Rice, Dal, Vegetable Curry</td>
+                    <td>Fruit / Biscuits</td>
+                    <td>Roti, Sabji</td>
+                </tr>
+                <tr>
+                    <td><strong>Tuesday</strong></td>
+                    <td>Khichdi</td>
+                    <td>Fish Curry, Rice</td>
+                    <td>Chana-Muri</td>
+                    <td>Rice, Dal, Sabji</td>
+                </tr>
+                <tr>
+                    <td><strong>Wednesday</strong></td>
+                    <td>Luchi-Sabji</td>
+                    <td>Rice, Dal, Veg Curry</td>
+                    <td>Milk & Cake</td>
+                    <td>Roti, Tadka</td>
+                </tr>
+                <tr>
+                    <td><strong>Thursday</strong></td>
+                    <td>Egg-Roti</td>
+                    <td>Chicken Curry, Rice</td>
+                    <td>Seasonal Fruits</td>
+                    <td>Roti, Sabji</td>
+                </tr>
+                <tr>
+                    <td><strong>Friday</strong></td>
+                    <td>Upma</td>
+                    <td>Rice, Dal, Paneer</td>
+                    <td>Milk & Biscuits</td>
+                    <td>Rice, Dal, Sabji</td>
+                </tr>
+                <tr>
+                    <td><strong>Saturday</strong></td>
+                    <td>Special Breakfast</td>
+                    <td>Egg Kalia, Rice</td>
+                    <td>Sweets / Snacks</td>
+                    <td>Roti, Paneer</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ================= RULES & DISCIPLINES PAGE ================= -->
+    <div id="rules" class="page-section">
+        <div class="section-title">
+            <h2>Rules & Disciplines</h2>
+        </div>
+        <div class="grid-cards">
+            <div class="card">
+                <h3><i class="fas fa-user-check"></i> Student Rules</h3>
+                <ul>
+                    <li>Arrive at least 10 minutes before Assembly.</li>
+                    <li>Wear clean, ironed school uniform and ID Card.</li>
+                    <li>Mobile phones and electronic gadgets are strictly prohibited.</li>
+                    <li>Maintain strict discipline in classrooms and corridors.</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3><i class="fas fa-chalkboard-teacher"></i> Staff Regulations</h3>
+                <ul>
+                    <li>Mandatory biometric attendance before assembly.</li>
+                    <li>Saree dress code for female teaching staff.</li>
+                    <li>Weekly Lesson Plans must be submitted in advance.</li>
+                    <li>Corporal punishment is strictly forbidden.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= FEES & PAYMENTS PORTAL ================= -->
+    <div id="payments" class="page-section">
+        <div class="section-title">
+            <h2>Fees & Payments Portal</h2>
         </div>
 
-        <div class="grid-3">
-            <div class="card teacher-card">
-                <i class="fa-solid fa-user-tie"></i>
-                <h3>Dr. Rahmatullah</h3>[span_66](start_span)[span_66](end_span)[span_67](start_span)[span_67](end_span)
-                <div class="qual">Ph
+        <!-- Sub Navigation Tabs -->
+        <div class="payment-tabs">
+            <button cla

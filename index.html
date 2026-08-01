@@ -622,3 +622,532 @@
         <!-- Sub Navigation Tabs -->
         <div class="payment-tabs">
             <button cla
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>J.K.B. National School - Fees & Payments Portal</title>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #0b3c5d;
+            --secondary-color: #328cc1;
+            --accent-color: #d9b310;
+            --dark-color: #1d2731;
+            --white: #ffffff;
+            --shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Top Header Navigation */
+        header {
+            background-color: var(--primary-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            font-size: 30px;
+            color: var(--accent-color);
+            margin-right: 12px;
+        }
+
+        .logo-text h1 {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background-color: transparent;
+            color: var(--white);
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background-color: var(--accent-color);
+            color: var(--dark-color);
+            border-color: var(--accent-color);
+        }
+
+        /* Page/View Container */
+        .portal-section {
+            display: none;
+            padding: 40px 5%;
+            min-height: 80vh;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .portal-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 26px;
+            text-transform: uppercase;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 70px;
+            height: 3px;
+            background-color: var(--accent-color);
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Form Styling */
+        .form-card {
+            max-width: 550px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            border-top: 5px solid var(--primary-color);
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--secondary-color);
+        }
+
+        .error-message {
+            color: #d9534f;
+            font-size: 13px;
+            margin-top: 5px;
+            font-weight: 500;
+            display: none;
+        }
+
+        /* Buttons */
+        .btn-action {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .btn-action:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Receipt Card */
+        .receipt-card {
+            background: var(--white);
+            border: 2px dashed var(--primary-color);
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .receipt-card h3 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 20px;
+            border-bottom: 2px solid #f4f7f6;
+            padding-bottom: 10px;
+        }
+
+        .receipt-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 14px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 6px;
+        }
+
+        /* Tables */
+        .styled-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 14px;
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .styled-table thead tr {
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-align: left;
+        }
+
+        .styled-table th, .styled-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #dddddd;
+        }
+
+        .styled-table tbody tr:nth-of-type(even) {
+            background-color: #f8f9fa;
+        }
+
+        /* Print Specific Styling */
+        @media print {
+            header, .nav-buttons, .btn-action {
+                display: none !important;
+            }
+            .portal-section {
+                padding: 0;
+            }
+            .receipt-card {
+                border: 1px solid #000;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header>
+        <nav class="navbar">
+            <a href="#" class="logo-container">
+                <i class="fas fa-university logo-icon"></i>
+                <div class="logo-text">
+                    <h1>J.K.B. NATIONAL SCHOOL</h1>
+                </div>
+            </a>
+            <div class="nav-buttons">
+                <button class="nav-btn active" id="btn-online" onclick="switchTab('view-online-step1')">Online Fee Payment</button>
+                <button class="nav-btn" id="btn-vault" onclick="switchTab('view-payment-vault')">Online Payment Slips</button>
+                <button class="nav-btn" id="btn-handcash" onclick="switchTab('view-handcash-portal')">Hand Cash Portal</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ================= 1. ONLINE PAYMENT STEP 1 ================= -->
+    <div id="view-online-step1" class="portal-section active">
+        <div class="section-title">
+            <h2>Online Student Fee Payment</h2>
+        </div>
+        <div class="form-card">
+            <div class="form-group">
+                <label>Select Class:</label>
+                <select id="online-class">
+                    <option value="">-- Select Class --</option>
+                    <option value="Nursery">Nursery</option>
+                    <option value="UKG">UKG</option>
+                    <option value="Class 1">Class 1</option>
+                    <option value="Class 2">Class 2</option>
+                    <option value="Class 3">Class 3</option>
+                    <option value="Class 4">Class 4</option>
+                    <option value="Class 5">Class 5</option>
+                    <option value="Class 6">Class 6</option>
+                    <option value="Class 7">Class 7</option>
+                    <option value="Class 8">Class 8</option>
+                    <option value="Class 9">Class 9</option>
+                    <option value="Class 10">Class 10</option>
+                    <option value="Class 11">Class 11</option>
+                    <option value="Class 12">Class 12</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Student Full Name:</label>
+                <input type="text" id="online-name" placeholder="Enter full name">
+            </div>
+            <div class="form-group">
+                <label>Roll Number (Format: 202401 to 202450):</label>
+                <input type="text" id="online-roll" placeholder="e.g. 202401">
+                <div id="online-roll-error" class="error-message">Invalid Roll Number! Must begin with 2024 followed by 01 to 50.</div>
+            </div>
+            <div class="form-group">
+                <label>Monthly Fee Amount (INR):</label>
+                <input type="text" id="online-amount" value="1200" readonly style="background-color: #e9ecef;">
+            </div>
+            <button class="btn-action" onclick="validateAndProceedOnline()">Proceed to Payment Page</button>
+        </div>
+    </div>
+
+    <!-- ================= 2. ONLINE PAYMENT STEP 2 (UPI / QR GATEWAY) ================= -->
+    <div id="view-online-gateway" class="portal-section">
+        <div class="section-title">
+            <h2>Scan & Pay via UPI</h2>
+        </div>
+        <div class="form-card" style="text-align: center;">
+            <p style="font-size: 14px; color: #555;">Scan the QR code below using any UPI App (GPay, PhonePe, Paytm)</p>
+            
+            <div style="margin: 20px 0;">
+                <!-- Auto Generated Dynamic QR Code -->
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=jkbnationalschool@upi&pn=JKBNationalSchool" alt="UPI Payment QR Code" style="border: 2px solid var(--primary-color); padding: 8px; border-radius: 8px;">
+            </div>
+
+            <p style="font-size: 15px; font-weight: 600; color: var(--primary-color);">UPI ID: 8617061244@upi</p>
+            <p style="font-size: 13px; color: #777; margin-bottom: 20px;">J.K.B. National School Official Account</p>
+
+            <button class="btn-action" style="background-color: #28a745;" onclick="processPaymentSuccess()">Simulate Successful Payment</button>
+        </div>
+    </div>
+
+    <!-- ================= 3. ONLINE PAYMENT STEP 3 (RECEIPT PAGE) ================= -->
+    <div id="view-online-receipt" class="portal-section">
+        <div class="section-title">
+            <h2>Payment Receipt</h2>
+        </div>
+        <div class="receipt-card">
+            <h3>J.K.B. NATIONAL SCHOOL</h3>
+            <div class="receipt-row"><span>Transaction ID:</span><strong id="rec-id">#JKB100234</strong></div>
+            <div class="receipt-row"><span>Date & Time:</span><strong id="rec-date"></strong></div>
+            <div class="receipt-row"><span>Student Name:</span><strong id="rec-name"></strong></div>
+            <div class="receipt-row"><span>Class:</span><strong id="rec-class"></strong></div>
+            <div class="receipt-row"><span>Roll Number:</span><strong id="rec-roll"></strong></div>
+            <div class="receipt-row"><span>Paid Amount:</span><strong id="rec-amount"></strong></div>
+            <div class="receipt-row"><span>Payment Status:</span><strong style="color: #28a745;">SUCCESSFUL (ONLINE)</strong></div>
+            <br>
+            <button class="btn-action" onclick="window.print()"><i class="fas fa-print"></i> Print / Download Slip</button>
+        </div>
+    </div>
+
+    <!-- ================= 4. ONLINE PAYMENT SLIP VAULT ================= -->
+    <div id="view-payment-vault" class="portal-section">
+        <div class="section-title">
+            <h2>Online Payment Slip Vault</h2>
+        </div>
+        <p style="text-align: center; margin-bottom: 15px; font-size: 14px; color: #666;">All completed online transactions are stored here for future downloads.</p>
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Txn ID</th>
+                    <th>Name</th>
+                    <th>Class</th>
+                    <th>Roll No</th>
+                    <th>Amount</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="vault-table-body">
+                <!-- Transaction rows generated dynamically -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ================= 5. HAND CASH PAYMENT PORTAL ================= -->
+    <div id="view-handcash-portal" class="portal-section">
+        <div class="section-title">
+            <h2>Hand Cash Register Portal</h2>
+        </div>
+        <div class="form-card">
+            <div class="form-group">
+                <label>Select Class:</label>
+                <select id="cash-class">
+                    <option value="">-- Select Class --</option>
+                    <option value="Nursery">Nursery</option>
+                    <option value="UKG">UKG</option>
+                    <option value="Class 1">Class 1</option>
+                    <option value="Class 2">Class 2</option>
+                    <option value="Class 3">Class 3</option>
+                    <option value="Class 4">Class 4</option>
+                    <option value="Class 5">Class 5</option>
+                    <option value="Class 6">Class 6</option>
+                    <option value="Class 7">Class 7</option>
+                    <option value="Class 8">Class 8</option>
+                    <option value="Class 9">Class 9</option>
+                    <option value="Class 10">Class 10</option>
+                    <option value="Class 11">Class 11</option>
+                    <option value="Class 12">Class 12</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Student Full Name:</label>
+                <input type="text" id="cash-name" placeholder="Enter full name">
+            </div>
+            <div class="form-group">
+                <label>Roll Number:</label>
+                <input type="text" id="cash-roll" placeholder="Enter Roll Number">
+            </div>
+            <div class="form-group">
+                <label>Collected Cash Amount (INR):</label>
+                <input type="number" id="cash-amount" placeholder="e.g. 1200">
+            </div>
+            <button class="btn-action" style="background-color: var(--secondary-color);" onclick="generateCashReceipt()">Generate Cash Receipt</button>
+        </div>
+
+        <br>
+
+        <!-- Cash Receipt Box (Displays upon generation) -->
+        <div id="cash-receipt-box" class="receipt-card" style="display: none;">
+            <h3>HAND CASH RECEIPT</h3>
+            <div class="receipt-row"><span>Date:</span><strong id="c-rec-date"></strong></div>
+            <div class="receipt-row"><span>Student Name:</span><strong id="c-rec-name"></strong></div>
+            <div class="receipt-row"><span>Class:</span><strong id="c-rec-class"></strong></div>
+            <div class="receipt-row"><span>Roll Number:</span><strong id="c-rec-roll"></strong></div>
+            <div class="receipt-row"><span>Amount Received:</span><strong id="c-rec-amount"></strong></div>
+            <div class="receipt-row"><span>Mode of Payment:</span><strong>HAND CASH (COUNTER)</strong></div>
+            <br>
+            <button class="btn-action" onclick="window.print()"><i class="fas fa-print"></i> Print Cash Slip</button>
+        </div>
+    </div>
+
+    <!-- JavaScript Core Logic -->
+    <script>
+        // Array to hold online payment slip records
+        let paymentVault = [];
+
+        // Tab Navigation Functionality
+        function switchTab(viewId) {
+            let sections = document.querySelectorAll('.portal-section');
+            sections.forEach(sec => sec.classList.remove('active'));
+
+            let activeView = document.getElementById(viewId);
+            if(activeView) activeView.classList.add('active');
+
+            // Update Navbar Active Button State
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            if(viewId.includes('online')) {
+                document.getElementById('btn-online').classList.add('active');
+            } else if(viewId === 'view-payment-vault') {
+                document.getElementById('btn-vault').classList.add('active');
+                renderVaultTable();
+            } else if(viewId === 'view-handcash-portal') {
+                document.getElementById('btn-handcash').classList.add('active');
+            }
+
+            window.scrollTo(0, 0);
+        }
+
+        // Online Payment Step 1 Logic & Roll Validation (202401 to 202450)
+        function validateAndProceedOnline() {
+            let sClass = document.getElementById('online-class').value;
+            let name = document.getElementById('online-name').value.trim();
+            let roll = document.getElementById('online-roll').value.trim();
+            let errorElement = document.getElementById('online-roll-error');
+
+            if(!sClass || !name || !roll) {
+                alert("Please fill in all mandatory fields!");
+                return;
+            }
+
+            // Regex for Roll Number: starts with 2024 followed by 01 to 50
+            let rollPattern = /^2024(0[1-9]|[1-4][0-9]|50)$/;
+
+            if(!rollPattern.test(roll)) {
+                errorElement.style.display = "block";
+            } else {
+                errorElement.style.display = "none";
+                switchTab('view-online-gateway');
+            }
+        }
+
+        // Payment Processing & Receipt Generation
+        function processPaymentSuccess() {
+            let name = document.getElementById('online-name').value.trim();
+            let sClass = document.getElementById('online-class').value;
+            let roll = document.getElementById('online-roll').value.trim();
+            let amount = document.getElementById('online-amount').value;
+            let dateToday = new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            let txnId = "TXN" + Math.floor(100000 + Math.random() * 900000);
+
+            // Populate Receipt Details
+            document.getElementById('rec-id').innerText = "#" + txnId;
+            document.getElementById('rec-date').innerText = dateToday;
+            document.getElementById('rec-name').innerText = name;
+            document.getElementById('rec-class').innerText = sClass;
+            document.getElementById('rec-roll').innerText = roll;
+            document.getElementById('rec-amount').innerText = "₹ " + amount;
+
+            // Push record to Vault
+            paymentVault.push({
+                date: dateToday,
+                id: txnId,
+                name: name,
+                class: sClass,
+                roll: roll,
+                amount: "₹ " + amount
+            });
+
+            switchTab('view-online-receipt');
+        }
+
+        // Render Online Payment Receipts in Vault
+        function renderVaultTable() {
+            let tbody = document.getElementById('

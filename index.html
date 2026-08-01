@@ -1,639 +1,555 @@
+tiiny.host
+```html
+
 <!DOCTYPE html>
-<html lang="en">
+
+<html lang="en" class="scroll-smooth">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- 
-    - primary meta tags
-  -->
-  <title>Y Collage Bhdohi</title>
-  <meta name="title" content="Youdemi">
-  <meta name="description" content="This is a education html template made by codewithsadee">
+    <meta charset="UTF-8">
 
-  <!-- 
-    - favicon
-  -->
-  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- 
-    - custom font link
-  -->
-  <link rel="stylesheet" href="./assets/font/font.css">
+    <title>J.K.B. National School | Excellence in Education</title>
 
-  <!-- 
-    - custom css link
-  -->
-  <link rel="stylesheet" href="./assets/css/style.css">
+    <!-- Tailwind CSS -->
 
-  <!-- 
-    - preload images
-  -->
-  <link rel="preload" as="image" href="./assets/images/hero-banner.png">
-  <link rel="preload" as="image" href="./assets/images/hero-bg.png">
-  <!-- Start of Async Drift Code -->
-<script>
-	"use strict";
-	
-	!function() {
-	  var t = window.driftt = window.drift = window.driftt || [];
-	  if (!t.init) {
-		if (t.invoked) return void (window.console && console.error && console.error("Drift snippet included twice."));
-		t.invoked = !0, t.methods = [ "identify", "config", "track", "reset", "debug", "show", "ping", "page", "hide", "off", "on" ], 
-		t.factory = function(e) {
-		  return function() {
-			var n = Array.prototype.slice.call(arguments);
-			return n.unshift(e), t.push(n), t;
-		  };
-		}, t.methods.forEach(function(e) {
-		  t[e] = t.factory(e);
-		}), t.load = function(t) {
-		  var e = 3e5, n = Math.ceil(new Date() / e) * e, o = document.createElement("script");
-		  o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "https://js.driftt.com/include/" + n + "/" + t + ".js";
-		  var i = document.getElementsByTagName("script")[0];
-		  i.parentNode.insertBefore(o, i);
-		};
-	  }
-	}();
-	drift.SNIPPET_VERSION = '0.3.1';
-	drift.load('c3aurgtk94ca');
-	</script>
-	<!-- End of Async Drift Code -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- FontAwesome Icons -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+
+        tailwind.config = {
+
+            theme: {
+
+                extend: {
+
+                    fontFamily: {
+
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+
+                    },
+
+                    colors: {
+
+                        brand: {
+
+                            50: '#f0f7ff',
+
+                            100: '#e0effe',
+
+                            600: '#0284c7',
+
+                            700: '#0369a1',
+
+                            800: '#075985',
+
+                            900: '#0c4a6e',
+
+                            gold: '#d97706',
+
+                            goldlight: '#fef3c7'
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    </script>
+
+    <style>
+
+        .page-section {
+
+            display: none;
+
+        }
+
+        .page-section.active {
+
+            display: block;
+
+            animation: fadeIn 0.3s ease-in-out;
+
+        }
+
+        @keyframes fadeIn {
+
+            from { opacity: 0; transform: translateY(6px); }
+
+            to { opacity: 1; transform: translateY(0); }
+
+        }
+
+        @media print {
+
+            body * {
+
+                visibility: hidden;
+
+            }
+
+            #printableReceiptModal, #printableReceiptModal * {
+
+                visibility: visible;
+
+            }
+
+            #printableReceiptModal {
+
+                position: absolute;
+
+                left: 0;
+
+                top: 0;
+
+                width: 100%;
+
+                background: white;
+
+            }
+
+            .no-print {
+
+                display: none !important;
+
+            }
+
+        }
+
+    </style>
 
 </head>
 
-<body>
-
-  <!-- 
-    - PRELOADER
-  -->
-
-  <div class="preloader" data-preloader>
-    <div class="circle" data-circle></div>
-  </div>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col justify-between">
 
 
+    <!-- Top Announcement & Contact Bar -->
 
+    <div class="bg-brand-900 text-white text-xs py-2 px-4 border-b border-brand-800">
 
+        <div class="max-w-7xl mx-mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
 
-  <!-- 
-    - #HEADER
-  -->
+            <div class="flex items-center space-x-4">
 
-  <header class="header" data-header>
-    <div class="container">
+                <span><i class="fa-solid fa-phone text-amber-400 mr-1"></i> Helpline: +91 8617061244 / 7384361623</span>
 
-      <a href="#" class="logo">
-        <img src="./assets/images/logo.svg" width="145" height="27" alt="Youdemi home">
-      </a>
+                <span class="hidden md:inline"><i class="fa-solid fa-envelope text-amber-400 mr-1"></i> jkbnationalschool@gmail.com</span>
 
-      <nav class="navbar" data-navbar>
-
-        <div class="navbar-top">
-          <a href="#" class="logo">
-            <img src="./assets/images/logo.svg" width="145" height="27" alt="Youdemi home">
-          </a>
-
-          <button class="nav-close-btn" aria-label="close menu" data-nav-toggler>
-            <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
-          </button>
-        </div>
-
-        <ul class="navbar-list">
-
-          <li class="navbar-item">
-            <a href="#" class="navbar-link title-sm" data-nav-link>Home</a>
-          </li>
-
-          <li class="navbar-item">
-            <a href="#" class="navbar-link title-sm" data-nav-link>Courses</a>
-          </li>
-
-          <li class="navbar-item">
-            <a href="#" class="navbar-link title-sm" data-nav-link>Blog</a>
-          </li>
-
-          <li class="navbar-item">
-            <a href="#" class="navbar-link title-sm" data-nav-link>Contacts</a>
-          </li>
-
-        </ul>
-
-      </nav>
-
-      <a href="#" class="btn btn-secondary">Start Free Trial</a>
-
-      <button class="nav-open-btn" aria-label="open menu" data-nav-toggler>
-        <ion-icon name="menu-outline" aria-hidden="true"></ion-icon>
-      </button>
-
-      <div class="overlay" data-overlay data-nav-toggler></div>
-
-    </div>
-  </header>
-
-
-
-
-
-  <main>
-    <article>
-
-      <!-- 
-        - #HERO
-      -->
-
-      <section class="section hero has-bg-image" aria-labelledby="hero-label"
-        style="background-image: url('./assets/images/hero-bg.png')">
-        <div class="container">
-
-          <div class="hero-content">
-
-            <h1 class="headline-lg" id="hero-label">
-              Better <span class="span">Learning Future</span> Starts With Youdemi
-            </h1>
-
-            <p class="title-md has-before">
-              It is long established fact that reader distracted by the readable content.
-            </p>
-
-            <div class="btn-group">
-              <a href="#" class="btn btn-primary">Get Started Now</a>
-
-              <a href="#" class="btn btn-secondary">Get Started Now</a>
             </div>
 
-          </div>
+            <div class="flex items-center space-x-3 font-medium">
 
-          <figure class="hero-banner">
-            <img src="./assets/images/hero-banner.png" width="590" height="620" alt="hero banner" class="w-100">
-          </figure>
+                <span class="bg-amber-500 text-brand-900 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">Admissions Open 2026</span>
 
-        </div>
-      </section>
+                <span class="hidden sm:inline">Bengali & CBSE Curriculum | English Medium</span>
 
-
-
-
-
-      <!-- 
-        - #CATEGORY
-      -->
-
-      <section class="section category has-bg-image" aria-labelledby="category-label"
-        style="background-image: url('./assets/images/category-bg.png')">
-        <div class="container">
-
-          <p class="title-sm text-center section-subtitle" id="category-label">Course Categories</p>
-
-          <h2 class="headline-md text-center section-title">
-            Browse Top <span class="span has-after">Categories</span>
-          </h2>
-
-          <ul class="grid-list">
-
-            <li>
-              <div class="card category-card">
-
-                <div class="card-icon">
-                  <img src="./assets/images/category-1.svg" width="72" height="72" loading="lazy"
-                    alt="Data Science icon">
-                </div>
-
-                <div>
-                  <h3 class="title-lg">Data Science</h3>
-
-                  <p class="title-sm">68 Courses</p>
-                </div>
-
-                <a href="#" class="layer-link" aria-label="Data Science Category"></a>
-
-              </div>
-            </li>
-
-            <li>
-              <div class="card category-card">
-
-                <div class="card-icon">
-                  <img src="./assets/images/category-2.svg" width="72" height="72" loading="lazy"
-                    alt="UI/UX Design icon">
-                </div>
-
-                <div>
-                  <h3 class="title-lg">UI/UX Design</h3>
-
-                  <p class="title-sm">68 Courses</p>
-                </div>
-
-                <a href="#" class="layer-link" aria-label="UI/UX Design Category"></a>
-
-              </div>
-            </li>
-
-            <li>
-              <div class="card category-card">
-
-                <div class="card-icon">
-                  <img src="./assets/images/category-3.svg" width="72" height="72" loading="lazy"
-                    alt="Modern Physics icon">
-                </div>
-
-                <div>
-                  <h3 class="title-lg">Modern Physics</h3>
-
-                  <p class="title-sm">68 Courses</p>
-                </div>
-
-                <a href="#" class="layer-link" aria-label="Modern Physics Category"></a>
-
-              </div>
-            </li>
-
-            <li>
-              <div class="card category-card">
-
-                <div class="card-icon">
-                  <img src="./assets/images/category-4.svg" width="72" height="72" loading="lazy"
-                    alt="Music Production icon">
-                </div>
-
-                <div>
-                  <h3 class="title-lg">Music Production</h3>
-
-                  <p class="title-sm">68 Courses</p>
-                </div>
-
-                <a href="#" class="layer-link" aria-label="Music Production Category"></a>
-
-              </div>
-            </li>
-
-            <li>
-              <div class="card category-card">
-
-                <div class="card-icon">
-                  <img src="./assets/images/category-5.svg" width="72" height="72" loading="lazy"
-                    alt="Data Science icon">
-                </div>
-
-                <div>
-                  <h3 class="title-lg">Data Science</h3>
-
-                  <p class="title-sm">68 Courses</p>
-                </div>
-
-                <a href="#" class="layer-link" aria-label="Data Science Category"></a>
-
-              </div>
-            </li>
-
-            <li>
-              <div class="card category-card">
-
-                <div class="card-icon">
-                  <img src="./assets/images/category-6.svg" width="72" height="72" loading="lazy" alt="Finances icon">
-                </div>
-
-                <div>
-                  <h3 class="title-lg">Finances</h3>
-
-                  <p class="title-sm">68 Courses</p>
-                </div>
-
-                <a href="#" class="layer-link" aria-label="Finances Category"></a>
-
-              </div>
-            </li>
-
-          </ul>
-
-          <a href="#" class="btn btn-primary">View All Categories</a>
+            </div>
 
         </div>
-      </section>
+
+    </div>
 
 
+    <!-- Main Navigation Bar -->
 
+    <header class="bg-white shadow-md sticky top-0 z-40">
 
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-      <!-- 
-        - #ABOUT
-      -->
+            <div class="flex justify-between items-center h-20">
 
-      <section class="section about" aria-labelledby="about-label">
-        <div class="container">
+                <!-- Logo & Branding -->
 
-          <figure class="about-banner">
-            <img src="./assets/images/about-banner.png" width="775" height="685" loading="lazy" alt="about banner"
-              class="w-100">
-          </figure>
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="navigateTo('home')">
 
-          <div class="about-content">
+                    <div class="w-12 h-12 bg-gradient-to-br from-brand-700 to-amber-600 rounded-full flex items-center justify-center text-white font-black text-xl shadow-md border-2 border-amber-300">
 
-            <p class="title-sm section-subtitle" id="about-label">About Youdemi</p>
+                        JKB
 
-            <h2 class="headline-md section-title">
-              We Provide The Best Online <span class="span has-after">Education</span>
-            </h2>
+                    </div>
 
-            <p class="title-sm section-text">
-              There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration
-              in some form, by injected humour.
-            </p>
+                    <div>
 
-            <ul class="progress-list">
+                        <h1 class="text-xl sm:text-2xl font-extrabold text-brand-900 leading-none tracking-tight">J.K.B. NATIONAL SCHOOL</h1>
 
-              <li>
-                <div class="progress-label-wrapper">
-                  <p class="title-sm">Business Studies</p>
+                        <p class="text-xs text-amber-700 font-semibold tracking-wide mt-0.5">Empowering Dreams • English Medium</p>
 
-                  <p class="title-sm">86%</p>
+                    </div>
+
                 </div>
 
-                <div class="progress">
-                  <div class="progress-fill red"></div>
+
+                <!-- Desktop Navigation Menu -->
+
+                <nav class="hidden lg:flex space-x-1 xl:space-x-2">
+
+                    <button onclick="navigateTo('home')" id="nav-home" class="nav-link px-3 py-2 rounded-md text-sm font-semibold transition text-brand-700 bg-brand-50">Home</button>
+
+                    <button onclick="navigateTo('about')" id="nav-about" class="nav-link px-3 py-2 rounded-md text-sm font-semibold text-slate-600 hover:text-brand-700 hover:bg-slate-100 transition">About Us</button>
+
+                    <button onclick="navigateTo('teachers')" id="nav-teachers" class="nav-link px-3 py-2 rounded-md text-sm font-semibold text-slate-600 hover:text-brand-700 hover:bg-slate-100 transition">Teachers</button>
+
+                    <button onclick="navigateTo('hostel')" id="nav-hostel" class="nav-link px-3 py-2 rounded-md text-sm font-semibold text-slate-600 hover:text-brand-700 hover:bg-slate-100 transition">Hostel & Food</button>
+
+                    <button onclick="navigateTo('academics')" id="nav-academics" class="nav-link px-3 py-2 rounded-md text-sm font-semibold text-slate-600 hover:text-brand-700 hover:bg-slate-100 transition">Academics</button>
+
+                    <button onclick="navigateTo('fees')" id="nav-fees" class="nav-link px-3 py-2 rounded-md text-sm font-semibold text-slate-600 hover:text-brand-700 hover:bg-slate-100 transition">Fee Structure</button>
+
+                    <button onclick="navigateTo('payment')" id="nav-payment" class="nav-link px-3 py-2 rounded-md text-sm font-semibold bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold transition shadow-sm">Payment Portal</button>
+
+                    <button onclick="navigateTo('career')" id="nav-career" class="nav-link px-3 py-2 rounded-md text-sm font-semibold text-slate-600 hover:text-brand-700 hover:bg-slate-100 transition">Career</button>
+
+                    <button onclick="navigateTo('contact')" id="nav-contact" class="nav-link px-3 py-2 rounded-md text-sm font-semibold text-slate-600 hover:text-brand-700 hover:bg-slate-100 transition">Contact</button>
+
+                </nav>
+
+
+                <!-- Mobile Hamburger Button -->
+
+                <div class="lg:hidden">
+
+                    <button onclick="toggleMobileMenu()" class="p-2 rounded-md text-slate-600 hover:text-brand-700 hover:bg-slate-100 focus:outline-none">
+
+                        <i class="fa-solid fa-bars text-xl" id="menu-icon"></i>
+
+                    </button>
+
                 </div>
-              </li>
 
-              <li>
-                <div class="progress-label-wrapper">
-                  <p class="title-sm">Marketing</p>
-
-                  <p class="title-sm">67%</p>
-                </div>
-
-                <div class="progress">
-                  <div class="progress-fill green"></div>
-                </div>
-              </li>
-
-              <li>
-                <div class="progress-label-wrapper">
-                  <p class="title-sm">Design & Development</p>
-
-                  <p class="title-sm">95%</p>
-                </div>
-
-                <div class="progress">
-                  <div class="progress-fill yellow"></div>
-                </div>
-              </li>
-
-            </ul>
-
-          </div>
+            </div>
 
         </div>
-      </section>
 
 
+        <!-- Mobile Drawer Menu -->
+
+        <div id="mobileMenu" class="hidden lg:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-4 space-y-1 shadow-lg">
+
+            <button onclick="navigateTo('home')" class="block w-full text-left px-3 py-2 rounded-md text-base font-semibold text-slate-700 hover:bg-brand-50 hover:text-brand-700">Home</button>
+
+            <button onclick="navigateTo('about')" class="block w-full text-left px-3 py-2 rounded-md text-base font-semibold text-slate-700 hover:bg-brand-50 hover:text-brand-700">About Us</button>
+
+            <button onclick="navigateTo('teachers')" class="block w-full text-left px-3 py-2 rounded-md text-base font-semibold text-slate-700 hover:bg-brand-50 hover:text-brand-700">Teachers List</button>
+
+            <button onclick="navigateTo('hostel')" class="block w-full text-left px-3 py-2 rounded-md text-base font-semibold text-slate-700 hover:bg-brand-50 hover:text-brand-700">Hostel & Food Chart</button>
+
+            <button onclick="navigateTo('academics')" class="block w-full text-left px-3 py-2 rounded-md text-base font-semibold text-slate-700 hover:bg-brand-50 hover:text-brand-700">Academics & Admissions</button>
+
+            <button onclick="navigateTo('fees')" class="block w-full text-left px-3 py-2 rounded-md text-base font-semibold text-slate-700 hover:bg-brand-50 hover:text-brand-700">Fee Structure</button>
+
+            <button onclick="navigateTo('payment')" class="block w-full text-left px-3 py-2 rounded-md text-base font-semibold bg-amber-500 text-slate-900 font-bold">Payment Portal</button>
+
+            <button onclick="navigateTo('career')" class="block w-full text-left px-3 py-2 rounded-md text-base font-semibold text-slate-700 hover:bg-brand-50 hover:text-brand-700">Career Opportunities</button>
+
+            <button onclick="navigateTo('contact')" class="block w-full text-left px-3 py-2 rounded-md text-base font-semibold text-slate-700 hover:bg-brand-50 hover:text-brand-700">Contact Us</button>
+
+        </div>
+
+    </header>
 
 
+    <!-- MAIN CONTENT CONTAINER -->
 
-      <!-- 
-        - #COURSE
-      -->
+    <main class="flex-grow">
 
-      <section class="section course has-bg-image" aria-labelledby="course-label"
-        style="background-image: url('./assets/images/course-bg.png')">
-        <div class="container">
 
-          <p class="title-sm section-subtitle text-center">Featured Courses</p>
+        <!-- 1. HOME SECTION -->
 
-          <h2 class="headline-md section-title text-center" id="course-label">
-            Choose Unlimited <span class="span has-after">Courses</span>
-          </h2>
+        <section id="sec-home" class="page-section active">
 
-          <ul class="grid-list">
+            <!-- Hero Banner -->
 
-            <li class="card-container">
-              <div class="card course-card">
+            <div class="relative bg-gradient-to-r from-brand-900 via-brand-800 to-slate-900 text-white overflow-hidden py-16 sm:py-24">
 
-                <figure class="card-banner">
-                  <img src="./assets/images/course-1.png" width="370" height="248" loading="lazy"
-                    alt="Basic Fundamentals of Interior & Graphics Design" class="img-cover">
-                </figure>
+                <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
 
-                <div class="card-content">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
-                  <div class="wrapper">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
-                    <p class="title-lg card-price">$29.28</p>
+                        <div class="space-y-6 text-center lg:text-left">
 
-                    <div class="rating-wrapper">
-                      <img src="./assets/images/star-fill.svg" width="16" height="16" loading="lazy" alt="">
-                      <img src="./assets/images/star-fill.svg" width="16" height="16" loading="lazy" alt="">
-                      <img src="./assets/images/star-fill.svg" width="16" height="16" loading="lazy" alt="">
-                      <img src="./assets/images/star-fill.svg" width="16" height="16" loading="lazy" alt="">
+                            <span class="inline-block bg-amber-500/20 text-amber-300 border border-amber-500/30 font-semibold text-xs px-3 py-1 rounded-full uppercase tracking-wider">
+
+                                Admission Open for Academic Session 2026
+
+                            </span>
+
+                            <h2 class="text-3xl sm:text-5xl font-black leading-tight tracking-tight">
+
+                                Education is the Key to the Future
+
+                            </h2>
+
+                            <p class="text-slate-300 text-base sm:text-lg max-w-xl mx-auto lg:mx-0">
+
+                                "Tomorrow belongs to those who prepare for it today!" Combining Bengali & CBSE curriculum with dedicated English Medium instruction and holistic student care.
+
+                            </p>
+
+                            <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
+
+                                <button onclick="navigateTo('payment')" class="bg-amber-500 hover:bg-amber-600 text-brand-900 font-bold px-6 py-3 rounded-lg shadow-lg transition flex items-center gap-2">
+
+                                    <i class="fa-solid fa-credit-card"></i> Pay School Fees Online
+
+                                </button>
+
+                                <button onclick="navigateTo('academics')" class="bg-white/10 hover:bg-white/20 text-white border border-white/20 font-semibold px-6 py-3 rounded-lg transition">
+
+                                    Admission Information
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- School Showcase Card -->
+
+                        <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 shadow-2xl text-center space-y-4">
+
+                            <div class="w-full h-56 bg-slate-800 rounded-xl overflow-hidden relative flex items-center justify-center border border-white/10">
+
+                                <i class="fa-solid fa-school text-6xl text-amber-400"></i>
+
+                                <div class="absolute bottom-3 left-3 bg-brand-900/90 text-white text-xs px-3 py-1 rounded-md font-semibold">
+
+                                    Main Campus Building • Murshidabad
+
+                                </div>
+
+                            </div>
+
+                            <div class="grid grid-cols-3 gap-2 text-center pt-2">
+
+                                <div class="bg-brand-900/60 p-3 rounded-lg border border-brand-700/50">
+
+                                    <div class="text-xl font-bold text-amber-400">Class I-IV</div>
+
+                                    <div class="text-[11px] text-slate-300">Day School</div>
+
+                                </div>
+
+                                <div class="bg-brand-900/60 p-3 rounded-lg border border-brand-700/50">
+
+                                    <div class="text-xl font-bold text-amber-400">Class V-XII</div>
+
+                                    <div class="text-[11px] text-slate-300">Science & Arts</div>
+
+                                </div>
+
+                                <div class="bg-brand-900/60 p-3 rounded-lg border border-brand-700/50">
+
+                                    <div class="text-xl font-bold text-amber-400">Hostel</div>
+
+                                    <div class="text-[11px] text-slate-300">Available</div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
                     </div>
-
-                  </div>
-
-                  <h3 class="title-lg card-title">
-                    Basic Fundamentals of Interior & Graphics Design
-                  </h3>
-
-                  <div class="card-meta wrapper">
-
-                    <p class="title-sm">
-                      <img src="./assets/images/file-outline.svg" width="20" height="20" loading="lazy" alt="">
-
-                      <span class="span">2 Lessons</span>
-                    </p>
-
-                    <p class="title-sm">
-                      <img src="./assets/images/user-outline.svg" width="20" height="20" loading="lazy" alt="">
-
-                      <span class="span">4k Students</span>
-                    </p>
-
-                  </div>
 
                 </div>
 
-                <a href="#" class="layer-link"
-                  aria-label="Course Details, Basic Fundamentals of Interior & Graphics Design"></a>
+            </div>
 
-              </div>
-            </li>
 
-            <li class="card-container">
-              <div class="card course-card">
+            <!-- Important Dates Alert -->
 
-                <figure class="card-banner">
-                  <img src="./assets/images/course-2.png" width="370" height="248" loading="lazy"
-                    alt="Increasing Engagement with Instagram & Facebook" class="img-cover">
-                </figure>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-20">
 
-                <div class="card-content">
+                <div class="bg-white rounded-xl shadow-xl border border-slate-200 p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
 
-                  <div class="wrapper">
+                    <div class="flex items-center space-x-4 border-b md:border-b-0 md:border-r border-slate-100 pb-4 md:pb-0">
 
-                    <p class="title-lg card-price">Free</p>
+                        <div class="w-12 h-12 bg-blue-100 text-brand-700 rounded-full flex items-center justify-center text-xl font-bold">
 
-                    <div class="rating-wrapper">
-                      <img src="./assets/images/star-fill.svg" width="16" height="16" loading="lazy" alt="">
-                      <img src="./assets/images/star-fill.svg" width="16" height="16" loading="lazy" alt="">
-                      <img src="./assets/images/star-fill.svg" width="16" height="16" loading="lazy" alt="">
-                      <img src="./assets/images/star-fill.svg" width="16" height="16" loading="lazy" alt="">
+                            <i class="fa-solid fa-calendar-plus"></i>
+
+                        </div>
+
+                        <div>
+
+                            <p class="text-xs font-semibold text-slate-500 uppercase">Admission Starts</p>
+
+                            <p class="text-lg font-bold text-brand-900">2nd February 2026</p>
+
+                        </div>
+
                     </div>
 
-                  </div>
+                    <div class="flex items-center space-x-4 border-b md:border-b-0 md:border-r border-slate-100 pb-4 md:pb-0">
 
-                  <h3 class="title-lg card-title">
-                    Increasing Engagement with Instagram & Facebook
-                  </h3>
+                        <div class="w-12 h-12 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center text-xl font-bold">
 
-                  <div class="card-meta wrapper">
+                            <i class="fa-solid fa-file-pen"></i>
 
-                    <p class="title-sm">
-                      <img src="./assets/images/file-outline.svg" width="20" height="20" loading="lazy" alt="">
+                        </div>
 
-                      <span class="span">2 Lessons</span>
-                    </p>
+                        <div>
 
-                    <p class="title-sm">
-                      <img src="./assets/images/user-outline.svg" width="20" height="20" loading="lazy" alt="">
+                            <p class="text-xs font-semibold text-slate-500 uppercase">Entrance Examination</p>
 
-                      <span class="span">4k Students</span>
-                    </p>
+                            <p class="text-lg font-bold text-brand-900">21st February 2026</p>
 
-                  </div>
+                        </div>
+
+                    </div>
+
+                    <div class="flex items-center space-x-4">
+
+                        <div class="w-12 h-12 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center text-xl font-bold">
+
+                            <i class="fa-solid fa-door-open"></i>
+
+                        </div>
+
+                        <div>
+
+                            <p class="text-xs font-semibold text-slate-500 uppercase">Classes Commence</p>
+
+                            <p class="text-lg font-bold text-brand-900">1st March 2026</p>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
-                <a href="#" class="layer-link"
-                  aria-label="Course Details, Increasing Engagement with Instagram & Facebook"></a>
+            </div>
 
-              </div>
-            </li>
 
-            <li class="card-container">
-              <div class="card course-card">
+            <!-- Highlights Section -->
 
-                <figure class="card-banner">
-                  <img src="./assets/images/course-3.png" width="370" height="248" loading="lazy"
-                    alt="Introduction to Color Theory & Basic UI/UX" class="img-cover">
-                </figure>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
 
-                <div class="card-content">
+                <div class="text-center max-w-2xl mx-auto mb-12">
 
-                  <div class="wrapper">
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Why Choose J.K.B. National School?</h2>
 
-                    <p class="title-lg card-price">$72.39</p>
-
-                    <div class="rating-wrapper">
-                      <img src="./assets/images/star-fill.svg" width="16" height="16" loading="lazy" alt="">
-                      <img src="./assets/images/star-fill.svg" width="16" height="16" loading="lazy" alt="">
-                      <img src="./assets/images/star-fill.svg" width="16" height="16" loading="lazy" alt="">
-                      <img src="./assets/images/star-fill.svg" width="16" height="16" loading="lazy" alt="">
-                    </div>
-
-                  </div>
-
-                  <h3 class="title-lg card-title">
-                    Introduction to Color Theory & Basic UI/UX
-                  </h3>
-
-                  <div class="card-meta wrapper">
-
-                    <p class="title-sm">
-                      <img src="./assets/images/file-outline.svg" width="20" height="20" loading="lazy" alt="">
-
-                      <span class="span">2 Lessons</span>
-                    </p>
-
-                    <p class="title-sm">
-                      <img src="./assets/images/user-outline.svg" width="20" height="20" loading="lazy" alt="">
-
-                      <span class="span">4k Students</span>
-                    </p>
-
-                  </div>
+                    <p class="text-slate-600 mt-2">Nurturing academic excellence, character building, and holistic child development in a caring environment.</p>
 
                 </div>
 
-                <a href="#" class="layer-link"
-                  aria-label="Course Details, Introduction to Color Theory & Basic UI/UX"></a>
 
-              </div>
-            </li>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
-            <li class="card-container">
-              <div class="card course-card">
+                    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition text-center space-y-3">
 
-                <figure class="card-banner">
-                  <img src="./assets/images/course-4.png" width="370" height="248" loading="lazy"
-                    alt="Financial Security Thinking and Principles Theory" class="img-cover">
-                </figure>
+                        <div class="w-14 h-14 bg-brand-50 text-brand-700 rounded-xl flex items-center justify-center text-2xl mx-auto">
 
-                <div class="card-content">
+                            <i class="fa-solid fa-book-open-reader"></i>
 
-                  <div class="wrapper">
+                        </div>
 
-                    <p class="title-lg card-price">$72.39</p>
+                        <h3 class="font-bold text-lg text-slate-800">Daily Study Materials</h3>
 
-                    <div class="rating-wrapper">
-                      <img src="./assets/images/star-fill.svg" width="16" height="16" loading="lazy" alt="">
-                      <img src="./assets/images/star-fill.svg" width="16" height="16" loading="lazy" alt="">
-                      <img src="./assets/images/star-fill.svg" width="16" height="16" loading="lazy" alt="">
-                      <img src="./assets/images/star-fill.svg" width="16" height="16" loading="lazy" alt="">
+                        <p class="text-slate-600 text-sm">Comprehensive daily class materials and homework guidance designed for effortless learning.</p>
+
                     </div>
 
-                  </div>
+                    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition text-center space-y-3">
 
-                  <h3 class="title-lg card-title">
-                    Financial Security Thinking and Principles Theory
-                  </h3>
+                        <div class="w-14 h-14 bg-amber-50 text-amber-700 rounded-xl flex items-center justify-center text-2xl mx-auto">
 
-                  <div class="card-meta wrapper">
+                            <i class="fa-solid fa-comments"></i>
 
-                    <p class="title-sm">
-                      <img src="./assets/images/file-outline.svg" width="20" height="20" loading="lazy" alt="">
+                        </div>
 
-                      <span class="span">2 Lessons</span>
-                    </p>
+                        <h3 class="font-bold text-lg text-slate-800">Spoken English Focus</h3>
 
-                    <p class="title-sm">
-                      <img src="./assets/images/user-outline.svg" width="20" height="20" loading="lazy" alt="">
+                        <p class="text-slate-600 text-sm">Dedicated spoken English modules & active communication sessions for fluency and confidence.</p>
 
-                      <span class="span">4k Students</span>
-                    </p>
+                    </div>
 
-                  </div>
+                    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition text-center space-y-3">
+
+                        <div class="w-14 h-14 bg-emerald-50 text-emerald-700 rounded-xl flex items-center justify-center text-2xl mx-auto">
+
+                            <i class="fa-solid fa-graduation-cap"></i>
+
+                        </div>
+
+                        <h3 class="font-bold text-lg text-slate-800">Smart Mock Tests</h3>
+
+                        <p class="text-slate-600 text-sm">Regular unit tests, class evaluations, and mock exams for strong academic foundation.</p>
+
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition text-center space-y-3">
+
+                        <div class="w-14 h-14 bg-purple-50 text-purple-700 rounded-xl flex items-center justify-center text-2xl mx-auto">
+
+                            <i class="fa-solid fa-utensils"></i>
+
+                        </div>
+
+                        <h3 class="font-bold text-lg text-slate-800">Nutritious Hostel Facility</h3>
+
+                        <p class="text-slate-600 text-sm">Balanced diet planned under expert nutritionist guidance with full residential care.</p>
+
+                    </div>
 
                 </div>
 
-                <a href="#" class="layer-link"
-                  aria-label="Course Details, Financial Security Thinking and Principles Theory"></a>
+            </div>
 
-              </div>
-            </li>
+        </section>
 
-            <li class="card-container">
-              <div class="card course-card">
 
-                <figure class="card-banner">
-                  <img src="./assets/images/course-5.png" width="370" height="248" loading="lazy"
-                    alt="Logo Design: From Concept to Presentation" class="img-cover">
-                </figure>
+        <!-- 2. ABOUT US SECTION -->
 
-                <div class="card-content">
+        <section id="sec-about" class="page-section">
 
-                  <div class="wrapper">
+            <div class="bg-brand-900 text-white py-12">
 
-                    <p class="title-lg card-price">Free</p>
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
 
-                    <div class="rating-wrapper">
-                      <img src="./assets/images/star-fill.svg" width="16" height="16" loading="lazy" alt="">
-                      <img src="./assets/images/star-fill.svg" width="16" height="16" loading="lazy" alt="">
-                      <img src="./assets/images/star-fill.svg" width="16" height="16" loading="lazy" alt="">
-                      <img src="./assets/images/star-fill.svg" width="16" height="16" loading="lazy" alt="">
-                    </div>
+                    <h2 class="text-3xl font-extrabold">About J.K.B. National School</h2>
 
-                  </div>
+                    <p class="text-brand-100 mt-2">Dedicated to fulfilling every student's dream through quality education and ethics.</p>
 
-                  <h3 class="title-lg card-title">
-  
+                </div>
+
+            </div>
+
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
+
+                <!-- Vision & Governance -->
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+
+                    <div class="space-y-4">
+
+                        <h3 class="text-2xl font-bold text-slate-900">Administration & Leadership</h3>
+
+                        <p class="text-slate-600 leading-relaxed">
+
+                            J.K.B. National School is guided by highly qualified educators committed to providing deep knowledge, compassionate mentorship, and clear vision for every child.
+
+                        </p>
+
+                        <div class="space-y-3 pt-2">
+
+                            <div cl

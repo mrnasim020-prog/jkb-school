@@ -18,7 +18,7 @@
             --white: #ffffff;
             --success: #27ae60;
             --danger: #e74c3c;
-            --border-color: #e2e8f0;
+            --border-color: #cbd5e1;
         }
 
         * {
@@ -34,7 +34,7 @@
             line-height: 1.6;
         }
 
-        /* Top Header Contact Bar */
+        /* Top Bar */
         .top-bar {
             background-color: var(--primary-color);
             color: var(--white);
@@ -45,9 +45,9 @@
             font-size: 0.85rem;
         }
 
-        .top-bar div i {
-            margin-right: 5px;
+        .top-bar i {
             color: var(--accent-color);
+            margin-right: 5px;
         }
 
         /* Navigation Header */
@@ -81,15 +81,14 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: bold;
         }
 
         .logo-text h1 {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             color: var(--primary-color);
             font-weight: 700;
-            line-height: 1.2;
         }
 
         .logo-text p {
@@ -119,20 +118,20 @@
             color: var(--white);
         }
 
-        /* Page Layout & Container */
-        .page-section {
+        /* Page Layout & View Control */
+        .page-view {
             display: none;
             padding: 40px 5%;
             min-height: 80vh;
-            animation: fadeIn 0.4s ease-in-out;
+            animation: fadeIn 0.3s ease-in-out;
         }
 
-        .page-section.active-page {
+        .page-view.active-page {
             display: block;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -152,14 +151,14 @@
         .section-title h2::after {
             content: '';
             position: absolute;
-            width: 60%;
+            width: 50%;
             height: 3px;
             background-color: var(--accent-color);
             bottom: 0;
-            left: 20%;
+            left: 25%;
         }
 
-        /* Hero Banner (Home) */
+        /* Hero Banner */
         .hero {
             background: linear-gradient(rgba(12, 35, 64, 0.85), rgba(12, 35, 64, 0.85)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80') center/cover;
             color: var(--white);
@@ -189,14 +188,12 @@
             border-radius: 6px;
             font-weight: 600;
             cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
         }
 
-        /* Grid Layouts */
+        /* Grid Framework */
         .grid-3 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 25px;
         }
 
@@ -206,14 +203,8 @@
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
             border: 1px solid var(--border-color);
-            transition: transform 0.3s ease;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        /* Teacher Cards */
         .teacher-card {
             text-align: center;
         }
@@ -236,7 +227,7 @@
             margin-bottom: 10px;
         }
 
-        /* Table Styling */
+        /* Custom Tables */
         .custom-table {
             width: 100%;
             border-collapse: collapse;
@@ -258,11 +249,7 @@
             color: var(--white);
         }
 
-        .custom-table tr:hover {
-            background-color: #f1f5f9;
-        }
-
-        /* Fees & Payment Sub-Navigation */
+        /* Fees Sub-Navigation */
         .payment-tabs {
             display: flex;
             justify-content: center;
@@ -279,7 +266,6 @@
             font-weight: 600;
             border-radius: 30px;
             cursor: pointer;
-            transition: all 0.3s ease;
         }
 
         .pay-tab-btn.active, .pay-tab-btn:hover {
@@ -289,7 +275,7 @@
 
         .payment-sub-section {
             display: none;
-            max-width: 600px;
+            max-width: 650px;
             margin: 0 auto;
             background: var(--white);
             padding: 30px;
@@ -301,7 +287,7 @@
             display: block;
         }
 
-        /* Form Controls */
+        /* Forms & Buttons */
         .form-group {
             margin-bottom: 20px;
         }
@@ -353,14 +339,13 @@
             margin: 15px 0;
         }
 
-        /* Printable Receipt */
+        /* Printable Receipt Card */
         .receipt-card {
             border: 2px solid var(--primary-color);
             padding: 25px;
             border-radius: 8px;
             background: var(--white);
             margin-top: 20px;
-            position: relative;
         }
 
         .receipt-header {
@@ -375,6 +360,20 @@
             justify-content: space-between;
             margin-bottom: 10px;
             font-size: 0.95rem;
+        }
+
+        .alert {
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
         }
 
         /* Footer */
@@ -405,27 +404,6 @@
             color: #aaa;
         }
 
-        /* Alert Box */
-        .alert {
-            padding: 10px 15px;
-            border-radius: 6px;
-            margin-bottom: 15px;
-            font-size: 0.9rem;
-            display: none;
-        }
-
-        .alert-danger {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        .alert-success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
         @media (max-width: 768px) {
             .nav-container {
                 flex-direction: column;
@@ -440,14 +418,14 @@
 </head>
 <body>
 
-    <!-- Top Contact Bar -->
+    <!-- Top Contact Info Bar -->
     <div class="top-bar">
         <div>
-            <i class="fa-solid fa-location-dot"></i> Chandermore, Sujnipara Station Road, Murshidabad - 742201
+            <i class="fa-solid fa-location-dot"></i> Chandermore, Sujnipara Station Road, Murshidabad - 742201[span_9](start_span)[span_9](end_span)[span_10](start_span)[span_10](end_span)
         </div>
         <div>
             <i class="fa-solid fa-phone"></i> +91 8617061244 / 7384361623 | 
-            <i class="fa-solid fa-envelope"></i> jkbnationalschool@gmail.com
+            <i class="fa-solid fa-envelope"></i> jkbnationalschool@gmail.com[span_11](start_span)[span_11](end_span)[span_12](start_span)[span_12](end_span)
         </div>
     </div>
 
@@ -457,80 +435,78 @@
             <div class="logo-container">
                 <div class="logo-icon">JKB</div>
                 <div class="logo-text">
-                    <h1>J.K.B. NATIONAL SCHOOL</h1>
-                    <p>Bengali & CBSE Curriculum | English Medium</p>
+                    <h1>J.K.B. NATIONAL SCHOOL</h1>[span_13](start_span)[span_13](end_span)
+                    <p>Bengali & CBSE Curriculum | English Medium</p>[span_14](start_span)[span_14](end_span)
                 </div>
             </div>
             <nav>
                 <ul>
-                    <li><a class="nav-btn active" onclick="switchTab('home')">Home</a></li>
-                    <li><a class="nav-btn" onclick="switchTab('about')">About Us</a></li>
-                    <li><a class="nav-btn" onclick="switchTab('teachers')">Teachers List</a></li>
-                    <li><a class="nav-btn" onclick="switchTab('student-portal')">Student Portal</a></li>
-                    <li><a class="nav-btn" onclick="switchTab('admission')">Admission Portal</a></li>
-                    <li><a class="nav-btn" onclick="switchTab('fees-payment')">Fees & Payments</a></li>
+                    <li><a class="nav-link active" onclick="navigateTo('home-page', this)">Home</a></li>
+                    <li><a class="nav-link" onclick="navigateTo('about-page', this)">About Us</a></li>
+                    <li><a class="nav-link" onclick="navigateTo('teachers-page', this)">Teachers List</a></li>
+                    <li><a class="nav-link" onclick="navigateTo('student-page', this)">Student Portal</a></li>
+                    <li><a class="nav-link" onclick="navigateTo('admission-page', this)">Admission Portal</a></li>
+                    <li><a class="nav-link" onclick="navigateTo('fees-page', this)">Fees & Payments</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <!-- MAIN CONTENT SECTIONS -->
-
-    <!-- 1. HOME SECTION -->
-    <section id="home" class="page-section active-page">
+    <!-- PAGE 1: HOME PAGE -->
+    <div id="home-page" class="page-view active-page">
         <div class="hero">
-            <h2>Welcome to J.K.B. National School</h2>
-            <p>Empowering minds, building character, and creating bright futures with high-quality education and holistic development.</p>
-            <button class="hero-btn" onclick="switchTab('admission')">Apply For Admission 2026</button>
+            <h2>Welcome to J.K.B. National School</h2>[span_15](start_span)[span_15](end_span)
+            <p>Providing excellence in academic guidance, discipline, and holistic character development.</p>
+            <button class="hero-btn" onclick="openAdmissionDirect()">Apply For Admission 2026</button>[span_16](start_span)[span_16](end_span)[span_17](start_span)[span_17](end_span)
         </div>
 
         <div class="section-title">
-            <h2>Why Choose J.K.B. National School?</h2>
+            <h2>Key School Features</h2>[span_18](start_span)[span_18](end_span)
         </div>
 
         <div class="grid-3">
             <div class="card">
                 <i class="fa-solid fa-book-open" style="font-size:2rem; color:var(--secondary-color); margin-bottom:10px;"></i>
-                <h3>Dual Curriculum Support</h3>
-                <p>Offering structured education under Bengali & CBSE Curriculums in English Medium environment.</p>
+                <h3>Dual Curriculum</h3>
+                <p>Support for both Bengali and CBSE English medium curriculums.</p>[span_19](start_span)[span_19](end_span)
             </div>
             <div class="card">
                 <i class="fa-solid fa-hotel" style="font-size:2rem; color:var(--secondary-color); margin-bottom:10px;"></i>
-                <h3>Hostel & Day School Facilities</h3>
-                <p>Class I - IV: English Medium Day School. Class V - XII: Science & Arts with comprehensive hostel facilities.</p>
+                <h3>Hostel & Day School</h3>
+                <p>Class I-IV English Medium Day School, Class V-XII Arts & Science Hostel available.</p>[span_20](start_span)[span_20](end_span)
             </div>
             <div class="card">
                 <i class="fa-solid fa-brain" style="font-size:2rem; color:var(--secondary-color); margin-bottom:10px;"></i>
-                <h3>Smart Learning & Mock Tests</h3>
-                <p>Daily study materials, regular unit tests, concept clearing classes, and special focus on Spoken English.</p>
+                <h3>Spoken English & Mock Tests</h3>
+                <p>Special focus on English communication, smart mock tests, and concept-clearing classes.</p>[span_21](start_span)[span_21](end_span)[span_22](start_span)[span_22](end_span)
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- 2. ABOUT US SECTION -->
-    <section id="about" class="page-section">
+    <!-- PAGE 2: ABOUT US PAGE -->
+    <div id="about-page" class="page-view">
         <div class="section-title">
-            <h2>About Our Institution</h2>
+            <h2>About Our School & Administration</h2>[span_23](start_span)[span_23](end_span)
         </div>
 
         <div class="card" style="margin-bottom: 30px;">
-            <h3>Administration & Guidance</h3>
-            <p style="margin-top:10px;">J.K.B. National School is guided by highly educated visionaries committed to academic excellence and moral uprightness.</p>
+            <h3>School Management & Administration</h3>[span_24](start_span)[span_24](end_span)
+            <p style="margin-top:10px;">Our school is run by dedicated academicians committed to high moral and educational standards:</p>
             <ul style="margin-left: 20px; margin-top: 15px;">
-                <li><strong>Dr. Rahmatullah:</strong> PhD (English) - Deep Knowledge in Literature & Affectionate Guidance.</li>
-                <li><strong>Santosh Kumar Mandal:</strong> B.Com Hons. - Proper Direction in Commerce & Mathematics.</li>
-                <li><strong>Nasim Aktar Sk:</strong> B.A (History Hons.) - Bringing Historical Events to Life.</li>
+                <li><strong>Dr. Rahmatullah:</strong> PhD (English) - Deep Knowledge in Literature & Affectionate Guidance[span_25](start_span)[span_25](end_span)[span_26](start_span)[span_26](end_span).</li>
+                <li><strong>Santosh Kumar Mandal:</strong> B.Com Hons. - Expertise in Commerce & Mathematics[span_27](start_span)[span_27](end_span)[span_28](start_span)[span_28](end_span).</li>
+                <li><strong>Nasim Aktar Sk:</strong> B.A (History Hons.) - Experiential Historical Learning[span_29](start_span)[span_29](end_span)[span_30](start_span)[span_30](end_span).</li>
             </ul>
         </div>
 
         <div class="section-title">
-            <h2>Weekly Food & Nutrition Menu (Hostel & Mess)</h2>
+            <h2>Weekly Hostel Nutrition & Mess Food Schedule</h2>[span_31](start_span)[span_31](end_span)
         </div>
         <div style="overflow-x:auto;">
             <table class="custom-table">
                 <thead>
                     <tr>
-                        <th>Time</th>
+                        <th>Meal Time</th>
                         <th>Monday</th>
                         <th>Tuesday</th>
                         <th>Wednesday</th>
@@ -542,92 +518,58 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><strong>Morning (07:30 AM)</strong></td>
-                        <td>Suji-Roti</td>
-                        <td>Paratha</td>
-                        <td>Khichdi</td>
-                        <td>Luchi-Suji</td>
-                        <td>Egg-Roti</td>
-                        <td>Upma</td>
-                        <td>Special Breakfast</td>
+                        <td><strong>Morning (07:30 AM)</strong></td>[span_32](start_span)[span_32](end_span)
+                        <td>Suji-Roti</td>[span_33](start_span)[span_33](end_span)
+                        <td>Paratha</td>[span_34](start_span)[span_34](end_span)
+                        <td>Khichdi</td>[span_35](start_span)[span_35](end_span)
+                        <td>Luchi-Suji</td>[span_36](start_span)[span_36](end_span)
+                        <td>Egg-Roti</td>[span_37](start_span)[span_37](end_span)
+                        <td>Upma</td>[span_38](start_span)[span_38](end_span)
+                        <td>Special Item</td>[span_39](start_span)[span_39](end_span)
                     </tr>
                     <tr>
-                        <td><strong>Lunch (01:30 PM)</strong></td>
-                        <td>Rice, Dal, Veg</td>
-                        <td>Fish Curry, Rice</td>
-                        <td>Rice, Dal, Veg</td>
-                        <td>Chicken Curry, Rice</td>
-                        <td>Rice, Dal, Paneer</td>
-                        <td>Egg Curry, Rice</td>
-                        <td>Pulao, Mutton Curry</td>
+                        <td><strong>Lunch (01:30 PM)</strong></td>[span_40](start_span)[span_40](end_span)
+                        <td>Rice, Dal, Veg</td>[span_41](start_span)[span_41](end_span)
+                        <td>Fish Curry, Rice</td>[span_42](start_span)[span_42](end_span)
+                        <td>Rice, Dal, Veg</td>[span_43](start_span)[span_43](end_span)
+                        <td>Chicken Curry, Rice</td>[span_44](start_span)[span_44](end_span)
+                        <td>Rice, Dal, Paneer</td>[span_45](start_span)[span_45](end_span)
+                        <td>Egg Curry, Rice</td>[span_46](start_span)[span_46](end_span)
+                        <td>Pulao, Mutton Curry</td>[span_47](start_span)[span_47](end_span)
                     </tr>
                     <tr>
-                        <td><strong>Afternoon (04:30 PM)</strong></td>
-                        <td>Milk-Biscuit</td>
-                        <td>Fruits</td>
-                        <td>Chana-Muri</td>
-                        <td>Milk-Cake</td>
-                        <td>Fruits</td>
-                        <td>Milk-Biscuit</td>
-                        <td>Sweets</td>
+                        <td><strong>Afternoon (04:30 PM)</strong></td>[span_48](start_span)[span_48](end_span)
+                        <td>Milk-Biscuit</td>[span_49](start_span)[span_49](end_span)
+                        <td>Fruits</td>[span_50](start_span)[span_50](end_span)
+                        <td>Chana-Muri</td>[span_51](start_span)[span_51](end_span)
+                        <td>Milk-Cake</td>[span_52](start_span)[span_52](end_span)
+                        <td>Fruits</td>[span_53](start_span)[span_53](end_span)
+                        <td>Milk-Biscuit</td>[span_54](start_span)[span_54](end_span)
+                        <td>Sweets</td>[span_55](start_span)[span_55](end_span)
                     </tr>
                     <tr>
-                        <td><strong>Night (08:30 PM)</strong></td>
-                        <td>Roti-Veg</td>
-                        <td>Rice, Dal, Veg</td>
-                        <td>Roti-Tadka</td>
-                        <td>Roti-Veg</td>
-                        <td>Rice, Dal, Veg</td>
-                        <td>Roti-Veg</td>
-                        <td>Roti-Paneer</td>
+                        <td><strong>Dinner (08:30 PM)</strong></td>[span_56](start_span)[span_56](end_span)
+                        <td>Roti-Veg</td>[span_57](start_span)[span_57](end_span)
+                        <td>Rice, Dal, Veg</td>[span_58](start_span)[span_58](end_span)
+                        <td>Roti-Tadka</td>[span_59](start_span)[span_59](end_span)
+                        <td>Roti-Veg</td>[span_60](start_span)[span_60](end_span)
+                        <td>Rice, Dal, Veg</td>[span_61](start_span)[span_61](end_span)
+                        <td>Roti-Veg</td>[span_62](start_span)[span_62](end_span)
+                        <td>Roti-Paneer</td>[span_63](start_span)[span_63](end_span)
                     </tr>
                 </tbody>
             </table>
         </div>
-    </section>
+    </div>
 
-    <!-- 3. TEACHERS LIST SECTION -->
-    <section id="teachers" class="page-section">
+    <!-- PAGE 3: TEACHERS LIST PAGE -->
+    <div id="teachers-page" class="page-view">
         <div class="section-title">
-            <h2>Our Qualified & Dedicated Teachers</h2>
+            <h2>Our Qualified & Dedicated Faculty</h2>[span_64](start_span)[span_64](end_span)[span_65](start_span)[span_65](end_span)
         </div>
 
         <div class="grid-3">
             <div class="card teacher-card">
                 <i class="fa-solid fa-user-tie"></i>
-                <h3>Dr. Rahmatullah</h3>
-                <div class="qual">PhD (English)</div>
-                <p>Expert in English Language & Literature.</p>
-            </div>
-            <div class="card teacher-card">
-                <i class="fa-solid fa-user-tie"></i>
-                <h3>Santosh Kumar Mandal</h3>
-                <div class="qual">B.Com Hons. (PQ)</div>
-                <p>Specialist in Mathematics & Commerce Subjects.</p>
-            </div>
-            <div class="card teacher-card">
-                <i class="fa-solid fa-user-tie"></i>
-                <h3>Nasim Aktar Sk</h3>
-                <div class="qual">B.A (History Hons.)</div>
-                <p>Expert in Social Sciences & Historical Analysis.</p>
-            </div>
-            <div class="card teacher-card">
-                <i class="fa-solid fa-user-tie"></i>
-                <h3>MD Wasim Akram</h3>
-                <div class="qual">B.A (Education Hons.)</div>
-                <p>Modern Pedagogical Methods & Student Counseling.</p>
-            </div>
-            <div class="card teacher-card">
-                <i class="fa-solid fa-user-tie"></i>
-                <h3>Islima Parvin</h3>
-                <div class="qual">English Hons., B.Ed</div>
-                <p>English Communication & Interactive Teaching.</p>
-            </div>
-            <div class="card teacher-card">
-                <i class="fa-solid fa-user-tie"></i>
-                <h3>Madhumita Sinha</h3>
-                <div class="qual">English Graduate, D.El.Ed</div>
-                <p>Primary Education Specialist & Language Skills.</p>
-            </div>
-            <div class="card teacher-card">
-                <i class="fa-solid fa-use
+                <h3>Dr. Rahmatullah</h3>[span_66](start_span)[span_66](end_span)[span_67](start_span)[span_67](end_span)
+                <div class="qual">Ph

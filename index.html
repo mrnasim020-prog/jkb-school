@@ -212,6 +212,233 @@
         tr:nth-child(even) {
             background-color: var(--light-bg);
         }
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JKB National School - Result Portal</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background: #f0f4f8;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .header {
+      text-align: center;
+      margin-top: 30px;
+      margin-bottom: 30px;
+    }
+    .header h1 {
+      color: #1e3a8a;
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
+    .header p {
+      color: #64748b;
+      font-size: 1rem;
+    }
+    .card {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      width: 100%;
+      max-width: 450px;
+      text-align: center;
+    }
+    .search-box {
+      margin-top: 15px;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 14px 18px;
+      font-size: 1.1rem;
+      border: 2px solid #cbd5e1;
+      border-radius: 10px;
+      outline: none;
+      margin-bottom: 15px;
+      transition: border-color 0.2s;
+    }
+    .search-box input:focus {
+      border-color: #2563eb;
+    }
+    .search-box button {
+      width: 100%;
+      padding: 14px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      background: #2563eb;
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+                cursor: pointer;
+      transition: background 0.2s;
+    }
+    .search-box button:hover {
+      background: #1d4ed8;
+    }
+    .result-card {
+      display: none;
+      margin-top: 10px;
+      text-align: left;
+    }
+    .result-header {
+      background: #e0f2fe;
+      padding: 12px;
+      border-radius: 8px;
+      color: #0369a1;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .info-group {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .info-label {
+      color: #64748b;
+      font-weight: 500;
+    }
+    .info-value {
+      font-weight: 600;
+      color: #1e293b;
+    }
+    .marks-badge {
+      background: #dcfce7;
+      color: #15803d;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: bold;
+    }
+    .error-msg {
+      display: none;
+      color: #dc2626;
+      background: #fef2f2;
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 15px;
+      font-size: 0.95rem;
+    }
+    .back-btn {
+      margin-top: 20px;
+      background: #f1f5f9;
+      color: #475569;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      font-weight: 600;
+    }
+    .back-btn:hover {
+      background: #e2e8f0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>JKB National School</h1>
+    <p>অনলাইন পরীক্ষা ফলাফল পোর্টাল (শ্রেণী: ৯ম)</p>
+  </div>
+
+  <div class="card" id="searchSection">
+    <h2 style="margin-bottom: 15px; font-size: 1.3rem; color: #1e293b;">রেজাল্ট খুঁজুন</h2>
+    <p style="font-size: 0.88rem; color: #64748b; margin-bottom: 20px;">
+      আপনার রোল কোড লিখুন (যেমন: jkb1, jkb7)
+    </p>
+    <div class="search-box">
+      <input type="text" id="rollInput" placeholder="এখানে রোল কোড দিন..." />
+      <button onclick="searchResult()">সার্চ করুন</button>
+    </div>
+    <div class="error-msg" id="errorMsg">
+      কোডটি পাওয়া যায়নি! সঠিক রোল কোড দিন (যেমন: jkb1, jkb2)।
+
+            </div>
+  </div>
+
+  <div class="card result-card" id="resultSection">
+    <div class="result-header">
+      পরীক্ষার রেজাল্ট কার্ড
+    </div>
+    <div class="info-group">
+      <span class="info-label">শিক্ষার্থীর নাম:</span>
+      <span class="info-value" id="resName"></span>
+    </div>
+    <div class="info-group">
+      <span class="info-label">শ্রেণী:</span>
+      <span class="info-value" id="resClass"></span>
+    </div>
+    <div class="info-group">
+      <span class="info-label">রোল নাম্বার:</span>
+      <span class="info-value" id="resRoll"></span>
+    </div>
+    <div class="info-group">
+      <span class="info-label">প্রাপ্ত নম্বর:</span>
+      <span class="info-value marks-badge" id="resMarks"></span>
+    </div>
+    <button class="back-btn" onclick="resetSearch()">পুনরায় সার্চ করুন</button>
+  </div>
+
+  <script>
+    // স্টুডেন্ট ডাটাবেস
+    const studentsData = {
+      "jkb1": { name: "Abida", class: "9", roll: 1, marks: 46 },
+      "jkb2": { name: "Tuhina", class: "9", roll: 2, marks: 38 },
+      "jkb3": { name: "Sameera", class: "9", roll: 3, marks: 36 },
+      "jkb4": { name: "Alamin", class: "9", roll: 4, marks: 41 },
+      "jkb5": { name: "Shakibul Hasan", class: "9", roll: 5, marks: 43 },
+      "jkb6": { name: "Badshah Sk", class: "9", roll: 6, marks: 38 },
+      "jkb7": { name: "Devraj Sinha", class: "9", roll: 7, marks: 40 }
+    };
+
+    function searchResult() {
+      const input = document.getElementById("rollInput").value.trim().toLowerCase();
+      const errorMsg = document.getElementById("errorMsg");
+      
+      if (studentsData[input]) {
+        const student = studentsData[input];
+        document.getElementById("resName").innerText = student.name;
+        document.getElementById("resClass").innerText = "Class " + student.class;
+        document.getElementById("resRoll").innerText = student.roll;
+        document.getElementById("resMarks").innerText = student.marks;
+
+        document.getElementById("searchSection").style.display = "none";
+        document.getElementById("resultSection").style.display = "block";
+        errorMsg.style.display = "none";
+      } else {
+        errorMsg.style.display = "block";
+      }
+    }
+
+    function resetSearch() {
+      document.getElementById("rollInput").value = "";
+      document.getElementById("searchSection").style.display = "block";
+      document.getElementById("resultSection").style.display = "none";
+    }
+
+    // Enter কী প্রেস করলে কাজ করার জন্য
+    document.getElementById("rollInput").addEventListener("keypress", function(e) {
+      if (e.key === "Enter") {
+        searchResult();
+      }
+    });
+  </script>
+</body>
+</html>
 
         /* Payment Tab Design */
         .payment-tabs {
@@ -1107,231 +1334,4 @@
 </body>
 </html>
 
-
-<!DOCTYPE html>
-<html lang="bn">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JKB National School - Result Portal</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    body {
-      background: #f0f4f8;
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
-    }
-    .header {
-      text-align: center;
-      margin-top: 30px;
-      margin-bottom: 30px;
-    }
-    .header h1 {
-      color: #1e3a8a;
-      font-size: 2rem;
-      margin-bottom: 8px;
-    }
-    .header p {
-      color: #64748b;
-      font-size: 1rem;
-    }
-    .card {
-      background: #ffffff;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-      width: 100%;
-      max-width: 450px;
-      text-align: center;
-    }
-    .search-box {
-      margin-top: 15px;
-    }
-    .search-box input {
-      width: 100%;
-      padding: 14px 18px;
-      font-size: 1.1rem;
-      border: 2px solid #cbd5e1;
-      border-radius: 10px;
-      outline: none;
-      margin-bottom: 15px;
-      transition: border-color 0.2s;
-    }
-    .search-box input:focus {
-      border-color: #2563eb;
-    }
-    .search-box button {
-      width: 100%;
-      padding: 14px;
-      font-size: 1.05rem;
-      font-weight: 600;
-      background: #2563eb;
-      color: #ffffff;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .search-box button:hover {
-      background: #1d4ed8;
-    }
-    .result-card {
-      display: none;
-      margin-top: 10px;
-      text-align: left;
-    }
-    .result-header {
-      background: #e0f2fe;
-      padding: 12px;
-      border-radius: 8px;
-      color: #0369a1;
-      font-weight: bold;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .info-group {
-      display: flex;
-      justify-content: space-between;
-      padding: 10px 0;
-      border-bottom: 1px solid #f1f5f9;
-    }
-    .info-label {
-      color: #64748b;
-      font-weight: 500;
-    }
-    .info-value {
-      font-weight: 600;
-      color: #1e293b;
-    }
-    .marks-badge {
-      background: #dcfce7;
-      color: #15803d;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-weight: bold;
-    }
-    .error-msg {
-      display: none;
-      color: #dc2626;
-      background: #fef2f2;
-      padding: 12px;
-      border-radius: 8px;
-      margin-top: 15px;
-      font-size: 0.95rem;
-    }
-    .back-btn {
-      margin-top: 20px;
-      background: #f1f5f9;
-      color: #475569;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
-      cursor: pointer;
-      width: 100%;
-      font-weight: 600;
-    }
-    .back-btn:hover {
-      background: #e2e8f0;
-    }
-  </style>
-</head>
-<body>
-
-  <div class="header">
-    <h1>JKB National School</h1>
-    <p>অনলাইন পরীক্ষা ফলাফল পোর্টাল (শ্রেণী: ৯ম)</p>
-  </div>
-
-  <div class="card" id="searchSection">
-    <h2 style="margin-bottom: 15px; font-size: 1.3rem; color: #1e293b;">রেজাল্ট খুঁজুন</h2>
-    <p style="font-size: 0.88rem; color: #64748b; margin-bottom: 20px;">
-      আপনার রোল কোড লিখুন (যেমন: jkb1, jkb7)
-    </p>
-    <div class="search-box">
-      <input type="text" id="rollInput" placeholder="এখানে রোল কোড দিন..." />
-      <button onclick="searchResult()">সার্চ করুন</button>
-    </div>
-    <div class="error-msg" id="errorMsg">
-      কোডটি পাওয়া যায়নি! সঠিক রোল কোড দিন (যেমন: jkb1, jkb2)।
-    </div>
-  </div>
-
-  <div class="card result-card" id="resultSection">
-    <div class="result-header">
-      পরীক্ষার রেজাল্ট কার্ড
-    </div>
-    <div class="info-group">
-      <span class="info-label">শিক্ষার্থীর নাম:</span>
-      <span class="info-value" id="resName"></span>
-    </div>
-    <div class="info-group">
-      <span class="info-label">শ্রেণী:</span>
-      <span class="info-value" id="resClass"></span>
-    </div>
-    <div class="info-group">
-      <span class="info-label">রোল নাম্বার:</span>
-      <span class="info-value" id="resRoll"></span>
-    </div>
-    <div class="info-group">
-      <span class="info-label">প্রাপ্ত নম্বর:</span>
-      <span class="info-value marks-badge" id="resMarks"></span>
-    </div>
-    <button class="back-btn" onclick="resetSearch()">পুনরায় সার্চ করুন</button>
-  </div>
-
-  <script>
-    // স্টুডেন্ট ডাটাবেস
-    const studentsData = {
-      "jkb1": { name: "Abida", class: "9", roll: 1, marks: 46 },
-      "jkb2": { name: "Tuhina", class: "9", roll: 2, marks: 38 },
-      "jkb3": { name: "Sameera", class: "9", roll: 3, marks: 36 },
-      "jkb4": { name: "Alamin", class: "9", roll: 4, marks: 41 },
-      "jkb5": { name: "Shakibul Hasan", class: "9", roll: 5, marks: 43 },
-      "jkb6": { name: "Badshah Sk", class: "9", roll: 6, marks: 38 },
-      "jkb7": { name: "Devraj Sinha", class: "9", roll: 7, marks: 40 }
-    };
-
-    function searchResult() {
-      const input = document.getElementById("rollInput").value.trim().toLowerCase();
-      const errorMsg = document.getElementById("errorMsg");
-      
-      if (studentsData[input]) {
-        const student = studentsData[input];
-        document.getElementById("resName").innerText = student.name;
-        document.getElementById("resClass").innerText = "Class " + student.class;
-        document.getElementById("resRoll").innerText = student.roll;
-        document.getElementById("resMarks").innerText = student.marks;
-
-        document.getElementById("searchSection").style.display = "none";
-        document.getElementById("resultSection").style.display = "block";
-        errorMsg.style.display = "none";
-      } else {
-        errorMsg.style.display = "block";
-      }
-    }
-
-    function resetSearch() {
-      document.getElementById("rollInput").value = "";
-      document.getElementById("searchSection").style.display = "block";
-      document.getElementById("resultSection").style.display = "none";
-    }
-
-    // Enter কী প্রেস করলে কাজ করার জন্য
-    document.getElementById("rollInput").addEventListener("keypress", function(e) {
-      if (e.key === "Enter") {
-        searchResult();
-      }
-    });
-  </script>
-</body>
-</html>
 

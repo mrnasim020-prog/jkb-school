@@ -1,5 +1,19 @@
-       }
-        }
-    </script>
-</body>
-    </html>
+import socket
+
+def scan_ports(target_ip, ports):
+    print(f"Scanning target: {target_ip}")
+    for port in ports:
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.settimeout(1.0)
+        result = sock.connect_ex((target_ip, port))
+        if result == 0:
+            print(f"Port {port}: Open")
+        else:
+            print(f"Port {port}: Closed")
+        sock.close()
+
+# নিজের লোকাল নেটওয়ার্ক/লোকালহোস্ট (127.0.0.1) পরীক্ষা করার জন্য:
+target = "127.0.0.1"
+ports_to_scan = [21, 22, 80, 443, 8080]
+
+scan_ports(target, ports_to_scan)

@@ -3,37 +3,585 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Admission Form</title>
+    <title>N.A.S Vidyapeeth - School Management Portal</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- html2pdf.js for A4 PDF Generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
-        body { background-color: #f4f7f6; padding: 20px; display: flex; justify-content: center; }
-        .form-container { background-color: #ffffff; width: 100%; max-width: 700px; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        h2 { text-align: center; color: #333; margin-bottom: 20px; border-bottom: 2px solid #4CAF50; padding-bottom: 10px; }
-        fieldset { border: 1px solid #ddd; padding: 20px; margin-bottom: 20px; }
-        legend { font-weight: bold; color: #4CAF50; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: 600; }
-        input, select, textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
-        .radio-group { display: flex; gap: 15px; }
-        .radio-group label { font-weight: normal; }
-        button { padding: 12px 25px; border: none; cursor: pointer; }
-        button[type="submit"] { background-color: #4CAF50; color: white; }
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Poppins', sans-serif; }
+        
+        .fade-in { animation: fadeIn 0.4s ease-in-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Printable Receipt Specifics */
+        @media print {
+            body * { visibility: hidden; }
+            #printable-area, #printable-area * { visibility: visible; }
+            #printable-area { position: absolute; left: 0; top: 0; width: 100%; }
+        }
     </style>
 </head>
-<body>
-<div class="form-container">
-    <h2>Admission Form</h2>
-    <form action="/submit" method="POST" enctype="multipart/form-data">
-        <fieldset><legend>Personal Details</legend>
-            <div class="form-group"><label>First Name *</label><input type="text" name="first_name" required></div>
-            <div class="form-group"><label>Date of Birth *</label><input type="date" name="dob" required></div>
-        </fieldset>
-        <fieldset><legend>Contact Information</legend>
-            <div class="form-group"><label>Email *</label><input type="email" name="email" required></div>
-            <div class="form-group"><label>Phone *</label><input type="tel" name="phone" pattern="[0-9]{10}" required></div>
-        </fieldset>
-        <button type="submit">Submit</button>
-    </form>
-</div>
+<body class="bg-slate-100 text-slate-800 antialiased min-h-screen">
+
+    <!-- LOGIN SCREEN -->
+    <div id="login-section" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900 bg-opacity-95 p-4">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full fade-in border border-slate-100">
+            <div class="text-center mb-8">
+                <div class="w-20 h-20 bg-indigo-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-3xl shadow-lg">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <h1 class="text-2xl font-bold text-slate-800">N.A.S Vidyapeeth</h1>
+                <p class="text-slate-500 text-sm mt-1">Management Portal Login</p>
+            </div>
+            <form id="login-form" onsubmit="handleLogin(event)" class="space-y-5">
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">User ID</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-user absolute left-3 top-3.5 text-slate-400"></i>
+                        <input type="text" id="username" required class="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition" placeholder="Enter User ID">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Password</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-lock absolute left-3 top-3.5 text-slate-400"></i>
+                        <input type="password" id="password" required class="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition" placeholder="Enter Password">
+                    </div>
+                </div>
+                <div id="login-error" class="text-red-500 text-xs hidden text-center font-medium">Invalid User ID or Password!</div>
+                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg shadow-md btn-hover transition duration-200 flex items-center justify-center space-x-2">
+                    <span>Access Portal</span>
+                    <i class="fa-solid fa-arrow-right text-sm"></i>
+                </button>
+            </form>
+            <p class="text-xs text-center text-slate-400 mt-6">Basudebpur, Murshidabad (W.B)</p>
+        </div>
+    </div>
+
+    <!-- MAIN APP DASHBOARD (Hidden by Default) -->
+    <div id="app-dashboard" class="hidden min-h-screen flex flex-col">
+        
+        <!-- Header / Navbar -->
+        <header class="bg-indigo-900 text-white shadow-lg sticky top-0 z-40">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center text-xl font-bold">N</div>
+                    <div>
+                        <h1 class="text-xl font-bold tracking-wide">N.A.S Vidyapeeth</h1>
+                        <p class="text-xs text-indigo-200">Excellence in Education</p>
+                    </div>
+                </div>
+                <!-- Navigation Tabs -->
+                <nav class="flex flex-wrap gap-2">
+                    <button onclick="switchTab('admission')" id="tab-admission" class="px-4 py-2 rounded-lg text-sm font-medium transition bg-indigo-700 text-white shadow">
+                        <i class="fa-solid fa-user-plus mr-1.5"></i>Admission
+                    </button>
+                    <button onclick="switchTab('student-fees')" id="tab-student-fees" class="px-4 py-2 rounded-lg text-sm font-medium transition hover:bg-indigo-800 text-indigo-100">
+                        <i class="fa-solid fa-file-invoice-dollar mr-1.5"></i>Student Fees
+                    </button>
+                    <button onclick="switchTab('teacher-fees')" id="tab-teacher-fees" class="px-4 py-2 rounded-lg text-sm font-medium transition hover:bg-indigo-800 text-indigo-100">
+                        <i class="fa-solid fa-chalkboard-user mr-1.5"></i>Teacher Salary
+                    </button>
+                </nav>
+                <button onclick="logout()" class="text-xs bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-md font-medium transition">
+                    <i class="fa-solid fa-right-from-bracket mr-1"></i>Logout
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
+            
+            <!-- SECTION 1: ADMISSION FORM -->
+            <section id="section-admission" class="fade-in bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
+                <div class="border-b pb-4 mb-6">
+                    <h2 class="text-2xl font-bold text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-id-card text-indigo-600"></i> Student Admission Form
+                    </h2>
+                    <p class="text-sm text-slate-500">Fill out student details to generate formal admission document.</p>
+                </div>
+                
+                <form id="admissionForm" onsubmit="generateAdmissionPDF(event)" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-600 mb-2">Student Full Name *</label>
+                            <input type="text" id="admName" required class="w-full p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-600 mb-2">Guardian's Name *</label>
+                            <input type="text" id="admGuardian" required class="w-full p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-600 mb-2">Date of Birth *</label>
+                            <input type="date" id="admDob" required class="w-full p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-600 mb-2">Gender *</label>
+                            <select id="admGender" required class="w-full p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 outline-none">
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-600 mb-2">Applying for Class *</label>
+                            <select id="admClass" required class="w-full p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 outline-none">
+                                <option value="Class V">Class V</option>
+                                <option value="Class VI">Class VI</option>
+                                <option value="Class VII">Class VII</option>
+                                <option value="Class VIII">Class VIII</option>
+                                <option value="Class IX">Class IX</option>
+                                <option value="Class X">Class X</option>
+                                <option value="Class XI">Class XI</option>
+                                <option value="Class XII">Class XII</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-600 mb-2">Mobile Number *</label>
+                            <input type="tel" id="admPhone" required pattern="[0-9]{10}" class="w-full p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="10-digit number">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-600 mb-2">Residential Address *</label>
+                        <textarea id="admAddress" rows="2" required class="w-full p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="Full address details"></textarea>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-600 mb-2">Admission Fee Amount (₹)</label>
+                            <input type="number" id="admFee" required class="w-full p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="e.g. 1500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-600 mb-2">Payment Status</label>
+                            <select id="admPaymentStatus" class="w-full p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 outline-none">
+                                <option value="Paid">Paid</option>
+                                <option value="Pending">Pending</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end pt-4">
+                        <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-lg shadow btn-hover flex items-center gap-2">
+                            <i class="fa-solid fa-file-pdf"></i> Generate Admission Form (A4 PDF)
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- SECTION 2: STUDENT FEES PAYMENT -->
+            <section id="section-student-fees" class="hidden fade-in bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
+                <div class="border-b pb-4 mb-6">
+                    <h2 class="text-2xl font-bold text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-receipt text-emerald-600"></i> Student Fees Payment Portal
+                    </h2>
+                    <p class="text-sm text-slate-500">Process Monthly, Summative Exam, and Other Fees.</p>
+                </div>
+
+                <form id="studentFeeForm" onsubmit="generateStudentReceipt(event)" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-600 mb-2">Student Name *</label>
+                            <input type="text" id="stdFeeName" required class="w-full p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-600 mb-2">Roll Number *</label>
+                            <input type="text" id="stdFeeRoll" required class="w-full p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-600 mb-2">Class *</label>
+                            <select id="stdFeeClass" required class="w-full p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 outline-none">
+                                <option value="Class V">Class V</option>
+                                <option value="Class VI">Class VI</option>
+                                <option value="Class VII">Class VII</option>
+                                <option value="Class VIII">Class VIII</option>
+                                <option value="Class IX">Class IX</option>
+                                <option value="Class X">Class X</option>
+                                <option value="Class XI">Class XI</option>
+                                <option value="Class XII">Class XII</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-600 mb-2">Payment Category *</label>
+                            <select id="stdFeeType" required class="w-full p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 outline-none">
+                                <option value="Monthly Tuition Fee">Monthly Tuition Fee</option>
+                                <option value="1st Summative Exam Fee">1st Summative Exam Fee</option>
+                                <option value="2nd Summative Exam Fee">2nd Summative Exam Fee</option>
+                                <option value="Final Summative Exam Fee">Final Summative Exam Fee</option>
+                                <option value="Admission / Session Fee">Admission / Session Fee</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-600 mb-2">Month / Session *</label>
+                            <select id="stdFeeMonth" class="w-full p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 outline-none">
+                                <option value="January">January</option>
+                                <option value="February">February</option>
+                                <option value="March">March</option>
+                                <option value="April">April</option>
+                                <option value="May">May</option>
+                                <option value="June">June</option>
+                                <option value="July">July</option>
+                                <option value="August">August</option>
+                                <option value="September">September</option>
+                                <option value="October">October</option>
+                                <option value="November">November</option>
+                                <option value="December">December</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-600 mb-2">Amount Paid (₹) *</label>
+                            <input type="number" id="stdFeeAmount" required class="w-full p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 outline-none" placeholder="Amount in INR">
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end pt-4">
+                        <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-lg shadow btn-hover flex items-center gap-2">
+                            <i class="fa-solid fa-print"></i> Process & Generate Fee Receipt
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- SECTION 3: TEACHER SALARY PAYMENT -->
+            <section id="section-teacher-fees" class="hidden fade-in bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
+                <div class="border-b pb-4 mb-6">
+                    <h2 class="text-2xl font-bold text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-hand-holding-dollar text-purple-600"></i> Teachers Monthly Payroll & Fees
+                    </h2>
+                    <p class="text-sm text-slate-500">Disburse salary, manage deductions/fines, and issue payment vouchers.</p>
+                </div>
+
+                <form id="teacherFeeForm" onsubmit="generateTeacherReceipt(event)" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-600 mb-2">Teacher Name *</label>
+                            <input type="text" id="tchName" required class="w-full p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-purple-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-600 mb-2">Teacher ID / Department *</label>
+                            <input type="text" id="tchId" placeholder="e.g. T-102 (Mathematics)" required class="w-full p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-purple-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-600 mb-2">Salary Month *</label>
+                            <select id="tchMonth" class="w-full p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-purple-500 outline-none">
+                                <option value="January">January</option>
+                                <option value="February">February</option>
+                                <option value="March">March</option>
+                                <option value="April">April</option>
+                                <option value="May">May</option>
+                                <option value="June">June</option>
+                                <option value="July">July</option>
+                                <option value="August">August</option>
+                                <option value="September">September</option>
+                                <option value="October">October</option>
+                                <option value="November">November</option>
+                                <option value="December">December</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-600 mb-2">Base Salary Amount (₹) *</label>
+                            <input type="number" id="tchBasePay" required class="w-full p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-purple-500 outline-none" placeholder="Basic Pay">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-600 mb-2">Fine / Deductions (₹)</label>
+                            <input type="number" id="tchFine" value="0" class="w-full p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-purple-500 outline-none" placeholder="Absences / Fines">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-600 mb-2">Deduction Reason (If any)</label>
+                            <input type="text" id="tchReason" placeholder="Late arrival / Unpaid Leave" class="w-full p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-purple-500 outline-none">
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end pt-4">
+                        <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white font-semibold px-6 py-3 rounded-lg shadow btn-hover flex items-center gap-2">
+                            <i class="fa-solid fa-file-invoice"></i> Issue Salary Receipt PDF
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="bg-slate-900 text-slate-400 mt-auto border-t border-slate-800">
+            <div class="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center text-sm gap-4">
+                <div>
+                    <span class="font-bold text-white">N.A.S Vidyapeeth</span> — Official Administrative System
+                </div>
+                <div class="flex flex-wrap items-center gap-4 text-xs">
+                    <span><i class="fa-solid fa-location-dot text-indigo-400 mr-1"></i> Basudebpur, Murshidabad (W.B)</span>
+                    <span><i class="fa-solid fa-phone text-indigo-400 mr-1"></i> 8116122246</span>
+                    <span><i class="fa-solid fa-envelope text-indigo-400 mr-1"></i> nasvidyapeeth@gmail.com</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- MODAL FOR PDF VIEW & DOWNLOAD -->
+    <div id="receipt-modal" class="fixed inset-0 z-50 bg-black bg-opacity-75 hidden flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-xl max-w-3xl w-full my-8 p-6 shadow-2xl relative">
+            <!-- Modal Actions Header -->
+            <div class="flex justify-between items-center mb-4 border-b pb-3">
+                <h3 class="text-lg font-bold text-slate-800">Document Generated</h3>
+                <div class="flex space-x-2">
+                    <button onclick="downloadPDF()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-md text-xs font-semibold flex items-center gap-1.5 transition">
+                        <i class="fa-solid fa-download"></i> Download PDF
+                    </button>
+                    <button onclick="closeModal()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 px-3 py-2 rounded-md text-xs font-semibold transition">
+                        <i class="fa-solid fa-xmark"></i> Close
+                    </button>
+                </div>
+            </div>
+
+            <!-- PDF PRINT AREA (A4 Container) -->
+            <div id="printable-area" class="bg-white p-8 border border-slate-200 rounded-lg text-slate-800">
+                <!-- Document Header -->
+                <div class="border-b-2 border-indigo-900 pb-4 mb-6 flex justify-between items-start">
+                    <div>
+                        <h1 class="text-2xl font-black text-indigo-900 tracking-wider uppercase">N.A.S Vidyapeeth</h1>
+                        <p class="text-xs text-slate-600">Basudebpur, Murshidabad, West Bengal</p>
+                        <p class="text-xs text-slate-600">Mobile: 8116122246 | Email: nasvidyapeeth@gmail.com</p>
+                    </div>
+                    <div class="text-right">
+                        <span id="doc-type-badge" class="inline-block bg-indigo-100 text-indigo-800 text-xs px-2.5 py-1 rounded font-bold uppercase mb-1">Receipt</span>
+                        <p class="text-xs text-slate-400" id="doc-date">Date: DD/MM/YYYY</p>
+                    </div>
+                </div>
+
+                <!-- Dynamic Document Content Container -->
+                <div id="doc-dynamic-content" class="min-h-[300px]">
+                    <!-- Injected via JavaScript -->
+                </div>
+
+                <!-- Footer Signatures -->
+                <div class="mt-16 pt-8 border-t border-slate-200 flex justify-between items-end text-xs">
+                    <div>
+                        <div class="w-32 border-b border-slate-400 mb-1"></div>
+                        <p class="font-semibold text-slate-600">Depositor Signature</p>
+                    </div>
+                    <div class="text-right">
+                        <div class="w-32 border-b border-slate-400 mb-1 ml-auto"></div>
+                        <p class="font-semibold text-indigo-900">Authorized Signatory</p>
+                        <p class="text-[10px] text-slate-400">N.A.S Vidyapeeth Seal</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Authentication Configuration
+        const AUTH_USER = "nasv2026";
+        const AUTH_PASS = "nasv202602";
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const u = document.getElementById('username').value;
+            const p = document.getElementById('password').value;
+            const errorMsg = document.getElementById('login-error');
+
+            if(u === AUTH_USER && p === AUTH_PASS) {
+                document.getElementById('login-section').classList.add('hidden');
+                document.getElementById('app-dashboard').classList.remove('hidden');
+                errorMsg.classList.add('hidden');
+            } else {
+                errorMsg.classList.remove('hidden');
+            }
+        }
+
+        function logout() {
+            document.getElementById('app-dashboard').classList.add('hidden');
+            document.getElementById('login-section').classList.remove('hidden');
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+        }
+
+        function switchTab(tabName) {
+            // Hide all sections
+            ['admission', 'student-fees', 'teacher-fees'].forEach(s => {
+                document.getElementById(`section-${s}`).classList.add('hidden');
+                const btn = document.getElementById(`tab-${s}`);
+                btn.classList.remove('bg-indigo-700', 'text-white', 'shadow');
+                btn.classList.add('hover:bg-indigo-800', 'text-indigo-100');
+            });
+
+            // Show selected section
+            document.getElementById(`section-${tabName}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tab-${tabName}`);
+            activeBtn.classList.add('bg-indigo-700', 'text-white', 'shadow');
+        }
+
+        function openModal() {
+            document.getElementById('receipt-modal').classList.remove('hidden');
+            document.getElementById('doc-date').innerText = 'Date: ' + new Date().toLocaleDateString('en-GB');
+        }
+
+        function closeModal() {
+            document.getElementById('receipt-modal').classList.add('hidden');
+        }
+
+        // 1. Admission PDF Generation
+        function generateAdmissionPDF(e) {
+            e.preventDefault();
+            const name = document.getElementById('admName').value;
+            const guardian = document.getElementById('admGuardian').value;
+            const dob = document.getElementById('admDob').value;
+            const gender = document.getElementById('admGender').value;
+            const className = document.getElementById('admClass').value;
+            const phone = document.getElementById('admPhone').value;
+            const address = document.getElementById('admAddress').value;
+            const fee = document.getElementById('admFee').value;
+            const status = document.getElementById('admPaymentStatus').value;
+
+            document.getElementById('doc-type-badge').innerText = "ADMISSION APPLICATION";
+
+            const html = `
+                <div class="space-y-4">
+                    <h2 class="text-center font-bold text-lg text-slate-800 underline mb-4">STUDENT ADMISSION FORM</h2>
+                    <table class="w-full text-sm border-collapse border border-slate-300">
+                        <tr><td class="p-2 border bg-slate-50 font-semibold">Student Name:</td><td class="p-2 border">${name}</td></tr>
+                        <tr><td class="p-2 border bg-slate-50 font-semibold">Guardian's Name:</td><td class="p-2 border">${guardian}</td></tr>
+                        <tr><td class="p-2 border bg-slate-50 font-semibold">Date of Birth:</td><td class="p-2 border">${dob}</td></tr>
+                        <tr><td class="p-2 border bg-slate-50 font-semibold">Gender:</td><td class="p-2 border">${gender}</td></tr>
+                        <tr><td class="p-2 border bg-slate-50 font-semibold">Admitted Class:</td><td class="p-2 border">${className}</td></tr>
+                        <tr><td class="p-2 border bg-slate-50 font-semibold">Contact Mobile:</td><td class="p-2 border">${phone}</td></tr>
+                        <tr><td class="p-2 border bg-slate-50 font-semibold">Address:</td><td class="p-2 border">${address}</td></tr>
+                        <tr><td class="p-2 border bg-slate-50 font-semibold">Admission Fee Paid:</td><td class="p-2 border">₹ ${fee} (${status})</td></tr>
+                    </table>
+                </div>
+            `;
+            document.getElementById('doc-dynamic-content').innerHTML = html;
+            openModal();
+        }
+
+        // 2. Student Fee Receipt Generation
+        function generateStudentReceipt(e) {
+            e.preventDefault();
+            const name = document.getElementById('stdFeeName').value;
+            const roll = document.getElementById('stdFeeRoll').value;
+            const className = document.getElementById('stdFeeClass').value;
+            const type = document.getElementById('stdFeeType').value;
+            const month = document.getElementById('stdFeeMonth').value;
+            const amount = document.getElementById('stdFeeAmount').value;
+
+            document.getElementById('doc-type-badge').innerText = "FEES RECEIPT";
+
+            const html = `
+                <div class="space-y-4">
+                    <h2 class="text-center font-bold text-lg text-slate-800 underline mb-4">STUDENT PAYMENT RECEIPT</h2>
+                    <div class="grid grid-cols-2 gap-4 text-sm mb-4">
+                        <p><strong>Student Name:</strong> ${name}</p>
+                        <p><strong>Roll No:</strong> ${roll}</p>
+                        <p><strong>Class:</strong> ${className}</p>
+                        <p><strong>Payment Month/Session:</strong> ${month}</p>
+                    </div>
+                    <table class="w-full text-sm border-collapse border border-slate-300">
+                        <thead>
+                            <tr class="bg-slate-100">
+                                <th class="p-2 border text-left">Description / Particulars</th>
+                                <th class="p-2 border text-right">Amount (₹)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="p-2 border">${type} (${month})</td>
+                                <td class="p-2 border text-right">₹ ${parseFloat(amount).toFixed(2)}</td>
+                            </tr>
+                            <tr class="font-bold bg-slate-50">
+                                <td class="p-2 border text-right">Total Paid:</td>
+                                <td class="p-2 border text-right">₹ ${parseFloat(amount).toFixed(2)}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            `;
+            document.getElementById('doc-dynamic-content').innerHTML = html;
+            openModal();
+        }
+
+        // 3. Teacher Salary Receipt Generation
+        function generateTeacherReceipt(e) {
+            e.preventDefault();
+            const name = document.getElementById('tchName').value;
+            const id = document.getElementById('tchId').value;
+            const month = document.getElementById('tchMonth').value;
+            const base = parseFloat(document.getElementById('tchBasePay').value) || 0;
+            const fine = parseFloat(document.getElementById('tchFine').value) || 0;
+            const reason = document.getElementById('tchReason').value || 'N/A';
+            const net = base - fine;
+
+            document.getElementById('doc-type-badge').innerText = "SALARY VOUCHER";
+
+            const html = `
+                <div class="space-y-4">
+                    <h2 class="text-center font-bold text-lg text-slate-800 underline mb-4">TEACHER SALARY DISBURSEMENT RECEIPT</h2>
+                    <div class="grid grid-cols-2 gap-4 text-sm mb-4">
+                        <p><strong>Teacher Name:</strong> ${name}</p>
+                        <p><strong>ID/Dept:</strong> ${id}</p>
+                        <p><strong>Salary Month:</strong> ${month}</p>
+                    </div>
+                    <table class="w-full text-sm border-collapse border border-slate-300">
+                        <thead>
+                            <tr class="bg-slate-100">
+                                <th class="p-2 border text-left">Component</th>
+                                <th class="p-2 border text-right">Amount (₹)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="p-2 border">Basic Salary</td>
+                                <td class="p-2 border text-right">₹ ${base.toFixed(2)}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border text-red-600">Deductions / Fine (${reason})</td>
+                                <td class="p-2 border text-right text-red-600">- ₹ ${fine.toFixed(2)}</td>
+                            </tr>
+                            <tr class="font-bold bg-slate-50">
+                                <td class="p-2 border text-right">Net Payable Amount:</td>
+                                <td class="p-2 border text-right text-emerald-700">₹ ${net.toFixed(2)}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            `;
+            document.getElementById('doc-dynamic-content').innerHTML = html;
+            openModal();
+        }
+
+        // PDF Download Function
+        function downloadPDF() {
+            const element = document.getElementById('printable-area');
+            const opt = {
+                margin:       10,
+                filename:     'NAS_Vidyapeeth_Document.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            html2pdf().set(opt).from(element).save();
+        }
+    </script>
 </body>
-</html>
+    </html>

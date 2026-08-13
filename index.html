@@ -1,90 +1,28 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>আমার মুভি সাইট</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
-        body {
-            background-color: #141414;
-            color: #fff;
-        }
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            background-color: #111;
-        }
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #e50914;
-        }
-        .container {
-            padding: 20px;
-        }
-        .movie-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-        .movie-card {
-            background-color: #222;
-            border-radius: 8px;
-            overflow: hidden;
-            transition: transform 0.2s;
-        }
-        .movie-card:hover {
-            transform: scale(1.05);
-        }
-        .movie-card img {
-            width: 100%;
-            height: 260px;
-            object-fit: cover;
-        }
-        .movie-info {
-            padding: 10px;
-        }
-        .movie-title {
-            font-size: 16px;
-            margin-bottom: 5px;
-        }
-    </style>
+    <title>MovieFlix - Stream Movies Online</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header>
         <div class="logo">MovieFlix</div>
+        <form id="search-form">
+            <input type="text" id="search-input" placeholder="Search for a movie..." autocomplete="off">
+            <button type="submit">Search</button>
+        </form>
     </header>
 
-    <div class="container">
-        <h2>জনপ্রিয় মুভি সমূহ</h2>
-        <div class="movie-grid">
-            <!-- মুভি কার্ড ১ -->
-            <div class="movie-card">
-                <img src="https://via.placeholder.com/200x300" alt="Movie Poster">
-                <div class="movie-info">
-                    <div class="movie-title">মুভির নাম ১</div>
-                </div>
-            </div>
-            <!-- মুভি কার্ড ২ -->
-            <div class="movie-card">
-                <img src="https://via.placeholder.com/200x300" alt="Movie Poster">
-                <div class="movie-info">
-                    <div class="movie-title">মুভির নাম ২</div>
-                </div>
-            </div>
+    <main class="container">
+        <h2 id="section-title">Trending Movies</h2>
+        <div id="movie-grid" class="movie-grid">
+            <!-- Movies will be injected here via JavaScript -->
         </div>
-    </div>
+    </main>
 
+    <script src="script.js"></script>
 </body>
-                    </html>
-                    
+</html>

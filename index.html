@@ -1,496 +1,525 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>N.A.S. VIDYAPEETH - Fee Payment & Receipt</title>
-  <style>
-    :root {
-      --primary-color: #0b2545;
-      --accent-color: #134074;
-      --border-color: #333;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N.A.S Vidyapeeth - Student & College Portal</title>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
+        body {
+            background-color: #f4f6f9;
+            color: #333;
+        }
 
-    body {
-      background-color: #f0f2f5;
-      color: #333;
-      padding: 20px;
-    }
+        /* Top Header */
+        .top-header {
+            background: #ffffff;
+            border-bottom: 2px solid #e0e0e0;
+            padding: 12px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
 
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
 
-    @media (max-width: 800px) {
-      .container {
-        grid-template-columns: 1fr;
-      }
-    }
+        .header-brand img {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #002B49;
+        }
 
-    /* Form Section */
-    .form-box {
-      background: #ffffff;
-      padding: 25px;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
+        .brand-text h1 {
+            font-size: 24px;
+            color: #0b2265;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
 
-    .form-box h2 {
-      color: var(--primary-color);
-      margin-bottom: 20px;
-      font-size: 20px;
-      border-bottom: 2px solid var(--accent-color);
-      padding-bottom: 8px;
-    }
+        .brand-text p {
+            font-size: 12px;
+            color: #555;
+            margin-top: 3px;
+        }
 
-    .form-group {
-      margin-bottom: 14px;
-    }
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
 
-    .form-group label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: 600;
-      font-size: 13px;
-    }
+        .btn-logout {
+            background: #d9534f;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.3s;
+        }
 
-    .form-group input, .form-group select {
-      width: 100%;
-      padding: 9px 12px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 14px;
-    }
+        .btn-logout:hover {
+            background: #c9302c;
+        }
 
-    .btn-group {
-      display: flex;
-      gap: 10px;
-      margin-top: 15px;
-    }
+        /* Navigation Menu */
+        .nav-bar {
+            background-color: #0088cc;
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0 20px;
+        }
 
-    button {
-      flex: 1;
-      padding: 10px;
-      border: none;
-      border-radius: 4px;
-      font-size: 15px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.2s;
-    }
+        .nav-bar a {
+            color: white;
+            padding: 12px 18px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            border-right: 1px solid rgba(255,255,255,0.2);
+            transition: 0.2s;
+        }
 
-    .btn-generate {
-      background: #0b2545;
-      color: #fff;
-    }
+        .nav-bar a:hover {
+            background-color: #006699;
+        }
 
-    .btn-generate:hover {
-      background: #134074;
-    }
+        /* Layout Container */
+        .main-container {
+            display: flex;
+            max-width: 1300px;
+            margin: 20px auto;
+            gap: 20px;
+            padding: 0 15px;
+        }
 
-    .btn-print {
-      background: #2b9348;
-      color: #fff;
-    }
+        /* Sidebar (Student Portal Menu) */
+        .sidebar {
+            width: 300px;
+            background: #ffffff;
+            border-radius: 6px;
+            border: 1px solid #dcdcdc;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            flex-shrink: 0;
+            align-self: flex-start;
+        }
 
-    .btn-print:hover {
-      background: #1f6f36;
-    }
+        .sidebar-header {
+            background-color: #1e3c72;
+            color: white;
+            padding: 12px 15px;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
 
-    /* A6 Receipt Preview */
-    .receipt-container {
-      background: #ffffff;
-      padding: 15px;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+        .menu-item {
+            border-bottom: 1px solid #edf2f7;
+        }
 
-    /* A6 Dimensions: 105mm x 148mm */
-    .a6-receipt {
-      width: 105mm;
-      min-height: 144mm;
-      padding: 8mm;
-      background: #fff;
-      border: 2px solid #0b2545;
-      border-radius: 4px;
-      box-sizing: border-box;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
+        .menu-title {
+            padding: 12px 15px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #2b4c7e;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
 
-    .school-header {
-      text-align: center;
-      border-bottom: 2px solid #0b2545;
-      padding-bottom: 6px;
-      margin-bottom: 8px;
-    }
+        .menu-title:hover {
+            background: #f8fafc;
+        }
 
-    .school-header h1 {
-      font-size: 18px;
-      color: #0b2545;
-      letter-spacing: 0.5px;
-      margin-bottom: 2px;
-    }
+        .menu-title i.main-icon {
+            margin-right: 10px;
+            color: #3182ce;
+        }
 
-    .school-header p {
-      font-size: 9.5px;
-      color: #555;
-      line-height: 1.2;
-    }
+        .submenu {
+            background: #fbfcfd;
+            border-top: 1px solid #edf2f7;
+            display: block;
+        }
 
-    .receipt-badge {
-      display: inline-block;
-      background: #0b2545;
-      color: #fff;
-      font-size: 10px;
-      padding: 2px 10px;
-      border-radius: 10px;
-      margin-top: 4px;
-      text-transform: uppercase;
-      font-weight: bold;
-    }
+        .submenu a {
+            padding: 9px 15px 9px 40px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #4a5568;
+            text-decoration: none;
+            border-bottom: 1px dashed #e2e8f0;
+            transition: 0.2s;
+        }
 
-    .meta-table {
-      width: 100%;
-      font-size: 10.5px;
-      margin-bottom: 8px;
-    }
+        .submenu a:hover {
+            color: #0088cc;
+            background: #f1f5f9;
+        }
 
-    .meta-table td {
-      padding: 2px 0;
-    }
+        /* Main Content Area */
+        .content-area {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
 
-    .data-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 10.5px;
-      margin-bottom: 8px;
-    }
+        /* Banner Carousel simulation */
+        .banner {
+            width: 100%;
+            height: 220px;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+        }
 
-    .data-table th, .data-table td {
-      border: 1px solid #777;
-      padding: 5px;
-      text-align: left;
-    }
+        .banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-    .data-table th {
-      background: #f1f5f9;
-      font-weight: bold;
-    }
+        .banner-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 8px 15px;
+            font-size: 14px;
+        }
 
-    .words-box {
-      font-size: 10px;
-      margin-top: 6px;
-      padding: 5px;
-      background: #fbfbfb;
-      border-left: 3px solid #0b2545;
-    }
+        /* 2-Column Info Section */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
 
-    /* Paid Stamp Styling */
-    .footer-section {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin-top: 10px;
-      padding-top: 5px;
-    }
+        .card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
 
-    .paid-stamp {
-      border: 2.5px solid #0d3b66;
-      color: #0d3b66;
-      border-radius: 6px;
-      padding: 6px 10px;
-      width: 135px;
-      text-align: left;
-      font-family: Arial, sans-serif;
-      transform: rotate(-3deg);
-    }
+        .card-header {
+            font-size: 16px;
+            font-weight: bold;
+            color: #0b2265;
+            border-bottom: 2px solid #0088cc;
+            padding-bottom: 6px;
+            margin-bottom: 12px;
+        }
 
-    .paid-stamp .stamp-title {
-      font-size: 17px;
-      font-weight: 900;
-      text-align: center;
-      border-bottom: 2px solid #0d3b66;
-      letter-spacing: 2px;
-      padding-bottom: 2px;
-      margin-bottom: 3px;
-    }
+        .card p {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #555;
+            text-align: justify;
+        }
 
-    .paid-stamp .stamp-school {
-      font-size: 8.5px;
-      font-weight: bold;
-      text-align: center;
-      margin-bottom: 4px;
-      letter-spacing: 0.5px;
-    }
+        /* Notice Board */
+        .notice-board {
+            background: #fff;
+            border: 1px solid #3182ce;
+            border-radius: 6px;
+            overflow: hidden;
+        }
 
-    .paid-stamp .stamp-line {
-      font-size: 9px;
-      font-weight: 600;
-      margin: 2px 0;
-      white-space: nowrap;
-    }
+        .notice-header {
+            background-color: #0073b7;
+            color: white;
+            padding: 10px 15px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    .signature-area {
-      text-align: center;
-      font-size: 10px;
-      font-weight: bold;
-      color: #333;
-    }
+        .notice-list {
+            list-style: none;
+            max-height: 220px;
+            overflow-y: auto;
+        }
 
-    .sign-line {
-      width: 110px;
-      border-top: 1px dashed #333;
-      margin-bottom: 3px;
-    }
+        .notice-item {
+            padding: 10px 15px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+        }
 
-    /* Print settings for A6 */
-    @media print {
-      @page {
-        size: A6 portrait;
-        margin: 0;
-      }
-      body * {
-        visibility: hidden;
-      }
-      .receipt-container, .receipt-container * {
-        visibility: visible;
-      }
-      .receipt-container {
-        position: absolute;
-        left: 0;
-        top: 0;
-        margin: 0;
-        padding: 0;
-        box-shadow: none;
-        background: transparent;
-      }
-      .a6-receipt {
-        border: none;
-        padding: 10mm 8mm;
-      }
-      .btn-group, .form-box, h3 {
-        display: none !important;
-      }
-    }
-  </style>
+        .notice-item a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .notice-item a:hover {
+            color: #0073b7;
+        }
+
+        .badge-download {
+            background-color: #28a745;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 11px;
+            text-decoration: none;
+        }
+
+        /* Vision & Mission */
+        .vision-mission {
+            background: #fff8e1;
+            border: 1px solid #ffe082;
+            border-radius: 6px;
+            padding: 15px;
+        }
+
+        .vision-mission h3 {
+            color: #ff8f00;
+            font-size: 15px;
+            margin-bottom: 5px;
+        }
+
+        .vision-mission p {
+            font-size: 13px;
+            color: #5d4037;
+            margin-bottom: 10px;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a252f;
+            color: #ecf0f1;
+            padding: 20px;
+            margin-top: 30px;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        footer p {
+            margin-bottom: 5px;
+        }
+
+        footer a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .main-container {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+            }
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<div class="container">
-  <!-- ফর্ম সেকশন -->
-  <div class="form-box">
-    <h2>পেমেন্ট তথ্য এন্ট্রি (N.A.S Vidyapeeth)</h2>
-    
-    <div class="form-group">
-      <label>স্লিপ নম্বর (Slip No.)</label>
-      <input type="text" id="slipNo" value="NAS/2026/001">
-    </div>
-
-    <div class="form-group">
-      <label>তারিখ (Date)</label>
-      <input type="date" id="payDate">
-    </div>
-
-    <div class="form-group">
-      <label>শিক্ষার্থীর নাম (Student's Name)</label>
-      <input type="text" id="studentName" placeholder="ছাত্র/ছাত্রীর নাম লিখুন">
-    </div>
-
-    <div class="form-group">
-      <label>শ্রেণি (Class)</label>
-      <select id="studentClass">
-        <option value="Nursery">Nursery</option>
-        <option value="LKG">LKG</option>
-        <option value="UKG">UKG</option>
-        <option value="Class I">Class I</option>
-        <option value="Class II">Class II</option>
-        <option value="Class III">Class III</option>
-        <option value="Class IV">Class IV</option>
-        <option value="Class V">Class V</option>
-        <option value="Class VI">Class VI</option>
-        <option value="Class VII">Class VII</option>
-        <option value="Class VIII">Class VIII</option>
-        <option value="Class IX">Class IX</option>
-        <option value="Class X">Class X</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label>রোল নম্বর (Roll No)</label>
-      <input type="text" id="rollNo" placeholder="যেমন: 05">
-    </div>
-
-    <div class="form-group">
-      <label>পেমেন্টের বিবরণ (Payment For)</label>
-      <input type="text" id="payReason" value="Monthly Tuition & Exam Fee">
-    </div>
-
-    <div class="form-group">
-      <label>টাকার পরিমাণ (Amount in ₹)</label>
-      <input type="number" id="payAmount" value="500" oninput="updateWordsPreview()">
-    </div>
-
-    <div class="btn-group">
-      <button class="btn-generate" onclick="updateReceipt()">রিসিভ তৈরি করুন</button>
-      <button class="btn-print" onclick="window.print()">A6 প্রিন্ট করুন</button>
-    </div>
-  </div>
-
-  <!-- A6 সাইজ রিসিভ প্রিভিউ -->
-  <div class="receipt-container">
-    <h3 style="margin-bottom: 10px; font-size: 14px; color: #555;">A6 পেপার প্রিভিউ</h3>
-    <div class="a6-receipt" id="receiptCard">
-      <div>
-        <!-- হেডার -->
-        <div class="school-header">
-          <h1>N.A.S. VIDYAPEETH</h1>
-          <p>Bengali Medium • ESTD: 2026</p>
-          <p>Notun Jaladipur, P.O. Basudebpur, Dist. Murshidabad, (W.B.)</p>
-          <div class="receipt-badge">MONEY RECEIPT</div>
+    <!-- Top Branding & Navigation -->
+    <header class="top-header">
+        <div class="header-brand">
+            <!-- আপনার দেওয়া লোগো ফাইলটি এখানে সংযুক্ত করা হয়েছে -->
+            <img src="70409.png" alt="N.A.S Vidyapeeth Logo">
+            <div class="brand-text">
+                <h1>N.A.S VIDYAPEETH</h1>
+                <p><i class="fa-solid fa-location-dot"></i> Notun Jaladipur, Basudebpur, Murshidabad, W.B.</p>
+                <small style="color: #888; font-weight: 600;">Estd: 2026 | LEARN • GROW • SUCCEED</small>
+            </div>
         </div>
-
-        <!-- মেটা তথ্য -->
-        <table class="meta-table">
-          <tr>
-            <td><strong>Slip No:</strong> <span id="rSlip">NAS/2026/001</span></td>
-            <td style="text-align: right;"><strong>Date:</strong> <span id="rDate">--/--/----</span></td>
-          </tr>
-          <tr>
-            <td colspan="2"><strong>Student Name:</strong> <span id="rName">-------------</span></td>
-          </tr>
-          <tr>
-            <td><strong>Class:</strong> <span id="rClass">Class V</span></td>
-            <td style="text-align: right;"><strong>Roll No:</strong> <span id="rRoll">--</span></td>
-          </tr>
-        </table>
-
-        <!-- পেমেন্ট বিবরণ টেবিল -->
-        <table class="data-table">
-          <thead>
-            <tr>
-              <th>SL</th>
-              <th>Description</th>
-              <th style="text-align: right;">Amount (₹)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td id="rReason">Monthly Tuition Fee</td>
-              <td style="text-align: right; font-weight: bold;" id="rAmount">500.00</td>
-            </tr>
-            <tr>
-              <th colspan="2" style="text-align: right;">Total Paid:</th>
-              <th style="text-align: right;" id="rTotal">₹ 500.00</th>
-            </tr>
-          </tbody>
-        </table>
-
-        <!-- টাকায় কথায় -->
-        <div class="words-box">
-          <strong>In Words:</strong> <span id="rWords">Five Hundred Rupees Only.</span>
+        <div class="header-actions">
+            <a href="#" class="btn-logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
         </div>
-      </div>
+    </header>
 
-      <!-- ফুটার: PAID সিল এবং সইয়ের ফাঁকা জায়গা -->
-      <div class="footer-section">
-        <!-- নীল সিল -->
-        <div class="paid-stamp">
-          <div class="stamp-title">PAID</div>
-          <div class="stamp-school">N.A.S VIDYAPEETH</div>
-          <div class="stamp-line">Date : <span id="stampDate">............</span></div>
-          <div class="stamp-line">Sign : ...........................</div>
-        </div>
+    <!-- Navigation Bar -->
+    <nav class="nav-bar">
+        <a href="#"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="#">About Us</a>
+        <a href="#">Courses</a>
+        <a href="#">Admission 2026</a>
+        <a href="#">Examinations</a>
+        <a href="#">Student Portal</a>
+        <a href="#">Library (OPAC)</a>
+        <a href="#">Contact Us</a>
+    </nav>
 
-        <!-- সিগনেচার স্পেস -->
-        <div class="signature-area">
-          <div class="sign-line"></div>
-          Authorized Signature
-        </div>
-      </div>
+    <!-- Main Body Container -->
+    <div class="main-container">
 
+        <!-- Left / Side Student Portal -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <span><i class="fa-solid fa-bars"></i> ACTIVE MENU</span>
+                <i class="fa-solid fa-toggle-on fa-lg"></i>
+            </div>
+
+            <!-- Semester Section -->
+            <div class="menu-item">
+                <div class="menu-title">
+                    <span><i class="fa-solid fa-graduation-cap main-icon"></i> SEMESTER - VII</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="submenu">
+                    <a href="#"><i class="fa-solid fa-angle-right"></i> SEM-VII ADMISSION (NEP)</a>
+                </div>
+            </div>
+
+            <!-- Fees Payment -->
+            <div class="menu-item">
+                <div class="menu-title">
+                    <span><i class="fa-solid fa-credit-card main-icon"></i> FEES PAYMENT</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="submenu">
+                    <a href="#"><i class="fa-solid fa-angle-right"></i> GENERAL FEES</a>
+                    <a href="#"><i class="fa-solid fa-angle-right"></i> PAY DUE CHALLAN</a>
+                </div>
+            </div>
+
+            <!-- Print Section -->
+            <div class="menu-item">
+                <div class="menu-title">
+                    <span><i class="fa-solid fa-print main-icon"></i> PRINT</span>
+                    <i class="fa-solid fa-chevron-up"></i>
+                </div>
+                <div class="submenu">
+                    <a href="#"><i class="fa-solid fa-angle-right"></i> CASUAL FORM</a>
+                    <a href="#"><i class="fa-solid fa-angle-right"></i> REVIEW FORM</a>
+                    <a href="#"><i class="fa-solid fa-angle-right"></i> ADMISSION FORM</a>
+                    <a href="#"><i class="fa-solid fa-angle-right"></i> RECEIPT</a>
+                    <a href="#"><i class="fa-solid fa-angle-right"></i> CERTIFICATE</a>
+                </div>
+            </div>
+
+            <!-- Profile Section -->
+            <div class="menu-item">
+                <div class="menu-title">
+                    <span><i class="fa-solid fa-user-gear main-icon"></i> PROFILE</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="submenu">
+                    <a href="#"><i class="fa-solid fa-angle-right"></i> DOCUMENT UPLOAD</a>
+                    <a href="#"><i class="fa-solid fa-angle-right"></i> PROFILE EDIT (MINI)</a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Right / Main Content Area -->
+        <main class="content-area">
+
+            <!-- Banner / Slider Placeholder -->
+            <div class="banner">
+                <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1200&q=80" alt="Campus Campus">
+                <div class="banner-overlay">
+                    <strong>Welcome to N.A.S Vidyapeeth</strong> - Empowering Students for Tomorrow
+                </div>
+            </div>
+
+            <!-- Notice Board Section -->
+            <div class="notice-board">
+                <div class="notice-header">
+                    <span><i class="fa-solid fa-bullhorn"></i> Notice Board</span>
+                    <a href="#" style="color: #fff; font-size: 12px; text-decoration: underline;">View All</a>
+                </div>
+                <ul class="notice-list">
+                    <li class="notice-item">
+                        <a href="#"><i class="fa-regular fa-file-pdf"></i> UG 7th Semester Exam 2026 Student Exit Notice</a>
+                        <a href="#" class="badge-download"><i class="fa-solid fa-download"></i> Download</a>
+                    </li>
+                    <li class="notice-item">
+                        <a href="#"><i class="fa-regular fa-file-pdf"></i> UG 7th SEMESTER NEP ADMISSION NOTICE</a>
+                        <a href="#" class="badge-download"><i class="fa-solid fa-download"></i> Download</a>
+                    </li>
+                    <li class="notice-item">
+                        <a href="#"><i class="fa-regular fa-file-pdf"></i> Form Fill-up for 6th Semester Examinations</a>
+                        <a href="#" class="badge-download"><i class="fa-solid fa-download"></i> Download</a>
+                    </li>
+                    <li class="notice-item">
+                        <a href="#"><i class="fa-regular fa-file-pdf"></i> Publication of Academic Calendar 2026-27</a>
+                        <a href="#" class="badge-download"><i class="fa-solid fa-download"></i> Download</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Info Grid: Principal Desk & History -->
+            <div class="info-grid">
+                <div class="card">
+                    <div class="card-header">From the Principal's Desk</div>
+                    <p>
+                        Welcome to N.A.S Vidyapeeth. Our institution stands committed to academic excellence, social values, and the holistic development of our students. We strive to provide a disciplined yet nurturing environment where knowledge transforms into wisdom.
+                    </p>
+                </div>
+                <div class="card">
+                    <div class="card-header">History of the Vidyapeeth</div>
+                    <p>
+                        Established in 2026 at Notun Jaladipur, Basudebpur (Murshidabad), N.A.S Vidyapeeth was founded with the aim to impart quality modern higher education to students of all backgrounds and nurture future leaders of our society.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Vision & Mission -->
+            <div class="vision-mission">
+                <h3><i class="fa-solid fa-eye"></i> VISION</h3>
+                <p>To cultivate intellectual growth, ethical values, and social responsibility among students through high-quality education.</p>
+
+                <h3><i class="fa-solid fa-bullseye"></i> MISSION</h3>
+                <p>To foster inclusive and innovative learning environments that enable every student to succeed in their career and contribute meaningfully to society.</p>
+            </div>
+
+        </main>
     </div>
-  </div>
-</div>
 
-<script>
-  // আজকের তারিখ সেট করা
-  document.getElementById('payDate').valueAsDate = new Date();
-
-  // সংখ্যা থেকে ইংরেজিতে কথায় রূপান্তরের ফাংশন
-  function numberToWords(num) {
-    const a = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 
-               'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
-    const b = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
-
-    num = parseInt(num, 10);
-    if (isNaN(num) || num === 0) return 'Zero Rupees Only';
-
-    function convert(n) {
-      if (n < 20) return a[n];
-      if (n < 100) return b[Math.floor(n / 10)] + (n % 10 !== 0 ? ' ' + a[n % 10] : '');
-      if (n < 1000) return a[Math.floor(n / 100)] + ' Hundred' + (n % 100 !== 0 ? ' and ' + convert(n % 100) : '');
-      if (n < 100000) return convert(Math.floor(n / 1000)) + ' Thousand' + (n % 1000 !== 0 ? ' ' + convert(n % 1000) : '');
-      if (n < 10000000) return convert(Math.floor(n / 100000)) + ' Lakh' + (n % 100000 !== 0 ? ' ' + convert(n % 100000) : '');
-      return '';
-    }
-
-    return convert(num) + ' Rupees Only';
-  }
-
-  function updateReceipt() {
-    const slip = document.getElementById('slipNo').value || '---';
-    const dateVal = document.getElementById('payDate').value;
-    const name = document.getElementById('studentName').value || '---------------------';
-    const sClass = document.getElementById('studentClass').value;
-    const roll = document.getElementById('rollNo').value || '---';
-    const reason = document.getElementById('payReason').value || 'School Fee';
-    const amount = parseFloat(document.getElementById('payAmount').value) || 0;
-
-    let formattedDate = '............';
-    if(dateVal) {
-      const d = new Date(dateVal);
-      formattedDate = `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}/${d.getFullYear()}`;
-    }
-
-    // রিসিভ ফিল্ড আপডেট
-    document.getElementById('rSlip').innerText = slip;
-    document.getElementById('rDate').innerText = formattedDate;
-    document.getElementById('rName').innerText = name;
-    document.getElementById('rClass').innerText = sClass;
-    document.getElementById('rRoll').innerText = roll;
-    document.getElementById('rReason').innerText = reason;
-    document.getElementById('rAmount').innerText = amount.toFixed(2);
-    document.getElementById('rTotal').innerText = '₹ ' + amount.toFixed(2);
-    
-    // কথায় রূপান্তর
-    document.getElementById('rWords').innerText = numberToWords(amount);
-
-    // সিল আপডেট
-    document.getElementById('stampDate').innerText = formattedDate;
-  }
-
-  // পেজ লোড হওয়ার সময় রিসিভ আপডেট করা
-  updateReceipt();
-</script>
+    <!-- Footer -->
+    <footer>
+        <p><strong>N.A.S Vidyapeeth</strong> - Notun Jaladipur, Basudebpur, Murshidabad, W.B.</p>
+        <p>Affiliated to State University | Approved by Higher Education Dept.</p>
+        <p style="font-size: 11px; margin-top: 8px; color: #888;">© 2026 N.A.S Vidyapeeth. All Rights Reserved.</p>
+    </footer>
 
 </body>
-</html>
-    
+  </html>
+  

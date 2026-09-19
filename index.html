@@ -1,261 +1,496 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>N.A.S. VIDYAPEETH - Admission Form</title>
-    <!-- Tailwind CSS for styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @media print {
-            body {
-                background: white;
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-            }
-            .no-print {
-                display: none !important;
-            }
-            .print-container {
-                border: 2px solid #000 !important;
-                box-shadow: none !important;
-                margin: 0 !important;
-                width: 100% !important;
-            }
-        }
-        .box-border {
-            border: 1px solid #000;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>N.A.S. VIDYAPEETH - Fee Payment & Receipt</title>
+  <style>
+    :root {
+      --primary-color: #0b2545;
+      --accent-color: #134074;
+      --border-color: #333;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f0f2f5;
+      color: #333;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 800px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Form Section */
+    .form-box {
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .form-box h2 {
+      color: var(--primary-color);
+      margin-bottom: 20px;
+      font-size: 20px;
+      border-bottom: 2px solid var(--accent-color);
+      padding-bottom: 8px;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    button {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .btn-generate {
+      background: #0b2545;
+      color: #fff;
+    }
+
+    .btn-generate:hover {
+      background: #134074;
+    }
+
+    .btn-print {
+      background: #2b9348;
+      color: #fff;
+    }
+
+    .btn-print:hover {
+      background: #1f6f36;
+    }
+
+    /* A6 Receipt Preview */
+    .receipt-container {
+      background: #ffffff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* A6 Dimensions: 105mm x 148mm */
+    .a6-receipt {
+      width: 105mm;
+      min-height: 144mm;
+      padding: 8mm;
+      background: #fff;
+      border: 2px solid #0b2545;
+      border-radius: 4px;
+      box-sizing: border-box;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .school-header {
+      text-align: center;
+      border-bottom: 2px solid #0b2545;
+      padding-bottom: 6px;
+      margin-bottom: 8px;
+    }
+
+    .school-header h1 {
+      font-size: 18px;
+      color: #0b2545;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+
+    .school-header p {
+      font-size: 9.5px;
+      color: #555;
+      line-height: 1.2;
+    }
+
+    .receipt-badge {
+      display: inline-block;
+      background: #0b2545;
+      color: #fff;
+      font-size: 10px;
+      padding: 2px 10px;
+      border-radius: 10px;
+      margin-top: 4px;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    .meta-table {
+      width: 100%;
+      font-size: 10.5px;
+      margin-bottom: 8px;
+    }
+
+    .meta-table td {
+      padding: 2px 0;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 10.5px;
+      margin-bottom: 8px;
+    }
+
+    .data-table th, .data-table td {
+      border: 1px solid #777;
+      padding: 5px;
+      text-align: left;
+    }
+
+    .data-table th {
+      background: #f1f5f9;
+      font-weight: bold;
+    }
+
+    .words-box {
+      font-size: 10px;
+      margin-top: 6px;
+      padding: 5px;
+      background: #fbfbfb;
+      border-left: 3px solid #0b2545;
+    }
+
+    /* Paid Stamp Styling */
+    .footer-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 10px;
+      padding-top: 5px;
+    }
+
+    .paid-stamp {
+      border: 2.5px solid #0d3b66;
+      color: #0d3b66;
+      border-radius: 6px;
+      padding: 6px 10px;
+      width: 135px;
+      text-align: left;
+      font-family: Arial, sans-serif;
+      transform: rotate(-3deg);
+    }
+
+    .paid-stamp .stamp-title {
+      font-size: 17px;
+      font-weight: 900;
+      text-align: center;
+      border-bottom: 2px solid #0d3b66;
+      letter-spacing: 2px;
+      padding-bottom: 2px;
+      margin-bottom: 3px;
+    }
+
+    .paid-stamp .stamp-school {
+      font-size: 8.5px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    .paid-stamp .stamp-line {
+      font-size: 9px;
+      font-weight: 600;
+      margin: 2px 0;
+      white-space: nowrap;
+    }
+
+    .signature-area {
+      text-align: center;
+      font-size: 10px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .sign-line {
+      width: 110px;
+      border-top: 1px dashed #333;
+      margin-bottom: 3px;
+    }
+
+    /* Print settings for A6 */
+    @media print {
+      @page {
+        size: A6 portrait;
+        margin: 0;
+      }
+      body * {
+        visibility: hidden;
+      }
+      .receipt-container, .receipt-container * {
+        visibility: visible;
+      }
+      .receipt-container {
+        position: absolute;
+        left: 0;
+        top: 0;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+        background: transparent;
+      }
+      .a6-receipt {
+        border: none;
+        padding: 10mm 8mm;
+      }
+      .btn-group, .form-box, h3 {
+        display: none !important;
+      }
+    }
+  </style>
 </head>
-<body class="bg-gray-100 py-6">
+<body>
 
-    <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-lg print-container border-2 border-blue-900">
-        
-        <!-- Header Section -->
-        <div class="flex items-center justify-between border-b-2 border-blue-900 pb-4 mb-4">
-            <div class="flex items-center space-x-3">
-                <div class="w-16 h-16 rounded-full border-2 border-blue-900 flex items-center justify-center font-bold text-xs text-center bg-blue-50">
-                    LOGO
-                </div>
-            </div>
-            <div class="text-center flex-1 mx-4">
-                <h1 class="text-2xl font-black tracking-wider text-blue-900">N.A.S. VIDYAPEETH</h1>
-                <p class="text-xs font-semibold text-blue-800">• LEARN • GROW • SUCCEED •</p>
-                <p class="text-[10px] text-gray-700">Vill: Notun Jaladipur, P.O: Basudebpur, Dist: Murshidabad, West Bengal (Estd. 2026)</p>
-                <p class="text-[10px] font-bold text-gray-800">(NURSERY TO CLASS X • Bengali & English Medium • Co-Educational)</p>
-            </div>
-            <div class="w-24 h-32 border-2 border-dashed border-gray-400 flex items-center justify-center text-center text-[10px] text-gray-500 p-1">
-                Affix Recent Passport Size Photograph Here
-            </div>
-        </div>
-
-        <!-- Form Title -->
-        <div class="bg-blue-900 text-white text-center font-bold py-1 text-sm mb-4 rounded">
-            APPLICATION FORM FOR ADMISSION (NURSERY TO CLASS X) <br>
-            <span class="text-xs font-normal">ভর্তির আবেদন পত্র (নার্সারি থেকে দশম শ্রেণি)</span>
-        </div>
-
-        <form id="admissionForm" class="space-y-4 text-xs">
-            
-            <!-- Top Meta Info -->
-            <div class="flex flex-wrap justify-between items-center gap-2 border-b pb-2">
-                <div>
-                    <label class="font-semibold">Form No. (ফরম নং):</label>
-                    <input type="text" class="border-b border-black outline-none px-1 w-24">
-                </div>
-                <div>
-                    <label class="font-semibold">Session (শিক্ষাবর্ষ): 202</label>
-                    <input type="text" class="border-b border-black outline-none w-8 text-center" value="6"> - 202
-                    <input type="text" class="border-b border-black outline-none w-8 text-center" value="7">
-                </div>
-                <div>
-                    <label class="font-semibold">Date (তারিখ):</label>
-                    <input type="date" class="border-b border-black outline-none px-1">
-                </div>
-                <div>
-                    <label class="font-semibold">Medium (মাধ্যম):</label>
-                    <label class="inline-flex items-center ml-1"><input type="checkbox" class="mr-1"> Bengali</label>
-                    <label class="inline-flex items-center ml-2"><input type="checkbox" class="mr-1"> English</label>
-                </div>
-            </div>
-
-            <!-- Class to be admitted -->
-            <div class="border p-2 rounded">
-                <span class="font-bold text-blue-900 block mb-1">CLASS TO BE ADMITTED: <span class="font-normal text-gray-700">(যে শ্রেণিতে ভর্তি হতে ইচ্ছুক)</span></span>
-                <div class="grid grid-cols-4 sm:grid-cols-8 gap-1 text-[11px]">
-                    <label><input type="checkbox" name="class"> Nursery</label>
-                    <label><input type="checkbox" name="class"> LKG</label>
-                    <label><input type="checkbox" name="class"> UKG</label>
-                    <label><input type="checkbox" name="class"> Class I</label>
-                    <label><input type="checkbox" name="class"> Class II</label>
-                    <label><input type="checkbox" name="class"> Class III</label>
-                    <label><input type="checkbox" name="class"> Class IV</label>
-                    <label><input type="checkbox" name="class"> Class V</label>
-                    <label><input type="checkbox" name="class"> Class VI</label>
-                    <label><input type="checkbox" name="class"> Class VII</label>
-                    <label><input type="checkbox" name="class"> Class VIII</label>
-                    <label><input type="checkbox" name="class"> Class IX</label>
-                    <label><input type="checkbox" name="class"> Class X</label>
-                    <label class="col-span-2"><input type="checkbox" name="class"> Day-Scholar / Res.</label>
-                </div>
-            </div>
-
-            <!-- 1. Student's Personal Information -->
-            <div class="bg-blue-100 font-bold px-2 py-1 text-blue-900 border-l-4 border-blue-900">
-                1. STUDENT'S PERSONAL INFORMATION / শিক্ষার্থীর ব্যক্তিগত বিবরণ
-            </div>
-            <div class="grid grid-cols-1 gap-2 pl-2">
-                <div>
-                    <label class="font-semibold block">Student's Name (BLOCK LETTERS): <span class="font-normal text-gray-600">শিক্ষার্থীর সম্পূর্ণ নাম (ইংরেজিজে):</span></label>
-                    <input type="text" class="w-full border-b border-black outline-none uppercase font-semibold">
-                </div>
-                <div>
-                    <label class="font-semibold block">Student's Name (in Bengali): <span class="font-normal text-gray-600">শিক্ষার্থীর নাম (বাংলায়):</span></label>
-                    <input type="text" class="w-full border-b border-black outline-none font-semibold">
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label class="font-semibold">Date of Birth (জন্ম তারিখ): <span class="text-[10px] text-gray-500">(DD/MM/YYYY)</span></label>
-                        <div class="flex space-x-1 mt-1">
-                            <input type="text" maxlength="2" placeholder="DD" class="w-10 border text-center p-1"> /
-                            <input type="text" maxlength="2" placeholder="MM" class="w-10 border text-center p-1"> /
-                            <input type="text" maxlength="4" placeholder="YYYY" class="w-16 border text-center p-1">
-                        </div>
-                    </div>
-                    <div>
-                        <label class="font-semibold block">Gender / লিঙ্গ:</label>
-                        <div class="mt-1 space-x-4">
-                            <label><input type="radio" name="gender"> Male (ছাত্র)</label>
-                            <label><input type="radio" name="gender"> Female (ছাত্রী)</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                    <div>
-                        <label class="font-semibold">Blood Group / রক্তের গ্রুপ:</label>
-                        <input type="text" class="w-full border-b border-black outline-none">
-                    </div>
-                    <div>
-                        <label class="font-semibold">Religion / ধর্ম:</label>
-                        <input type="text" class="w-full border-b border-black outline-none">
-                    </div>
-                    <div>
-                        <label class="font-semibold">Mother Tongue / মাতৃভাষা:</label>
-                        <input type="text" class="w-full border-b border-black outline-none">
-                    </div>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    <div>
-                        <label class="font-semibold">Category / সামাজিক শ্রেণি:</label>
-                        <div class="space-x-2 mt-1">
-                            <label><input type="checkbox"> Gen</label>
-                            <label><input type="checkbox"> SC</label>
-                            <label><input type="checkbox"> ST</label>
-                            <label><input type="checkbox"> OBC</label>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="font-semibold">Aadhaar No. (শিক্ষার্থীর আধার):</label>
-                        <input type="text" class="w-full border-b border-black outline-none tracking-widest">
-                    </div>
-                </div>
-                <div>
-                    <label class="font-semibold">Banglar Siksha ID (বাংলার শিক্ষা আইডি - if any):</label>
-                    <input type="text" class="w-full border-b border-black outline-none">
-                </div>
-            </div>
-
-            <!-- 2. Parents' & Guardian's Details -->
-            <div class="bg-blue-100 font-bold px-2 py-1 text-blue-900 border-l-4 border-blue-900">
-                2. PARENTS' & GUARDIAN'S DETAILS / পিতা-মাতা ও অভিভাবকের বিবরণ
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pl-2">
-                <div>
-                    <label class="font-semibold block">Father's Name (পিতার নাম):</label>
-                    <input type="text" class="w-full border-b border-black outline-none mb-2">
-                    <label class="font-semibold block">Mother's Name (মাতার নাম):</label>
-                    <input type="text" class="w-full border-b border-black outline-none mb-2">
-                    <label class="font-semibold block">Guardian's Name (if other):</label>
-                    <input type="text" class="w-full border-b border-black outline-none">
-                </div>
-                <div>
-                    <label class="font-semibold block">Occupation (পেশা):</label>
-                    <input type="text" class="w-full border-b border-black outline-none mb-2">
-                    <label class="font-semibold block">Occupation (পেশা):</label>
-                    <input type="text" class="w-full border-b border-black outline-none mb-2">
-                    <label class="font-semibold block">Monthly Income (মাসিক আয়):</label>
-                    <input type="text" class="w-full border-b border-black outline-none" value="₹">
-                </div>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pl-2">
-                <div>
-                    <label class="font-semibold block">Primary Mobile (হোয়াটসঅ্যাপ/মোবাইল):</label>
-                    <input type="text" class="w-full border-b border-black outline-none">
-                </div>
-                <div>
-                    <label class="font-semibold block">Alt. Mobile (বিকল্প মোবাইল):</label>
-                    <input type="text" class="w-full border-b border-black outline-none">
-                </div>
-            </div>
-
-            <!-- 3. Address & Communication Details -->
-            <div class="bg-blue-100 font-bold px-2 py-1 text-blue-900 border-l-4 border-blue-900">
-                3. ADDRESS & COMMUNICATION DETAILS / যোগাযোগের ঠিকানা
-            </div>
-            <div class="space-y-2 pl-2">
-                <div>
-                    <label class="font-semibold block">Permanent Address (স্থায়ী ঠিকানা):</label>
-                    <input type="text" class="w-full border-b border-black outline-none" placeholder="Village / Street / Para">
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                    <div>
-                        <label class="font-semibold">P.O. & P.S.:</label>
-                        <input type="text" class="w-full border-b border-black outline-none">
-                    </div>
-                    <div>
-                        <label class="font-semibold">District (জেলা):</label>
-                        <input type="text" class="w-full border-b border-black outline-none">
-                    </div>
-                    <div>
-                        <label class="font-semibold">PIN Code:</label>
-                        <input type="text" class="w-full border-b border-black outline-none">
-                    </div>
-                </div>
-                <div>
-                    <label class="font-semibold block">Present Address (বর্তমান ঠিকানা): <label class="ml-4 font-normal"><input type="checkbox"> Same as Permanent</label></label>
-                    <input type="text" class="w-full border-b border-black outline-none">
-                </div>
-            </div>
-
-            <!-- Signatures -->
-            <div class="flex justify-between items-end pt-12 border-t mt-6 text-center">
-                <div>
-                    <input type="text" class="border-b border-black outline-none text-center w-40"><br>
-                    <span class="font-semibold">Date / তারিখ</span>
-                </div>
-                <div>
-                    <input type="text" class="border-b border-black outline-none text-center w-40"><br>
-                    <span class="font-semibold">Signature of Student</span><br>
-                    <span class="text-[10px]">শিক্ষার্থীর স্বাক্ষর</span>
-                </div>
-                <div>
-                    <input type="text" class="border-b border-black outline-none text-center w-40"><br>
-                    <span class="font-semibold">Signature of Parent / Guardian</span><br>
-                    <span class="text-[10px]">অভিভাবকের স্বাক্ষর</span>
-                </div>
-            </div>
-
-            <!-- Print Button (Hidden in Print Mode) -->
-            <div class="text-center pt-6 no-print">
-                <button type="button" onclick="window.print()" class="bg-blue-900 text-white px-6 py-2 rounded-lg font-bold shadow hover:bg-blue-800 transition">
-                    🖨️ Print Form / প্রিন্ট করুন
-                </button>
-            </div>
-
-        </form>
+<div class="container">
+  <!-- ফর্ম সেকশন -->
+  <div class="form-box">
+    <h2>পেমেন্ট তথ্য এন্ট্রি (N.A.S Vidyapeeth)</h2>
+    
+    <div class="form-group">
+      <label>স্লিপ নম্বর (Slip No.)</label>
+      <input type="text" id="slipNo" value="NAS/2026/001">
     </div>
 
+    <div class="form-group">
+      <label>তারিখ (Date)</label>
+      <input type="date" id="payDate">
+    </div>
+
+    <div class="form-group">
+      <label>শিক্ষার্থীর নাম (Student's Name)</label>
+      <input type="text" id="studentName" placeholder="ছাত্র/ছাত্রীর নাম লিখুন">
+    </div>
+
+    <div class="form-group">
+      <label>শ্রেণি (Class)</label>
+      <select id="studentClass">
+        <option value="Nursery">Nursery</option>
+        <option value="LKG">LKG</option>
+        <option value="UKG">UKG</option>
+        <option value="Class I">Class I</option>
+        <option value="Class II">Class II</option>
+        <option value="Class III">Class III</option>
+        <option value="Class IV">Class IV</option>
+        <option value="Class V">Class V</option>
+        <option value="Class VI">Class VI</option>
+        <option value="Class VII">Class VII</option>
+        <option value="Class VIII">Class VIII</option>
+        <option value="Class IX">Class IX</option>
+        <option value="Class X">Class X</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>রোল নম্বর (Roll No)</label>
+      <input type="text" id="rollNo" placeholder="যেমন: 05">
+    </div>
+
+    <div class="form-group">
+      <label>পেমেন্টের বিবরণ (Payment For)</label>
+      <input type="text" id="payReason" value="Monthly Tuition & Exam Fee">
+    </div>
+
+    <div class="form-group">
+      <label>টাকার পরিমাণ (Amount in ₹)</label>
+      <input type="number" id="payAmount" value="500" oninput="updateWordsPreview()">
+    </div>
+
+    <div class="btn-group">
+      <button class="btn-generate" onclick="updateReceipt()">রিসিভ তৈরি করুন</button>
+      <button class="btn-print" onclick="window.print()">A6 প্রিন্ট করুন</button>
+    </div>
+  </div>
+
+  <!-- A6 সাইজ রিসিভ প্রিভিউ -->
+  <div class="receipt-container">
+    <h3 style="margin-bottom: 10px; font-size: 14px; color: #555;">A6 পেপার প্রিভিউ</h3>
+    <div class="a6-receipt" id="receiptCard">
+      <div>
+        <!-- হেডার -->
+        <div class="school-header">
+          <h1>N.A.S. VIDYAPEETH</h1>
+          <p>Bengali Medium • ESTD: 2026</p>
+          <p>Notun Jaladipur, P.O. Basudebpur, Dist. Murshidabad, (W.B.)</p>
+          <div class="receipt-badge">MONEY RECEIPT</div>
+        </div>
+
+        <!-- মেটা তথ্য -->
+        <table class="meta-table">
+          <tr>
+            <td><strong>Slip No:</strong> <span id="rSlip">NAS/2026/001</span></td>
+            <td style="text-align: right;"><strong>Date:</strong> <span id="rDate">--/--/----</span></td>
+          </tr>
+          <tr>
+            <td colspan="2"><strong>Student Name:</strong> <span id="rName">-------------</span></td>
+          </tr>
+          <tr>
+            <td><strong>Class:</strong> <span id="rClass">Class V</span></td>
+            <td style="text-align: right;"><strong>Roll No:</strong> <span id="rRoll">--</span></td>
+          </tr>
+        </table>
+
+        <!-- পেমেন্ট বিবরণ টেবিল -->
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>SL</th>
+              <th>Description</th>
+              <th style="text-align: right;">Amount (₹)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td id="rReason">Monthly Tuition Fee</td>
+              <td style="text-align: right; font-weight: bold;" id="rAmount">500.00</td>
+            </tr>
+            <tr>
+              <th colspan="2" style="text-align: right;">Total Paid:</th>
+              <th style="text-align: right;" id="rTotal">₹ 500.00</th>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- টাকায় কথায় -->
+        <div class="words-box">
+          <strong>In Words:</strong> <span id="rWords">Five Hundred Rupees Only.</span>
+        </div>
+      </div>
+
+      <!-- ফুটার: PAID সিল এবং সইয়ের ফাঁকা জায়গা -->
+      <div class="footer-section">
+        <!-- নীল সিল -->
+        <div class="paid-stamp">
+          <div class="stamp-title">PAID</div>
+          <div class="stamp-school">N.A.S VIDYAPEETH</div>
+          <div class="stamp-line">Date : <span id="stampDate">............</span></div>
+          <div class="stamp-line">Sign : ...........................</div>
+        </div>
+
+        <!-- সিগনেচার স্পেস -->
+        <div class="signature-area">
+          <div class="sign-line"></div>
+          Authorized Signature
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  // আজকের তারিখ সেট করা
+  document.getElementById('payDate').valueAsDate = new Date();
+
+  // সংখ্যা থেকে ইংরেজিতে কথায় রূপান্তরের ফাংশন
+  function numberToWords(num) {
+    const a = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 
+               'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+    const b = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+
+    num = parseInt(num, 10);
+    if (isNaN(num) || num === 0) return 'Zero Rupees Only';
+
+    function convert(n) {
+      if (n < 20) return a[n];
+      if (n < 100) return b[Math.floor(n / 10)] + (n % 10 !== 0 ? ' ' + a[n % 10] : '');
+      if (n < 1000) return a[Math.floor(n / 100)] + ' Hundred' + (n % 100 !== 0 ? ' and ' + convert(n % 100) : '');
+      if (n < 100000) return convert(Math.floor(n / 1000)) + ' Thousand' + (n % 1000 !== 0 ? ' ' + convert(n % 1000) : '');
+      if (n < 10000000) return convert(Math.floor(n / 100000)) + ' Lakh' + (n % 100000 !== 0 ? ' ' + convert(n % 100000) : '');
+      return '';
+    }
+
+    return convert(num) + ' Rupees Only';
+  }
+
+  function updateReceipt() {
+    const slip = document.getElementById('slipNo').value || '---';
+    const dateVal = document.getElementById('payDate').value;
+    const name = document.getElementById('studentName').value || '---------------------';
+    const sClass = document.getElementById('studentClass').value;
+    const roll = document.getElementById('rollNo').value || '---';
+    const reason = document.getElementById('payReason').value || 'School Fee';
+    const amount = parseFloat(document.getElementById('payAmount').value) || 0;
+
+    let formattedDate = '............';
+    if(dateVal) {
+      const d = new Date(dateVal);
+      formattedDate = `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}/${d.getFullYear()}`;
+    }
+
+    // রিসিভ ফিল্ড আপডেট
+    document.getElementById('rSlip').innerText = slip;
+    document.getElementById('rDate').innerText = formattedDate;
+    document.getElementById('rName').innerText = name;
+    document.getElementById('rClass').innerText = sClass;
+    document.getElementById('rRoll').innerText = roll;
+    document.getElementById('rReason').innerText = reason;
+    document.getElementById('rAmount').innerText = amount.toFixed(2);
+    document.getElementById('rTotal').innerText = '₹ ' + amount.toFixed(2);
+    
+    // কথায় রূপান্তর
+    document.getElementById('rWords').innerText = numberToWords(amount);
+
+    // সিল আপডেট
+    document.getElementById('stampDate').innerText = formattedDate;
+  }
+
+  // পেজ লোড হওয়ার সময় রিসিভ আপডেট করা
+  updateReceipt();
+</script>
+
 </body>
-    </html>
-                    
+</html>
+    

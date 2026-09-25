@@ -1256,7 +1256,219 @@
           </div>
         </div>
       </section>
+      function updateReceipt() {
+  // ফর্মের ফিল্ডগুলো থেকে মান নেওয়া হচ্ছে (কিছু না লিখলে ফাঁকা ড্যাশ থাকবে)
+  document.getElementById('r_studentName').innerText = document.getElementById('studentName')?.value || '...................................................';
+  document.getElementById('r_fatherName').innerText = document.getElementById('fatherName')?.value || '...................................................';
+  document.getElementById('r_motherName').innerText = document.getElementById('motherName')?.value || '...................................................';
 
+<!-- ========================================== -->
+<!--       NEW PRINTABLE RECEIPT CONTAINER      -->
+<!-- ========================================== -->
+<div id="printableReceipt" class="printable-receipt-card">
+  <div class="receipt-header">
+    <div class="school-title">
+      <h2>N.A.S VIDYAPEETH</h2>
+      <p>Natun Jaladipur, Basudebpur, Murshidabad, W.B.</p>
+      <span class="receipt-badge">FEE PAYMENT RECEIPT</span>
+    </div>
+  </div>
+
+  <div class="receipt-meta">
+    <div class="meta-item">
+      <strong>Receipt No:</strong> <span id="r_receiptNo">..............................</span>
+    </div>
+    <div class="meta-item text-right">
+      <strong>Date:</strong> <span id="r_date">..............................</span>
+    </div>
+  </div>
+
+  <hr class="receipt-divider" />
+
+  <table class="receipt-details-table">
+    <tr>
+      <td class="lbl">Student Name:</td>
+      <td class="val"><span id="r_studentName">....................................................................</span></td>
+      <td class="lbl">Class & Roll:</td>
+      <td class="val"><span id="r_classRoll">...................................................</span></td>
+    </tr>
+    <tr>
+      <td class="lbl">Father's Name:</td>
+      <td class="val"><span id="r_fatherName">....................................................................</span></td>
+      <td class="lbl">Mother's Name:</td>
+      <td class="val"><span id="r_motherName">...................................................</span></td>
+    </tr>
+    <tr>
+      <td class="lbl">Billing Month:</td>
+      <td class="val"><span id="r_billingMonth">....................................................................</span></td>
+      <td class="lbl">Payment Mode:</td>
+      <td class="val"><span id="r_paymentMode">Cash Counter (Office)</span></td>
+    </tr>
+  </table>
+
+  <table class="receipt-amount-table">
+    <thead>
+      <tr>
+        <th>Sl. No.</th>
+        <th>Fee Description / Category</th>
+        <th class="text-right">Amount (₹)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>01</td>
+        <td id="r_feeCategory">Monthly Tuition Fee</td>
+        <td class="text-right" id="r_amount">₹ ............................</td>
+      </tr>
+      <tr class="total-row">
+        <td colspan="2" class="text-right"><strong>Total Paid Amount:</strong></td>
+        <td class="text-right"><strong id="r_totalAmount">₹ ............................</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="receipt-footer">
+    <div class="footer-sign">
+      <div class="sign-line"></div>
+      <p>Student / Guardian Signature</p>
+    </div>
+    <div class="footer-sign text-right">
+      <div class="sign-line"></div>
+      <p>Authorized Cashier / Principal</p>
+    </div>
+  </div>
+</div>
+
+<!-- সুন্দর ডিজাইন এবং প্রিন্ট করার জন্য CSS স্টাইল -->
+<style>
+  .printable-receipt-card {
+    background: #ffffff;
+    border: 2px dashed #1a365d;
+    padding: 25px;
+    max-width: 750px;
+    margin: 20px auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #222;
+    border-radius: 8px;
+  }
+  .receipt-header {
+    text-align: center;
+    border-bottom: 2px solid #1a365d;
+    padding-bottom: 12px;
+    margin-bottom: 15px;
+  }
+  .school-title h2 {
+    margin: 0;
+    color: #0b2545;
+    font-size: 24px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .school-title p {
+    margin: 4px 0 8px 0;
+    font-size: 13px;
+    color: #555;
+  }
+  .receipt-badge {
+    display: inline-block;
+    background: #0b2545;
+    color: #fff;
+    padding: 3px 14px;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 4px;
+  }
+  .receipt-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  .receipt-divider {
+    border: 0;
+    border-top: 1px solid #ddd;
+    margin: 10px 0 15px 0;
+  }
+  .receipt-details-table {
+    width: 100%;
+    margin-bottom: 15px;
+    border-collapse: collapse;
+  }
+  .receipt-details-table td {
+    padding: 7px 4px;
+    font-size: 14px;
+  }
+  .receipt-details-table .lbl {
+    font-weight: 600;
+    width: 15%;
+    color: #333;
+  }
+  .receipt-details-table .val {
+    width: 35%;
+    color: #111;
+  }
+  .receipt-amount-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0 25px 0;
+  }
+  .receipt-amount-table th, .receipt-amount-table td {
+    border: 1px solid #cbd5e1;
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+  .receipt-amount-table th {
+    background-color: #f1f5f9;
+    color: #1e293b;
+    text-align: left;
+  }
+  .text-right {
+    text-align: right;
+  }
+  .total-row {
+    background-color: #f8fafc;
+    font-size: 15px;
+  }
+  .receipt-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 45px;
+    padding: 0 15px;
+  }
+  .footer-sign {
+    width: 220px;
+    text-align: center;
+  }
+  .sign-line {
+    border-bottom: 1px solid #475569;
+    margin-bottom: 5px;
+  }
+  .footer-sign p {
+    font-size: 12px;
+    font-weight: 600;
+    color: #475569;
+    margin: 0;
+  }
+
+  /* প্রিন্ট করার জন্য পরিচ্ছন্ন লেআউট */
+  @media print {
+    body * {
+      visibility: hidden;
+    }
+    #printableReceipt, #printableReceipt * {
+      visibility: visible;
+    }
+    #printableReceipt {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      border: 1px solid #000;
+      box-shadow: none;
+    }
+  }
+</style>
+      
       <!-- ================= VIEW 4: RECEIPT REGISTRY & SEARCH ================= -->
       <section id="view-receipts" class="view-section">
         <div class="card">
